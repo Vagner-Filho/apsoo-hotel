@@ -1,18 +1,18 @@
 package hospedagemhotel.entidades;
 
-// TODO Implementar métodos 'confirmarReserva()' e 'cancelarReserva()'
+// TODO Implementar mï¿½todos 'confirmarReserva()' e 'cancelarReserva()'
 
 public class Reserva {
 	private int IdReserva;
 	private Hospede hospede; 
-	private String funcionario ; //mudar o tipo para Funcionario
-	private int quarto; // mudar o tipo para Quarto
-	private String hospedagem; // mudar o tipo para Hospedagem
+	private Funcionario funcionario ;
+	private Quarto quarto;
+	private Hospedagem hospedagem; // mudar o tipo para Hospedagem
 	private Date dataInicial; 
 	private Date dataFinal; 
 	private String pagamento;
 	
-	public Reserva(Hospede hospede, String funcionario, int quarto, Date dataInicial, Date dataFinal) {
+	public Reserva(Hospede hospede, Funcionario funcionario, Quarto quarto, Date dataInicial, Date dataFinal) {
 		setHospede(hospede);
 		setFuncionario(funcionario);
 		setQuarto(quarto);
@@ -28,7 +28,6 @@ public class Reserva {
 		IdReserva = idReserva;
 	}
 	
-	
 	public Hospede getHospede() {
 		return hospede;
 	}
@@ -38,28 +37,26 @@ public class Reserva {
 	}
 
 	public String getFuncionario() {
-		return funcionario;
+		return funcionario.getNome();
 	}
 
-	public void setFuncionario(String funcionario) {
+	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
 
 	public int getQuarto() {
-		return quarto;
+		return quarto.getCodigoQuarto();
 	}
 
-	public void setQuarto(int quarto) {
+	public void setQuarto(Quarto quarto) {
 		this.quarto = quarto;
 	}
 
-	// mudar tipo de retorno para Hospedagem
-	public String getHospedagem() {
+	public Hospedagem getHospedagem() {
 		return hospedagem;
 	}
 	
-	// mudar tipo do parâmetro do construtor para Hospedagem
-	public void setHospedagem(String hospedagem) {
+	public void setHospedagem(Hospedagem hospedagem) {
 		this.hospedagem = hospedagem;
 	}
 
@@ -92,6 +89,5 @@ public class Reserva {
 		return "Reserva [hospede=" + hospede + ", funcionario=" + funcionario + ", quarto=" + quarto + ", dataInicial="
 				+ dataInicial + ", dataFinal=" + dataFinal + "]";
 	}
-	
 	
 }
