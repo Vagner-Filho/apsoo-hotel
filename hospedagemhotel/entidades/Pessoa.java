@@ -6,11 +6,11 @@ import java.util.InputMismatchException;
 
 public class Pessoa {
 	private String nome;
-	private int cpf;
+	private String cpf;
 	private int telefone;
 	private Date dataNasc;
 	
-	public Pessoa(String nome, int cpf, int telefone, Date dataNasc) {
+	public Pessoa(String nome, String cpf, int telefone, Date dataNasc) {
 		setNome(nome);
 		setCpf(cpf);
 		setTelefone(telefone);
@@ -25,12 +25,18 @@ public class Pessoa {
 		this.nome = nome;
 	}
 
-	public int getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(int cpf) {
-		this.cpf = cpf;
+	//Autentica a entrada do CPF
+	public void setCpf(String cpf) {
+		if(autenticaCPF(cpf)) {
+			this.cpf = cpf;
+		}
+		else {
+			System.out.println("O CPF informado não é válido.");
+		}
 	}
 
 	public int getTelefone() {

@@ -7,7 +7,7 @@ public class Reserva {
 	private Hospede hospede; 
 	private Funcionario funcionario ;
 	private Quarto quarto;
-	private Hospedagem hospedagem; // mudar o tipo para Hospedagem
+	private Hospedagem hospedagem;
 	private Date dataInicial; 
 	private Date dataFinal; 
 	private String pagamento;
@@ -20,6 +20,7 @@ public class Reserva {
 		setDataFinal(dataFinal);
 	}
 
+	//Métodos de reserva
 	public int getIdReserva() {
 		return IdReserva;
 	}
@@ -28,6 +29,7 @@ public class Reserva {
 		IdReserva = idReserva;
 	}
 	
+	//Métodos de pessoas
 	public Hospede getHospede() {
 		return hospede;
 	}
@@ -44,6 +46,7 @@ public class Reserva {
 		this.funcionario = funcionario;
 	}
 
+	//Métodos de quarto
 	public int getQuarto() {
 		return quarto.getCodigoQuarto();
 	}
@@ -52,6 +55,7 @@ public class Reserva {
 		this.quarto = quarto;
 	}
 
+	//Métodos de hospedagem
 	public Hospedagem getHospedagem() {
 		return hospedagem;
 	}
@@ -60,6 +64,7 @@ public class Reserva {
 		this.hospedagem = hospedagem;
 	}
 
+	//Métodos de datas
 	public Date getDataInicial() {
 		return dataInicial;
 	}
@@ -76,6 +81,7 @@ public class Reserva {
 		this.dataFinal = dataFinal;
 	}
 
+	//Métodos de pagamento
 	public String getPagamento() {
 		return pagamento;
 	}

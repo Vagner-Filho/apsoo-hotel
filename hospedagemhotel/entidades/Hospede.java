@@ -4,9 +4,9 @@ public class Hospede extends Pessoa {
 	
 	private String sexo;
 	private int codigoConta;
-	private String hospedagem; // mudar o tipo para Hospedagem
+	private Hospedagem hospedagem;
 	
-	public Hospede(String nome, int cpf, int telefone, Date dataNasc, String sexo, int codigoConta, String hospedagem) {
+	public Hospede(String nome, String cpf, int telefone, Date dataNasc, String sexo, int codigoConta, Hospedagem hospedagem) {
 		super(nome, cpf, telefone, dataNasc);
 		this.sexo = sexo;
 		this.codigoConta = codigoConta;
@@ -29,17 +29,11 @@ public class Hospede extends Pessoa {
 		this.codigoConta = codigoConta;
 	}
 
-	// mudar tipo de retorno para Hospedagem
-	public String getHospedagem() {
+	public Hospedagem getHospedagem() {
 		return hospedagem;
 	}
 	
-	// mudar tipo do parâmetro do construtor para Hospedagem
-	public void setHospedagem(String hospedagem) {
+	public void setHospedagem(Hospedagem hospedagem) {
 		this.hospedagem = hospedagem;
-	}
-	
-	
-	
-	
+	}	
 }
