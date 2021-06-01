@@ -5,9 +5,9 @@ package entidades;
 public class Reserva {
 	private int IdReserva;
 	private Hospede hospede; 
-	private Funcionario funcionario ; //mudar o tipo para Funcionario
-	private Quarto quarto; // mudar o tipo para Quarto
-	private String hospedagem; // mudar o tipo para Hospedagem
+	private Funcionario funcionario ;
+	private Quarto quarto;
+	private Hospedagem hospedagem; // mudar o tipo para Hospedagem
 	private Date dataInicial; 
 	private Date dataFinal; 
 	private String pagamento;
@@ -27,7 +27,6 @@ public class Reserva {
 	public void setIdReserva(int idReserva) {
 		IdReserva = idReserva;
 	}
-	
 	
 	public Hospede getHospede() {
 		return hospede;
@@ -53,13 +52,11 @@ public class Reserva {
 		this.quarto = quarto;
 	}
 
-	// mudar tipo de retorno para Hospedagem
-	public String getHospedagem() {
+	public Hospedagem getHospedagem() {
 		return hospedagem;
 	}
 	
-	// mudar tipo do par�metro do construtor para Hospedagem
-	public void setHospedagem(String hospedagem) {
+	public void setHospedagem(Hospedagem hospedagem) {
 		this.hospedagem = hospedagem;
 	}
 
