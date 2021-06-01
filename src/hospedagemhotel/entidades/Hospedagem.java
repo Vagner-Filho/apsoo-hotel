@@ -1,4 +1,4 @@
-package entidades;
+package hospedagemhotel.entidades;
 
 public class Hospedagem {
     private Date data;

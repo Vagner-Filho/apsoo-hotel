@@ -1,4 +1,4 @@
-package entidades;
+package hospedagemhotel.entidades;
 
 import java.util.Scanner;
 

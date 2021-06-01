@@ -1,3 +1,5 @@
+package hospedagemhotel.entidades;
+
 public class TipoDeQuarto {
     private float valor;
     private String descricao;
