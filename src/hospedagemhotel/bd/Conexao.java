@@ -173,10 +173,4 @@ public class Conexao{
 			System.err.println("initBD" + " " + e.getMessage());
 		}
 	}
-
-
-
-	
-	
-
 }

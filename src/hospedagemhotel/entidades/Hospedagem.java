@@ -4,6 +4,11 @@ public class Hospedagem {
     private Date data;
     private int horario;
 
+    public Hospedagem(Date data, int horario) {
+        setData(data);
+        setHorario(horario);
+    }
+
     public void setData(Date data) {
         this.data = data;
     }
