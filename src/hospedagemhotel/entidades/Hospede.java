@@ -13,6 +13,12 @@ public class Hospede extends Pessoa {
 		this.hospedagem = hospedagem;
 	}
 
+	public Hospede(String nome, String cpf, int telefone, Date dataNasc, String sexo, int codigoConta) {
+		super(nome, cpf, telefone, dataNasc);
+		this.sexo = sexo;
+		this.codigoConta = codigoConta;
+	}
+
 	public String getSexo() {
 		return sexo;
 	}
