@@ -9,12 +9,15 @@ public class Pessoa {
 	private String cpf;
 	private int telefone;
 	private Date dataNasc;
+	private Endereco endereco;
 	
-	public Pessoa(String nome, String cpf, int telefone, Date dataNasc) {
+	public Pessoa(String nome, String cpf, int telefone, int dia, int mes, int ano, String rua, String bairro, String cidade, String estado, String complemento, int numero, int cep) {
 		setNome(nome);
 		setCpf(cpf);
 		setTelefone(telefone);
-		setDataNasc(dataNasc);
+		setDataNasc(dia, mes, ano);
+		setEndereco(rua, bairro, cidade, estado, complemento, numero, cep);
+		
 	}
 
 	public String getNome() {
@@ -51,8 +54,16 @@ public class Pessoa {
 		return dataNasc;
 	}
 
-	public void setDataNasc(Date dataNasc) {
-		this.dataNasc = dataNasc;
+	public void setDataNasc(int dia, int mes, int ano) {
+		this.dataNasc = new Date(dia, mes, ano);
+	}
+	
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String rua, String bairro, String cidade, String estado, String complemento, int numero, int cep) {
+		this.endereco = new Endereco(rua, bairro, cidade, estado, complemento, numero, cep);
 	}
 
 	public boolean autenticaCPF(String cpf) {
@@ -109,6 +120,11 @@ public class Pessoa {
 	} catch (InputMismatchException erro) {
 		return (false);
 	}
+	}
+	
+	@Override
+	public String toString() {
+		return "Nome: " + nome + "\nCPF: " + cpf + "\nTelefone: " + telefone + "\nData de Nascimento: " + dataNasc + "\nEndereço: " + endereco; 
 	}
 	
 	

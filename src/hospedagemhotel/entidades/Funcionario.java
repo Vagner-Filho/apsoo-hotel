@@ -6,9 +6,10 @@ public class Funcionario extends Pessoa{
 	private float salario;
 	private String cargo;
 	
-	public Funcionario(String nome, String cpf, int telefone, Date dataNasc, String login, String senha, float salario,
-			String cargo) {
-		super(nome, cpf, telefone, dataNasc);
+	public Funcionario(String nome, String cpf, int telefone, int dia, int mes, int ano, 
+			String rua, String bairro, String cidade, String estado, String complemento, 
+			int numero, int cep, String login, String senha, float salario, String cargo) {
+		super(nome, cpf, telefone, dia, mes, ano, rua, bairro, cidade, estado, complemento, numero, cep);
 		setLogin(login);
 		setSenha(senha);
 		setSalario(salario);

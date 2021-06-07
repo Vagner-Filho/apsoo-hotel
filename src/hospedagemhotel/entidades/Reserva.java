@@ -12,12 +12,13 @@ public class Reserva {
 	private Date dataFinal; 
 	private String pagamento;
 	
-	public Reserva(Hospede hospede, Funcionario funcionario, Quarto quarto, Date dataInicial, Date dataFinal) {
+	public Reserva(Hospede hospede, Funcionario funcionario, Quarto quarto, int diaI, 
+			int mesI, int anoI, int diaF, int mesF, int anoF) {
 		setHospede(hospede);
 		setFuncionario(funcionario);
 		setQuarto(quarto);
-		setDataInicial(dataInicial);
-		setDataFinal(dataFinal);
+		setDataInicial(diaI, mesI, anoI);
+		setDataFinal(diaF, mesF, anoF);
 	}
 
 	//Métodos de reserva
@@ -42,6 +43,7 @@ public class Reserva {
 		return funcionario.getNome();
 	}
 
+	//Arrumar
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
@@ -51,6 +53,7 @@ public class Reserva {
 		return quarto.getCodigoQuarto();
 	}
 
+	//Arrumar
 	public void setQuarto(Quarto quarto) {
 		this.quarto = quarto;
 	}
@@ -60,6 +63,7 @@ public class Reserva {
 		return hospedagem;
 	}
 	
+	//Arrumar
 	public void setHospedagem(Hospedagem hospedagem) {
 		this.hospedagem = hospedagem;
 	}
@@ -69,16 +73,16 @@ public class Reserva {
 		return dataInicial;
 	}
 
-	public void setDataInicial(Date dataInicial) {
-		this.dataInicial = dataInicial;
+	public void setDataInicial(int diaI, int mesI, int anoI) {
+		dataInicial = new Date(diaI, mesI, anoI);
 	}
 
 	public Date getDataFinal() {
 		return dataFinal;
 	}
 
-	public void setDataFinal(Date dataFinal) {
-		this.dataFinal = dataFinal;
+	public void setDataFinal(int diaF, int mesF, int anoF) {
+		dataFinal = new Date(diaF, mesF, anoF);
 	}
 
 	//Métodos de pagamento

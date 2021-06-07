@@ -69,4 +69,8 @@ public class Endereco {
     public int getCep() {
         return cep;
     }
+    
+    public String toString() {
+		return "Rua: " + rua + "\nBairro: " + bairro + "\nCidade: " + cidade + "\nEstado: " + estado + "\nComplemento: " + complemento + "\nNumero: " + numero + "\nCEP: " + cep; 
+    }
 }
