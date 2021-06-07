@@ -44,6 +44,8 @@ public class TipoDeQuarto {
 	public void verQuartosDisponiveis(int diaI, int mesI, int anoI, int diaF, int mesF, 
 			int anoF, TipoDeQuarto tipoDeQuartoDesejado) {
 	}
+	
+	
 }
 	
 	
