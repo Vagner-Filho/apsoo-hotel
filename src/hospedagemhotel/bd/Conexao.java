@@ -2,11 +2,9 @@ package hospedagemhotel.bd;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import hospedagemhotel.entidades.Hospede;
 
 public class Conexao{
 
@@ -53,9 +51,17 @@ public class Conexao{
 		
 	}
 
+	/**
+	 * Esse método Inicializa o Banco de dados
+	 * A primeira vez que a main for executada, ela vai chamar esse método e um arquivo 'database.db'
+	 * será criado e, consequentemente, as tabelas vão ser criadas e eu coloquei alguns dados fixos para serem inseridos.
+	 * 
+	 */
 	public static void InitBD(){
 		try {
+			// recupera a conxão com o bd
 			conexao = getConexao();
+			// cria um statement (não sei o que é, mas precisa dele para executar as querys kkkkkk)
 			Statement stm = conexao.createStatement();
 
 			stm.executeUpdate("DROP TABLE IF EXISTS pessoa");
@@ -169,6 +175,25 @@ public class Conexao{
 				"FOREIGN KEY (ser_tip_ser) REFERENCES itemServico(idTipSer))"
 				);
 
+			// insere um endereço no bd
+			stm.executeUpdate("INSERT INTO endereco VALUES(1, 'Rua 123', 2200, 'Vilas Boas', 12345678, 'Campo Grande', 'MS', 'Casa 1')");
+
+			//insere uma pessoa 
+			stm.executeUpdate("INSERT INTO pessoa VALUES('12345678910', 1, 'Maria', '2000-02-15', '55555-8888')");
+
+			// insere uma pessoa 
+			stm.executeUpdate("INSERT INTO pessoa VALUES('23556987451', 1, 'João', '1950-03-30', '65489-2354')");
+			
+			// insere um funcionario
+			stm.executeUpdate("INSERT INTO funcionario VALUES('23556987451', 'joao123', '1234', 1200, 'Recepcionista')");
+
+			// insere uma reserva
+			stm.executeUpdate("INSERT INTO reserva VALUES(1, '23556987451', '2021-02-03', '2021-02-05', 'Dinheiro')");
+
+			// insere um hospede
+			stm.executeUpdate("INSERT INTO hospede VALUES( '12345678910', 1, 'F', 12)");
+
+
 			stm.close();
 			//System.out.println("FUNCIONA");
 
@@ -177,6 +202,9 @@ public class Conexao{
 		}
 	}
 
+	/**
+	 * Esse método faz qualquer alteração no BD, basta passar uma string (query) com as instruções em SQL
+	 */
 	public static void alterarBD(String query){
 		try {
 			conexao = getConexao();
@@ -191,12 +219,16 @@ public class Conexao{
 
 	}
 
+	/**
+	 * Busca um hóspede no BD pelo cpf e, se o hóspede existir, retorna o nome dele. Se ele nã existir no bd ele retorna null
+	 */
 	public static String buscarHospede(String cpf){
 		try{
 			String query = "select nome from hospede join pessoa on " + cpf + " = pessoa.cpf";
 			conexao = getConexao();
 			Statement stm = conexao.createStatement();
-			return stm.executeQuery(query).getString("nome");
+			String nomeHospede = stm.executeQuery(query).getString("nome");
+			return nomeHospede;
 			
 		}catch(SQLException e){
 			return null;
