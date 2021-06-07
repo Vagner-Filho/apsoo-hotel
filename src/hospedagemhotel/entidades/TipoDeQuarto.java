@@ -41,8 +41,12 @@ public class TipoDeQuarto {
 	}
 	
 	//Arrumar
-	public void verQuartosDisponiveis(int diaI, int mesI, int anoI, int diaF, int mesF, 
+	public Quarto verQuartosDisponiveis(int diaI, int mesI, int anoI, int diaF, int mesF, 
 			int anoF, TipoDeQuarto tipoDeQuartoDesejado) {
+		if (tipoDeQuartoDesejado.quarto.getSituacao() == 0) {
+			return quarto;
+		}
+		return null;
 	}
 	
 	
