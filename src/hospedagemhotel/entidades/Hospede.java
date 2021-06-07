@@ -41,6 +41,7 @@ public class Hospede extends Pessoa {
 		return hospedagem;
 	}
 	
+	//Arrumar
 	public void setHospedagem(Hospedagem hospedagem) {
 		this.hospedagem = hospedagem;
 	}	

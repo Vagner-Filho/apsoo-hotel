@@ -38,6 +38,7 @@ public class Reserva {
 		return hospede;
 	}
 
+	//Arrumar
 	public void setHospede(String hospede) {
 		this.hospede.setNome(hospede);
 	}
