@@ -4,7 +4,7 @@ public class TipoDeQuarto {
     private float valor;
     private String descricao;
 
-    public TIpoDeQuarto(float valor, String descricao) {
+    public TipoDeQuarto(float valor, String descricao) {
         setValor(valor);
         setDescricao(descricao);
     }
