@@ -35,5 +35,9 @@ public class Date {
 		this.ano = ano;
 	}
 	
+	public String toString(){
+		
+		return getDia() + "/" + getMes() + "/" + getAno();
+	}
 	
 }

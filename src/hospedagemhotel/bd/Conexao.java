@@ -2,8 +2,11 @@ package hospedagemhotel.bd;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import hospedagemhotel.entidades.Hospede;
 
 public class Conexao{
 
@@ -138,7 +141,7 @@ public class Conexao{
 				"bairro varchar (255)," +
 				"cep varchar (8) NOT NULL," + 
 				"cidade varchar (255)," +
-				"esado char (2)," +
+				"estado char (2)," +
 				"complemento varchar (500))"
 				);
 			
@@ -172,5 +175,33 @@ public class Conexao{
 		} catch (SQLException e) {
 			System.err.println("initBD" + " " + e.getMessage());
 		}
+	}
+
+	public static void alterarBD(String query){
+		try {
+			conexao = getConexao();
+			Statement stm = conexao.createStatement();
+
+			stm.executeUpdate(query);
+			stm.close();
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+		}
+		
+
+	}
+
+	public static String buscarHospede(String cpf){
+		try{
+			String query = "select nome from hospede join pessoa on " + cpf + " = pessoa.cpf";
+			conexao = getConexao();
+			Statement stm = conexao.createStatement();
+			return stm.executeQuery(query).getString("nome");
+			
+		}catch(SQLException e){
+			return null;
+		}
+		
+		
 	}
 }
