@@ -17,6 +17,10 @@ public class Sistema {
 		return "Reserva efetuada com sucesso!";
 	}
 	
+	public String cancelarReserva() {
+		return "Reserva não efetuada";
+	}
+	
 	public String msgCpfInvalido() {
 		return "CPF Inválido";
 	}
