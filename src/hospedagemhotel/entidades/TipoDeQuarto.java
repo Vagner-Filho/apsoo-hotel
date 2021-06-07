@@ -38,6 +38,12 @@ public class TipoDeQuarto {
     
 	//Arrumar
 	public void verTiposDeQuarto() {
+		System.out.print("Tipo 1: \n" + "Valor: 100\n" + "Descrição: Quarto nível Baixo" + 
+		"Quarto 1234");
+		System.out.print("Tipo 2: \n" + "Valor: 200\n" + "Descrição: Quarto nível Médio" + 
+		"Quarto 3456");
+		System.out.print("Tipo 3: \n" + "Valor: 300\n" + "Descrição: Quarto nível Alto" + 
+		"Quarto 5678");
 	}
 	
 	//Arrumar
