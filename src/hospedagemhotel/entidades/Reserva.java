@@ -1,5 +1,7 @@
 package hospedagemhotel.entidades;
 
+import java.util.Scanner;
+
 // TODO Implementar m�todos 'confirmarReserva()' e 'cancelarReserva()'
 
 public class Reserva {
@@ -11,6 +13,8 @@ public class Reserva {
 	private Date dataInicial; 
 	private Date dataFinal; 
 	private String pagamento;
+
+	Scanner leitor = new Scanner(System.in);
 	
 	public Reserva(Hospede hospede, Funcionario funcionario, Quarto quarto, Date dataInicial, Date dataFinal) {
 		setHospede(hospede);
