@@ -236,4 +236,19 @@ public class Conexao{
 		
 		
 	}
+	
+	public static String buscarQuarto(int codigoQuarto){
+		try{
+			String query = "select codigoQuarto from quarto on " + codigoQuarto + " = quarto.codigoQuarto";
+			conexao = getConexao();
+			Statement stm = conexao.createStatement();
+			return stm.executeQuery(query).getString("codigoQuarto");
+			
+		}catch(SQLException e){
+			return null;
+		}
+	
+	
+	}
+	
 }
