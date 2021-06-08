@@ -2,8 +2,11 @@ package hospedagemhotel.entidades;
 
 import java.util.Scanner;
 import hospedagemhotel.entidades.Date;
+import java.sql.Connection;
 
-public class Sistema{
+public class Sistema {
+
+	private static Connection conexao;
 
 	Scanner scanner = new Scanner(System.in);
 
