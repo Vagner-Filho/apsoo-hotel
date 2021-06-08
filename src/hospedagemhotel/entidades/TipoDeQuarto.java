@@ -1,21 +1,28 @@
 package hospedagemhotel.entidades;
 
-public class TipoDeQuarto {
-    private float valor;
-    private String descricao;
-    private Quarto quarto; //Tem que ser uma lista de quartos
+import java.util.ArrayList;
 
-    public TipoDeQuarto(float valor, String descricao, Quarto quarto) {
+public class TipoDeQuarto {
+    private int valor;
+    private String descricao;
+    private ArrayList<Quarto> quartos = new ArrayList();
+
+    public TipoDeQuarto(int valor, String descricao) {
         setValor(valor);
         setDescricao(descricao);
-        setQuarto(quarto);
+    }
+    
+    public TipoDeQuarto(int valor, String descricao, Quarto quarto1, Quarto quarto2) {
+        setValor(valor);
+        setDescricao(descricao);
+        setQuarto(quarto1, quarto2);
     }
 
-    public void setValor(float valor) {
+    public void setValor(int valor) {
         this.valor = valor;
     }
 
-    public float getValor() {
+    public int getValor() {
         return valor;
     }
 
@@ -27,37 +34,22 @@ public class TipoDeQuarto {
         return descricao;
     }
 
-	public Quarto getQuarto() {
-		return quarto;
+	public String getQuarto() {
+		return quartos.toString();
 	}
-	
-	//Arrumar
-	public void setQuarto(Quarto quarto) {
-		this.quarto = quarto;
+
+	public void setQuarto(Quarto quarto1, Quarto quarto2) {
+		quartos.add(quarto1);
+		quartos.add(quarto2);
 	}
     
-	//Arrumar
-	public void verTiposDeQuarto() {
-		System.out.print("Tipo 1: \n" + "Valor: 100\n" + "Descrição: Quarto nível Baixo" + 
-		"Quarto 1234");
-		System.out.print("Tipo 2: \n" + "Valor: 200\n" + "Descrição: Quarto nível Médio" + 
-		"Quarto 3456");
-		System.out.print("Tipo 3: \n" + "Valor: 300\n" + "Descrição: Quarto nível Alto" + 
-		"Quarto 5678");
-	}
-	
-	//Arrumar
-	public Quarto verQuartosDisponiveis(int diaI, int mesI, int anoI, int diaF, int mesF, 
-			int anoF, TipoDeQuarto tipoDeQuartoDesejado) {
-		if (tipoDeQuartoDesejado.quarto.getSituacao() == 0) {
-			return quarto;
+	//FALTA FAZER ESSE METODO
+	public String verQuartosDisponiveis(Date Inicial, Date Final, TipoDeQuarto tipoDeQuartoDesejado) {
+		if (tipoDeQuartoDesejado.quartos.get(0).getHospedagem().getReserva().dataInicial != Inicial || 
+			tipoDeQuartoDesejado.quartos.get(0).getHospedagem().getReserva().dataFinal != Final	) {
+			return quartos.toString();
 		}
-		return null;
+		else 
+			return "Não há quartos disponíveis";
 	}
-	
-	
 }
-	
-	
-	
-	
