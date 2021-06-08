@@ -7,12 +7,16 @@ public class Quarto {
     private Hospedagem hospedagem;
 
     Scanner leitor = new Scanner(System.in);
+    
+    public Quarto(int codigoQuarto) {
+    	setCodigoQuarto(codigoQuarto);
+    }
 
-    public Quarto(int codigoQuarto, int localizacao, int situacao, Hospedagem hospedagem) {
+    public Quarto(int codigoQuarto, int localizacao, int situacao) {
         setCodigoQuarto(codigoQuarto);
         setLocalizacao(localizacao);
         setSituacao(situacao);
-        setHospedagem(hospedagem);
+        setHospedagem();
     }
 
     public void setCodigoQuarto(int codigoQuarto) {
@@ -39,19 +43,24 @@ public class Quarto {
         return situacao;
     }
 
-    public Hospedagem getHospedagem() {
-		return hospedagem;
-	}
-
-    //Arrumar
-	public void setHospedagem(Hospedagem hospedagem) {
-		this.hospedagem = hospedagem;
-	}
-
-	// Parâmetro da função setSituação pode mudar para atender diferentes situações de um quarto
+    // Parâmetro da função setSituação pode mudar para atender diferentes situações de um quarto
     public void mudarSituacaoQuarto(Quarto quarto) {
         System.out.println("Informe a nova situação do quarto: ");
         int situacao = leitor.nextInt();
         quarto.setSituacao(situacao);
     }
+
+	public Hospedagem getHospedagem() {
+		return hospedagem;
+	}
+	
+	public void setHospedagem() {
+		hospedagem = null;
+	}
+    
+	public String toString() {
+		return "C�digo: " + codigoQuarto + "\nLocalizacao: " + localizacao + 
+				"\nSituacao: " + situacao + "\nHospedagem: " + hospedagem; 
+	}
+    
 }
