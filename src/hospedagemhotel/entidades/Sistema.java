@@ -7,8 +7,25 @@ public class Sistema{
 
 	Scanner scanner = new Scanner(System.in);
 
+	public Date dataNascimento() {
+		System.out.println("Data de nascimento: ");
+
+		System.out.println("Dia: ");
+		int dia = scanner.nextInt();
+
+		System.out.println("Mês: ");
+		int mes = scanner.nextInt();
+
+		System.out.println("Ano: ");
+		int ano = scanner.nextInt();
+
+		Date dataNascimento = new Date(dia, mes, ano);
+
+		return dataNascimento;
+	}
+
 	public void cadastrarHospede() {
-		System.out.println("Digite os dados do hospede:\n")
+		System.out.println("Digite os dados do hospede:\n");
 
 		System.out.println("Nome completo: ");
 		String nome = scanner.nextLine();
@@ -28,5 +45,8 @@ public class Sistema{
 		int codigoConta = scanner.nextInt();
 
 		Hospede hospede = new Hospede(nome, cpf, telefone, dataNascimento, sexo, codigoConta);
+
+		stm.executeUpdate("INSERT INTO hospede VALUES( '"+hospede.getCpf()+"', "+hospede.getDataNasc()+", '"+hospede.getSexo()+"', "+hospede.getCodigoConta()+")");
+		
 	}
 }
