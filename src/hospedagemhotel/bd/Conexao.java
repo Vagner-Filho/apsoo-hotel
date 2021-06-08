@@ -216,7 +216,6 @@ public class Conexao{
 			System.err.println(e.getMessage());
 		}
 		
-
 	}
 
 	/**
