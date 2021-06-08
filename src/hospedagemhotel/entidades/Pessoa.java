@@ -8,17 +8,33 @@ public class Pessoa {
 	private String nome;
 	private String cpf;
 	private int telefone;
-	private Date dataNasc;
+	public Date dataNasc;
 	private Endereco endereco;
 	
-	public Pessoa(String nome, String cpf, int telefone, int dia, int mes, int ano, String rua, String bairro, String cidade, String estado, String complemento, int numero, int cep) {
+	public Pessoa(String nome, String cpf, int telefone, int dia, int mes, int ano, String rua, 
+			String bairro, String cidade, String estado, String complemento, int numero, int cep) {
 		setNome(nome);
 		setCpf(cpf);
 		setTelefone(telefone);
 		setDataNasc(dia, mes, ano);
 		setEndereco(rua, bairro, cidade, estado, complemento, numero, cep);
-		
 	}
+	
+	public Pessoa(String nome, String cpf, int telefone, Date dataNasc, Endereco endereco) {
+		setNome(nome);
+		setCpf(cpf);
+		setTelefone(telefone);
+		setDataNasc(dataNasc);
+		setEndereco(endereco);
+	}
+	
+	public Pessoa( ) {}
+	
+
+	public Pessoa(String nome) {
+		this.nome = nome;
+	}
+
 
 	public String getNome() {
 		return nome;
@@ -38,7 +54,8 @@ public class Pessoa {
 			this.cpf = cpf;
 		}
 		else {
-			System.out.println("O CPF informado não é válido.");
+			Sistema sistema = new Sistema();
+			sistema.msgCpfInvalido();
 		}
 	}
 
@@ -49,7 +66,7 @@ public class Pessoa {
 	public void setTelefone(int telefone) {
 		this.telefone = telefone;
 	}
-
+	
 	public Date getDataNasc() {
 		return dataNasc;
 	}
@@ -58,12 +75,23 @@ public class Pessoa {
 		this.dataNasc = new Date(dia, mes, ano);
 	}
 	
+	public void setDataNasc(Date dataNasc) {
+		this.dataNasc = new Date(dataNasc.getDia(), dataNasc.getMes(), dataNasc.getAno());
+	}
+	
 	public Endereco getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(String rua, String bairro, String cidade, String estado, String complemento, int numero, int cep) {
+	public void setEndereco(String rua, String bairro, String cidade, String estado, 
+			String complemento, int numero, int cep) {
 		this.endereco = new Endereco(rua, bairro, cidade, estado, complemento, numero, cep);
+	}
+	
+	public void setEndereco(Endereco endereco) {
+		this.endereco = new Endereco(endereco.getRua(), endereco.getBairro(), 
+				endereco.getCidade(), endereco.getEstado(), endereco.getComplemento(),
+				endereco.getNumero(), endereco.getCep());
 	}
 
 	public boolean autenticaCPF(String cpf) {
@@ -122,10 +150,8 @@ public class Pessoa {
 	}
 	}
 	
-	@Override
 	public String toString() {
 		return "Nome: " + nome + "\nCPF: " + cpf + "\nTelefone: " + telefone + "\nData de Nascimento: " + dataNasc + "\nEndere�o: " + endereco; 
 	}
-	
 	
 }
