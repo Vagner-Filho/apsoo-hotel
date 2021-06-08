@@ -36,7 +36,6 @@ public class Date {
 	}
 	
 	public String toString(){
-		
 		return getDia() + "/" + getMes() + "/" + getAno();
 	}
 	
