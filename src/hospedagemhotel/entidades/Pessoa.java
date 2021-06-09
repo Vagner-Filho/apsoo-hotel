@@ -7,10 +7,14 @@ import java.util.InputMismatchException;
 public class Pessoa {
 	private String nome;
 	private String cpf;
-	private int telefone;
-	private Date dataNasc;
+	private String telefone;
+	private String dataNasc;
+
+	public Pessoa(){
+
+	}
 	
-	public Pessoa(String nome, String cpf, int telefone, Date dataNasc) {
+	public Pessoa(String nome, String cpf, String telefone, String dataNasc) {
 		setNome(nome);
 		setCpf(cpf);
 		setTelefone(telefone);
@@ -39,19 +43,19 @@ public class Pessoa {
 		}
 	}
 
-	public int getTelefone() {
+	public String getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(int telefone) {
+	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 
-	public Date getDataNasc() {
+	public String getDataNasc() {
 		return dataNasc;
 	}
 
-	public void setDataNasc(Date dataNasc) {
+	public void setDataNasc(String dataNasc) {
 		this.dataNasc = dataNasc;
 	}
 
@@ -110,6 +114,13 @@ public class Pessoa {
 		return (false);
 	}
 	}
+
+	@Override
+	public String toString() {
+		return "Pessoa [cpf=" + cpf + ", dataNasc=" + dataNasc + ", nome=" + nome + ", telefone=" + telefone + "]";
+	}
+
+	
 	
 	
 }

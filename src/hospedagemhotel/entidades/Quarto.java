@@ -3,12 +3,15 @@ package hospedagemhotel.entidades;
 import java.util.Scanner;
 
 public class Quarto {
-    private int codigoQuarto, localizacao, situacao;
-    private TipoDeQuarto tipoDeQuarto;
+    private int codigoQuarto, localizacao, situacao; //Situa��o 0 n�o est�o usando / Situa��o 1 est�o usando
+    private Hospedagem hospedagem;
+	private TipoDeQuarto tipoDeQuarto;
 
-    Scanner leitor = new Scanner(System.in);
+	public Quarto(){
 
-    public Quarto(int codigoQuarto, int localizacao, int situacao, TipoDeQuarto tipoDeQuarto) {
+	}
+
+    public Quarto(int codigoQuarto, int localizacao, int situacao) {
         setCodigoQuarto(codigoQuarto);
         setLocalizacao(localizacao);
         setSituacao(situacao);
@@ -38,18 +41,40 @@ public class Quarto {
         return situacao;
     }
 
-    public void setTipoDeQuarto(TipoDeQuarto tipoDeQuarto) {
-        this.tipoDeQuarto = tipoDeQuarto;
-    }
+    public Hospedagem getHospedagem() {
+		return hospedagem;
+	}
 
-    public TipoDeQuarto getTipoDeQuarto() {
-        return tipoDeQuarto;
-    }
+    //Arrumar
+	public void setHospedagem(Hospedagem hospedagem) {
+		this.hospedagem = hospedagem;
+	}
 
-    // Parâmetro da função setSituação pode mudar para atender diferentes situações de um quarto
+	public TipoDeQuarto getTipoDeQuarto() {
+		return tipoDeQuarto;
+	}
+
+	public void setTipoDeQuarto(TipoDeQuarto tipoDeQuarto) {
+		this.tipoDeQuarto = tipoDeQuarto;
+	}
+
+	// Parâmetro da função setSituação pode mudar para atender diferentes situações de um quarto
     public void mudarSituacaoQuarto(Quarto quarto) {
+		Scanner leitor = new Scanner(System.in);
+
         System.out.println("Informe a nova situação do quarto: ");
         int situacao = leitor.nextInt();
         quarto.setSituacao(situacao);
+
+		leitor.close();
     }
+
+
+
+	@Override
+	public String toString() {
+		return "Quarto [codigoQuarto=" + codigoQuarto +  ", localizacao=" + localizacao + ", situacao=" + situacao + "]";
+	}
+
+
 }

@@ -2,9 +2,16 @@ package hospedagemhotel.bd;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
+import hospedagemhotel.entidades.Hospede;
+import hospedagemhotel.entidades.Quarto;
+import hospedagemhotel.entidades.TipoDeQuarto;
+
+// TODO mudar o atributo que relaciona o quarto ao tipo de quarto de tabela no bd (de quarto para tipoDeQuarto)
 
 public class Conexao{
 
@@ -69,7 +76,7 @@ public class Conexao{
 				"cpf varchar (11) NOT NULL PRIMARY KEY," +
 				"pes_end integer NOT NULL," +
 				"nome varchar (255) NOT NULL," +
-				"dataNasc date," +
+				"dataNasc varchar (10)," +
 				"telefone varchar(15)," +
 				"foreign key (pes_end) references endereco(idEnd));");
 
@@ -120,8 +127,8 @@ public class Conexao{
 				"codigoQuarto integer NOT NULL primary key," +
 				"qua_tip_quarto qua_tip_quarto integer NOT NULL," +
 				"qua_hospedagem integer NOT NULL," +
-				"localizao varchar (255)," +
-				"situacao varchar (255)," +
+				"localizacao integer," +
+				"situacao integer," +
 				"FOREIGN KEY (qua_hospedagem) REFERENCES hospedagem(idHospedagem)," + 
 				"FOREIGN KEY (qua_tip_quarto) REFERENCES tipoDeQuarto(idTipQuarto))"
 				);
@@ -179,7 +186,7 @@ public class Conexao{
 			stm.executeUpdate("INSERT INTO endereco VALUES(1, 'Rua 123', 2200, 'Vilas Boas', 12345678, 'Campo Grande', 'MS', 'Casa 1')");
 
 			//insere uma pessoa 
-			stm.executeUpdate("INSERT INTO pessoa VALUES('12345678910', 1, 'Maria', '2000-02-15', '55555-8888')");
+			stm.executeUpdate("INSERT INTO pessoa VALUES('06451237894', 1, 'Maria', '2000-02-15', '55555-8888')");
 
 			// insere uma pessoa 
 			stm.executeUpdate("INSERT INTO pessoa VALUES('23556987451', 1, 'João', '1950-03-30', '65489-2354')");
@@ -191,8 +198,16 @@ public class Conexao{
 			stm.executeUpdate("INSERT INTO reserva VALUES(1, '23556987451', '2021-02-03', '2021-02-05', 'Dinheiro')");
 
 			// insere um hospede
-			stm.executeUpdate("INSERT INTO hospede VALUES( '12345678910', 1, 'F', 12)");
+			stm.executeUpdate("INSERT INTO hospede VALUES( '06451237894', 1, 'F', 12)");
 
+			//insere um tipoDeQuarto
+			stm.executeUpdate("insert into tipoDeQuarto values(1, 13, 'Suite')");
+
+			// insere uma hospedagem
+			stm.executeUpdate("insert into hospedagem values(1, 1, '23556987451', '06451237894', '2021-02-17', '15:00:02')");
+
+			//insere um quarto
+			stm.executeUpdate("insert into quarto values(1, 1, 1, 12, 0)");
 
 			stm.close();
 			//System.out.println("FUNCIONA");
@@ -204,35 +219,140 @@ public class Conexao{
 
 	/**
 	 * Esse método faz qualquer alteração no BD, basta passar uma string (query) com as instruções em SQL
+	 * Retorna um objeto do tipo ResultSet, por ele é possível acessar os valores retornados caso seja uma query de consulta
 	 */
-	public static void alterarBD(String query){
+	public static ResultSet alterarBD(String query){
 		try {
 			conexao = getConexao();
 			Statement stm = conexao.createStatement();
 
-			stm.executeUpdate(query);
-			stm.close();
+			return stm.executeQuery(query);
+			
+
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
+			System.err.println(e.getMessage());	
+			return null;
 		}
 		
 	}
 
 	/**
-	 * Busca um hóspede no BD pelo cpf e, se o hóspede existir, retorna o nome dele. Se ele nã existir no bd ele retorna null
+	 * Busca um hóspede no BD pelo cpf e, se o hóspede existir, retorna um objeto do tipo Hospede. Se ele nao existir no bd ele retorna null
+	 * Retorna um hospede sem o atributo 'hospedagem'
 	 */
-	public static String buscarHospede(String cpf){
+	public static Hospede buscarHospede(String cpf){
+		Hospede hospede = new Hospede();
 		try{
-			String query = "select nome from hospede join pessoa on " + cpf + " = pessoa.cpf";
-			conexao = getConexao();
-			Statement stm = conexao.createStatement();
-			String nomeHospede = stm.executeQuery(query).getString("nome");
-			return nomeHospede;
+			String query = "select * from hospede join pessoa on " + cpf + " = pessoa.cpf";
+			
+
+			ResultSet rs = alterarBD(query);
+
+			while(rs.next()) {
+				hospede.setNome(rs.getString("nome"));
+				hospede.setCpf(rs.getString("hcpf"));
+				hospede.setTelefone(rs.getString("telefone"));
+				hospede.setDataNasc(rs.getString("dataNasc"));
+				hospede.setSexo(rs.getString("sexo"));
+				hospede.setCodigoConta(rs.getInt("codigoConta"));
+				
+
+			}
+
+			return hospede;
+			
 			
 		}catch(SQLException e){
+			System.out.println(e.getMessage());
 			return null;
 		}
 		
 		
 	}
+	
+	/**
+	 * Busca um quarto no BD pelo codigo do quarto e, se o quarto existir, retorna um objeto do tipo Quarto. Se ele nao existir no bd ele retorna null
+	 * Retorna um quarto sem o atributo 'hospedagem'
+	 */
+	public static Quarto buscarQuarto(int codigoQuarto){
+		Quarto quarto = new Quarto();
+		try{
+
+			String query = "select * from quarto where " + codigoQuarto + " = quarto.codigoQuarto";
+			
+			ResultSet rs = alterarBD(query);
+
+			while(rs.next()) {
+				quarto.setCodigoQuarto(rs.getInt("codigoQuarto"));
+				quarto.setLocalizacao(rs.getInt("localizacao"));
+				quarto.setSituacao(rs.getInt("situacao"));
+			}
+			return quarto;
+			
+		}catch(SQLException e){
+			System.out.println(e.getMessage());
+			return null;
+		}
+	
+		
+	}
+
+	/**
+	 * Retorna um array de objetos do tipo tipoDeQuarto que são os tipos de quartos que existem 
+	 */
+	public static TipoDeQuarto[] verTiposDeQuarto(){
+		int qtdDeTipQuartos = 1;
+		TipoDeQuarto[] tipoDeQuarto = new TipoDeQuarto[qtdDeTipQuartos];
+		
+		try{
+
+			String query = "select * from tipoDeQuarto";
+			
+			ResultSet rs = alterarBD(query);
+
+			while(rs.next()) {
+				tipoDeQuarto[qtdDeTipQuartos-1] = new TipoDeQuarto();
+				tipoDeQuarto[qtdDeTipQuartos-1].setId(rs.getInt("idTipQuarto"));
+				tipoDeQuarto[qtdDeTipQuartos-1].setValor(rs.getInt("valor"));
+				tipoDeQuarto[qtdDeTipQuartos-1].setDescricao(rs.getString("descricao"));
+				qtdDeTipQuartos++;
+			}
+			
+			return tipoDeQuarto;
+			
+		}catch(SQLException e){
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+
+	/**
+	 * Retorna um array de objetos do tipo Quarto que são os quartos disponiveis de acordo com o TIPO DE QUARTO	passado como parametro
+	 */
+	public static Quarto[] verQuartosDisponiveis(TipoDeQuarto tipoDeQuartoDesejado) {
+		int qtdDeQuartos = 1;
+		Quarto[] quartos = new Quarto[qtdDeQuartos];
+
+		try{
+
+			String query = "select * from quarto join tipoDeQuarto on qua_tip_quarto = " + tipoDeQuartoDesejado.getId() + " and situacao = 0";
+			
+			ResultSet rs = alterarBD(query);
+
+			while(rs.next()) {
+				quartos[qtdDeQuartos-1] = new Quarto();
+				quartos[qtdDeQuartos-1].setCodigoQuarto(rs.getInt("codigoQuarto"));
+				quartos[qtdDeQuartos-1].setLocalizacao(rs.getInt("localizacao"));
+				quartos[qtdDeQuartos-1].setSituacao(rs.getInt("situacao"));
+				quartos[qtdDeQuartos-1].setTipoDeQuarto(tipoDeQuartoDesejado);
+			}
+			
+			return quartos;
+			
+		}catch(SQLException e){
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+	
 }
