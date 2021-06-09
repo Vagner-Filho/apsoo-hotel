@@ -16,7 +16,7 @@ public class Reserva {
 
 	Scanner leitor = new Scanner(System.in);
 	
-	public Reserva(Hospede hospede, Funcionario funcionario, Quarto quarto, Date dataInicial, Date dataFinal) {
+	public Reserva(int idReserva, Hospede hospede, Funcionario funcionario, Quarto quarto, Date dataInicial, Date dataFinal) {
 		setHospede(hospede);
 		setFuncionario(funcionario);
 		setQuarto(quarto);
