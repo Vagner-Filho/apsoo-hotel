@@ -1,14 +1,25 @@
 package hospedagemhotel.entidades;
 
 public class TipoDeQuarto {
+	private int id;
     private float valor;
     private String descricao;
-    private Quarto quarto; //Tem que ser uma lista de quartos
+
+	public TipoDeQuarto(){
+
+	}
 
     public TipoDeQuarto(float valor, String descricao, Quarto quarto) {
         setValor(valor);
         setDescricao(descricao);
-        setQuarto(quarto);
+    }
+
+	public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void setValor(float valor) {
@@ -27,25 +38,12 @@ public class TipoDeQuarto {
         return descricao;
     }
 
-	public Quarto getQuarto() {
-		return quarto;
+	@Override
+	public String toString() {
+		return "TipoDeQuarto [descricao=" + descricao + ", id=" + id + ", valor=" + valor + "]";
 	}
-	
-	//Arrumar
-	public void setQuarto(Quarto quarto) {
-		this.quarto = quarto;
-	}
+
     
-	//Arrumar
-	public void verTiposDeQuarto() {
-	}
 	
-	//Arrumar
-	public Quarto verQuartosDisponiveis(int diaI, int mesI, int anoI, int diaF, int mesF, 
-			int anoF, TipoDeQuarto tipoDeQuartoDesejado) {
-		if (tipoDeQuartoDesejado.quarto.getSituacao() == 0) {
-			return quarto;
-		}
-		return null;
-	}
+
 }
