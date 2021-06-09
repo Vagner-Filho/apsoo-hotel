@@ -11,8 +11,6 @@ import hospedagemhotel.entidades.Hospede;
 import hospedagemhotel.entidades.Quarto;
 import hospedagemhotel.entidades.TipoDeQuarto;
 
-// TODO mudar o atributo que relaciona o quarto ao tipo de quarto de tabela no bd (de quarto para tipoDeQuarto)
-
 public class Conexao{
 
 	private static Connection conexao;
@@ -187,6 +185,7 @@ public class Conexao{
 
 			//insere uma pessoa 
 			stm.executeUpdate("INSERT INTO pessoa VALUES('06451237894', 1, 'Maria', '2000-02-15', '55555-8888')");
+			stm.executeUpdate("INSERT INTO pessoa VALUES('45865201424', 1, 'Marta', '2000-10-20', '2654-8425')");
 
 			// insere uma pessoa 
 			stm.executeUpdate("INSERT INTO pessoa VALUES('23556987451', 1, 'João', '1950-03-30', '65489-2354')");
@@ -199,6 +198,8 @@ public class Conexao{
 
 			// insere um hospede
 			stm.executeUpdate("INSERT INTO hospede VALUES( '06451237894', 1, 'F', 12)");
+			stm.executeUpdate("INSERT INTO hospede VALUES( '45865201424', 1, 'F', 15)");
+
 
 			//insere um tipoDeQuarto
 			stm.executeUpdate("insert into tipoDeQuarto values(1, 13, 'Suite')");
@@ -209,9 +210,7 @@ public class Conexao{
 			//insere um quarto
 			stm.executeUpdate("insert into quarto values(1, 1, 1, 12, 0)");
 
-			stm.close();
-			//System.out.println("FUNCIONA");
-
+			
 		} catch (SQLException e) {
 			System.err.println("initBD" + " " + e.getMessage());
 		}
@@ -221,17 +220,16 @@ public class Conexao{
 	 * Esse método faz qualquer alteração no BD, basta passar uma string (query) com as instruções em SQL
 	 * Retorna um objeto do tipo ResultSet, por ele é possível acessar os valores retornados caso seja uma query de consulta
 	 */
-	public static ResultSet alterarBD(String query){
+	public static void alterarBD(String query){
 		try {
 			conexao = getConexao();
 			Statement stm = conexao.createStatement();
 
-			return stm.executeQuery(query);
+			stm.executeQuery(query);
 			
 
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());	
-			return null;
 		}
 		
 	}
@@ -243,14 +241,17 @@ public class Conexao{
 	public static Hospede buscarHospede(String cpf){
 		Hospede hospede = new Hospede();
 		try{
-			String query = "select * from hospede join pessoa on " + cpf + " = pessoa.cpf";
+			String query = "select * from hospede join pessoa on '" + cpf + "' = pessoa.cpf";
 			
+			conexao = getConexao();
+			Statement stm = conexao.createStatement();
 
-			ResultSet rs = alterarBD(query);
-
+			ResultSet rs = stm.executeQuery(query);
+			
 			while(rs.next()) {
+			
 				hospede.setNome(rs.getString("nome"));
-				hospede.setCpf(rs.getString("hcpf"));
+				hospede.setCpf(rs.getString("cpf"));
 				hospede.setTelefone(rs.getString("telefone"));
 				hospede.setDataNasc(rs.getString("dataNasc"));
 				hospede.setSexo(rs.getString("sexo"));
@@ -258,8 +259,9 @@ public class Conexao{
 				
 
 			}
-
+			//System.out.println(stm.executeQuery(query).getString("nome"));
 			return hospede;
+			
 			
 			
 		}catch(SQLException e){
@@ -279,8 +281,9 @@ public class Conexao{
 		try{
 
 			String query = "select * from quarto where " + codigoQuarto + " = quarto.codigoQuarto";
-			
-			ResultSet rs = alterarBD(query);
+			conexao = getConexao();
+			Statement stm = conexao.createStatement();
+			ResultSet rs = stm.executeQuery(query);
 
 			while(rs.next()) {
 				quarto.setCodigoQuarto(rs.getInt("codigoQuarto"));
@@ -308,7 +311,8 @@ public class Conexao{
 
 			String query = "select * from tipoDeQuarto";
 			
-			ResultSet rs = alterarBD(query);
+			Statement stm = conexao.createStatement();
+			ResultSet rs = stm.executeQuery(query);
 
 			while(rs.next()) {
 				tipoDeQuarto[qtdDeTipQuartos-1] = new TipoDeQuarto();
@@ -337,7 +341,8 @@ public class Conexao{
 
 			String query = "select * from quarto join tipoDeQuarto on qua_tip_quarto = " + tipoDeQuartoDesejado.getId() + " and situacao = 0";
 			
-			ResultSet rs = alterarBD(query);
+			Statement stm = conexao.createStatement();
+			ResultSet rs = stm.executeQuery(query);
 
 			while(rs.next()) {
 				quartos[qtdDeQuartos-1] = new Quarto();

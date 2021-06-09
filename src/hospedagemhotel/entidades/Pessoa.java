@@ -10,9 +10,7 @@ public class Pessoa {
 	private String telefone;
 	private String dataNasc;
 
-	public Pessoa(){
-
-	}
+	public Pessoa(){}
 	
 	public Pessoa(String nome, String cpf, String telefone, String dataNasc) {
 		setNome(nome);
@@ -35,12 +33,13 @@ public class Pessoa {
 
 	//Autentica a entrada do CPF
 	public void setCpf(String cpf) {
-		if(autenticaCPF(cpf)) {
+		/*if(autenticaCPF(cpf)) {
 			this.cpf = cpf;
 		}
 		else {
 			System.out.println("O CPF informado não é válido.");
-		}
+		}*/ 
+		this.cpf = cpf;
 	}
 
 	public String getTelefone() {

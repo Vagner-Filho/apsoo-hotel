@@ -10,13 +10,15 @@ public class Reserva {
 	private Funcionario funcionario ;
 	private Quarto quarto;
 	private Hospedagem hospedagem;
-	private Date dataInicial; 
-	private Date dataFinal; 
+	private String dataInicial; 
+	private String dataFinal; 
 	private String pagamento;
 
 	Scanner leitor = new Scanner(System.in);
+
+	public Reserva(){}
 	
-	public Reserva(Hospede hospede, Funcionario funcionario, Quarto quarto, Date dataInicial, Date dataFinal) {
+	public Reserva(Hospede hospede, Funcionario funcionario, Quarto quarto, String dataInicial, String dataFinal) {
 		setHospede(hospede);
 		setFuncionario(funcionario);
 		setQuarto(quarto);
@@ -69,19 +71,19 @@ public class Reserva {
 	}
 
 	//Métodos de datas
-	public Date getDataInicial() {
+	public String getDataInicial() {
 		return dataInicial;
 	}
 
-	public void setDataInicial(Date dataInicial) {
+	public void setDataInicial(String dataInicial) {
 		this.dataInicial = dataInicial;
 	}
 
-	public Date getDataFinal() {
+	public String getDataFinal() {
 		return dataFinal;
 	}
 
-	public void setDataFinal(Date dataFinal) {
+	public void setDataFinal(String dataFinal) {
 		this.dataFinal = dataFinal;
 	}
 

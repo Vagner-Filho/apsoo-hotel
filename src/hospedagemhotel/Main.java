@@ -5,6 +5,7 @@ import java.util.Scanner;
 import hospedagemhotel.bd.Conexao;
 import hospedagemhotel.entidades.Hospede;
 import hospedagemhotel.entidades.Quarto;
+import hospedagemhotel.entidades.Sistema;
 import hospedagemhotel.entidades.TipoDeQuarto;
 
 public class Main {
@@ -24,7 +25,9 @@ public class Main {
 		
 		Hospede hospede = new Hospede();
 		hospede = Conexao.buscarHospede(cpfHospede);
-
+		
+		System.out.println(hospede.getNome());
+		
 
 		if(hospede == null){
 			System.out.println("Hóspede não cadastrado");
@@ -47,7 +50,6 @@ public class Main {
 
 		String tipoDeQuartoEscolhido = scanner.nextLine();
 	
-			
 		TipoDeQuarto tipQua = new TipoDeQuarto();
 
 		// percorre o array com os tipos de quarto e guarda na variável tipQua o objeto que representa o tipo de quarto escolhido pelo usuario	
