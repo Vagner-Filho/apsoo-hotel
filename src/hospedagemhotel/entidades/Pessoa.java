@@ -8,11 +8,11 @@ public class Pessoa {
 	private String nome;
 	private String cpf;
 	private String telefone;
-	private String dataNasc;
+	private Date dataNasc;
 
 	public Pessoa(){}
 	
-	public Pessoa(String nome, String cpf, String telefone, String dataNasc) {
+	public Pessoa(String nome, String cpf, String telefone, Date dataNasc) {
 		setNome(nome);
 		setCpf(cpf);
 		setTelefone(telefone);
@@ -50,11 +50,11 @@ public class Pessoa {
 		this.telefone = telefone;
 	}
 
-	public String getDataNasc() {
+	public Date getDataNasc() {
 		return dataNasc;
 	}
 
-	public void setDataNasc(String dataNasc) {
+	public void setDataNasc(Date dataNasc) {
 		this.dataNasc = dataNasc;
 	}
 
@@ -118,8 +118,5 @@ public class Pessoa {
 	public String toString() {
 		return "Pessoa [cpf=" + cpf + ", dataNasc=" + dataNasc + ", nome=" + nome + ", telefone=" + telefone + "]";
 	}
-
-	
-	
 	
 }

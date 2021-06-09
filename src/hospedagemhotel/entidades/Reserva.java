@@ -18,12 +18,17 @@ public class Reserva {
 
 	public Reserva(){}
 	
+<<<<<<< HEAD
 	public Reserva(Hospede hospede, Funcionario funcionario, Quarto quarto, String dataInicial, String dataFinal) {
+=======
+	public Reserva(int idReserva, Hospede hospede, Funcionario funcionario, Quarto quarto, Date dataInicial, Date dataFinal) {
+>>>>>>> 1d77a0c049b10a253894a15a2151bc2bae5e627a
 		setHospede(hospede);
 		setFuncionario(funcionario);
 		setQuarto(quarto);
 		setDataInicial(dataInicial);
 		setDataFinal(dataFinal);
+		setIdReserva(idReserva);
 	}
 
 	//Métodos de reserva

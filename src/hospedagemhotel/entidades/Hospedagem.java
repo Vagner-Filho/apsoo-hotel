@@ -14,6 +14,10 @@ public class Hospedagem {
         setReserva(reserva);
     }
 
+    public Hospedagem() {
+        
+    }
+
     public void setData(int dia, int mes, int ano) {
         data = new Date(dia, mes, ano);
     }

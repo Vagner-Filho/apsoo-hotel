@@ -10,14 +10,14 @@ public class Hospede extends Pessoa {
 		super();
 	}
 	
-	public Hospede(String nome, String cpf, String telefone, String dataNasc, String sexo, int codigoConta, Hospedagem hospedagem) {
+	public Hospede(String nome, String cpf, String telefone, Date dataNasc, String sexo, int codigoConta, Hospedagem hospedagem) {
 		super(nome, cpf, telefone, dataNasc);
 		this.sexo = sexo;
 		this.codigoConta = codigoConta;
 		this.hospedagem = hospedagem;
 	}
 
-	public Hospede(String nome, String cpf, String telefone, String dataNasc, String sexo, int codigoConta) {
+	public Hospede(String nome, String cpf, String telefone, Date dataNasc, String sexo, int codigoConta) {
 		super(nome, cpf, telefone, dataNasc);
 		this.sexo = sexo;
 		this.codigoConta = codigoConta;

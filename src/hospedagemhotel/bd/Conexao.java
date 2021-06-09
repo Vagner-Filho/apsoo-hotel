@@ -253,7 +253,7 @@ public class Conexao{
 				hospede.setNome(rs.getString("nome"));
 				hospede.setCpf(rs.getString("cpf"));
 				hospede.setTelefone(rs.getString("telefone"));
-				hospede.setDataNasc(rs.getString("dataNasc"));
+				hospede.setData(rs.getString("dataNasc"));
 				hospede.setSexo(rs.getString("sexo"));
 				hospede.setCodigoConta(rs.getInt("codigoConta"));
 				
