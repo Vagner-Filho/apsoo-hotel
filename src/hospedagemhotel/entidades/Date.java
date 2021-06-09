@@ -15,8 +15,11 @@ public class Date {
 		setAno(ano);
 	}
 
-	public Date dataNascimento() {
-		System.out.println("Data de nascimento: ");
+	public Date() {
+
+	}
+
+	public Date setData() {
 
 		System.out.println("Dia: ");
 		int dia = scanner.nextInt();
@@ -27,9 +30,13 @@ public class Date {
 		System.out.println("Ano: ");
 		int ano = scanner.nextInt();
 
-		Date dataNascimento = new Date(dia, mes, ano);
+		Date data = new Date(dia, mes, ano);
 
-		return dataNascimento;
+		return data;
+	}
+
+	public String getData() {
+		return this.toString();
 	}
 
 	public int getDia() {
@@ -70,5 +77,4 @@ public class Date {
 		
 		return getDia() + "/" + getMes() + "/" + getAno();
 	}
-	
 }

@@ -15,7 +15,6 @@ public class Main {
 
 		// inicializa o banco de dados 
 		Conexao.InitBD();
-
 		
 		System.out.println("REALIZAR RESERVA");
 		System.out.println("CPF do hóspede: ");

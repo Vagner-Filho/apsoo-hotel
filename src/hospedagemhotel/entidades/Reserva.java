@@ -22,6 +22,7 @@ public class Reserva {
 		setQuarto(quarto);
 		setDataInicial(dataInicial);
 		setDataFinal(dataFinal);
+		setIdReserva(idReserva);
 	}
 
 	//Métodos de reserva
