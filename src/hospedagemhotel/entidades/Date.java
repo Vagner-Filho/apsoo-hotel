@@ -1,11 +1,33 @@
 package hospedagemhotel.entidades;
 
+import java.util.Scanner;
+
 public class Date {
 	private int dia;
 	private int mes;
 	private int ano;
 	
+	Scanner scanner = new Scanner(System.in);
+	
 	public Date(int dia, int mes, int ano) {
+		setDia(dia);
+		setMes(mes);
+		setAno(ano);
+	}
+	
+	public Date() { }
+	
+	public void setData() {
+
+		System.out.println("Dia: ");
+		int dia = scanner.nextInt();
+
+		System.out.println("Mes: ");
+		int mes = scanner.nextInt();
+
+		System.out.println("Ano: ");
+		int ano = scanner.nextInt();
+
 		setDia(dia);
 		setMes(mes);
 		setAno(ano);
@@ -16,7 +38,12 @@ public class Date {
 	}
 
 	public void setDia(int dia) {
-		this.dia = dia;
+		if (dia > 0 && dia < 32) {
+			this.dia = dia;
+		}
+		else {
+			System.out.println("Dia invalido");
+		}
 	}
 
 	public int getMes() {
@@ -24,7 +51,12 @@ public class Date {
 	}
 
 	public void setMes(int mes) {
-		this.mes = mes;
+		if (mes > 0 && mes < 13) {
+			this.mes = mes;
+		}
+		else {
+			System.out.println("Mês inválido");
+		}
 	}
 
 	public int getAno() {
