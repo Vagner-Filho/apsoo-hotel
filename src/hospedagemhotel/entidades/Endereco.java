@@ -1,8 +1,12 @@
 package hospedagemhotel.entidades;
 
+import java.util.Scanner;
+
 public class Endereco {
     private String rua, bairro, cidade, estado, complemento;
     private int numero, cep;
+    
+    Scanner scanner = new Scanner(System.in);
 
     public Endereco(String rua, String bairro, String cidade, String estado, String complemento, int numero, int cep) {
         setRua(rua);
@@ -13,7 +17,48 @@ public class Endereco {
         setNumero(numero);
         setCep(cep);
     }
-
+    
+    
+    public void setEndereco() {
+	    System.out.println("Rua: ");
+		String rua = scanner.nextLine();
+		System.out.println();
+	
+		System.out.println("Bairro: ");
+		String bairro = scanner.nextLine();
+		System.out.println();
+	
+		System.out.println("Cidade: ");
+		String cidade = scanner.nextLine();
+		System.out.println();
+	
+		System.out.println("Estado: ");
+		String estado = scanner.nextLine();
+		System.out.println();
+	
+		System.out.println("Complemento: ");
+		String complemento = scanner.nextLine();
+		System.out.println();
+	
+		System.out.println("Numero: ");
+		int numero = scanner.nextInt();
+		System.out.println();
+		
+		System.out.println("Cep: ");
+		int cep = scanner.nextInt();
+		System.out.println();
+		
+	
+		setRua(rua);
+		setBairro(bairro);
+		setCidade(cidade);
+		setEstado(estado);
+		setComplemento(complemento);
+		setNumero(numero);
+		setCep(cep);
+    }
+    
+    
     public void setRua(String rua) {
         this.rua = rua;
     }
