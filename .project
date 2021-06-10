@@ -6,6 +6,10 @@
 	</projects>
 	<buildSpec>
 <<<<<<< HEAD
+	</buildSpec>
+	<natures>
+=======
+<<<<<<< HEAD
 		<buildCommand>
 			<name>org.eclipse.jdt.core.javabuilder</name>
 			<arguments>
@@ -18,6 +22,7 @@
 	</buildSpec>
 	<natures>
 >>>>>>> 96e5d7e214f3f08570235c5a507a361a7ace1e82
+>>>>>>> 4093f691a566e6beb3182af600425e23d462efb6
 	</natures>
 	<filteredResources>
 		<filter>
