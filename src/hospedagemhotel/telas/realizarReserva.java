@@ -1,47 +1,32 @@
-package interfaceGrafica;
-
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.text.MaskFormatter;
+package telas;
 
 import java.awt.Color;
-import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
+
+import hospedagemhotel.Sistema;
 
 public class realizarReserva extends JFrame {
 
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					realizarReserva frame = new realizarReserva();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 * @throws ParseException 
-	 */
+	*/
 	public realizarReserva() throws ParseException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
@@ -90,11 +75,7 @@ public class realizarReserva extends JFrame {
 		btnCancelar.setBackground(UIManager.getColor("Button.focus"));
 		btnCancelar.setBounds(582, 470, 112, 32);
 		contentPane.add(btnCancelar);
-		
-		JButton btnConfirmar = new JButton("Confirmar");
-		btnConfirmar.setBackground(UIManager.getColor("Button.focus"));
-		btnConfirmar.setBounds(704, 470, 112, 32);
-		contentPane.add(btnConfirmar);
+
 		
 		JFormattedTextField cpfCaixaDeTexto = new JFormattedTextField(new MaskFormatter("###.###.###-##"));
 		cpfCaixaDeTexto.setBounds(56, 119, 265, 32);
@@ -119,5 +100,19 @@ public class realizarReserva extends JFrame {
 		JFormattedTextField valorTotalCaixaDeTexto = new JFormattedTextField();
 		valorTotalCaixaDeTexto.setBounds(114, 402, 207, 32);
 		contentPane.add(valorTotalCaixaDeTexto);
+
+		JButton btnConfirmar = new JButton("Confirmar");
+		btnConfirmar.setBackground(UIManager.getColor("Button.focus"));
+		btnConfirmar.setBounds(704, 470, 112, 32);
+		btnConfirmar.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("botao confirmar clicado");
+				
+				Sistema sis = new Sistema();
+				//sis.confirmarReserva(cpfCaixaDeTexto.getText(), dataInicialCaixaDeTexto.getText(), dataFinalCaixaDeTexto.getText(), quartoLista.getSelectedValue());
+				
+			}
+		});
+		contentPane.add(btnConfirmar);
 	}
 }

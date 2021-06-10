@@ -52,8 +52,7 @@ public class Sistema {
 
 		//Hospede hospede = new Hospede(nome, cpf, telefone, dataNascimento, endereco, sexo, codigoConta);
 
-		// primero tem que inserir um endereco, depois uma pessoa e depois um hospede no bd
-
+		//primero tem que inserir um endereco, depois uma pessoa e depois um hospede no bd
 
 		//Conexao.alterarBD("INSERT INTO hospede VALUES('" + hospede.getCpf() + "', '" + hospede.getDataNasc()+ "', '" +hospede.getSexo()+"', "+hospede.getCodigoConta()+")");
 
