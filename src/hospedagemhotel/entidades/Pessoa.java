@@ -133,6 +133,8 @@ public class Pessoa {
 	}
 
 	public boolean validaCPF(String cpf) {
+		String validosCPF = "0123456789";
+		
 		if (cpf.length() != 11) {
 			System.out.println("Quantidade de caracteres informada inválida.");
 			return false;
