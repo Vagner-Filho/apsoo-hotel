@@ -18,6 +18,8 @@ public class Sistema {
 	
 	//Ja passei o cpf por parametro, pra nao precisar escrever ele mais uma vez a toa
 	public void cadastrarHospede(String cpf) {	
+		String cpfParaParametroPessoa = cpf;
+
 		System.out.println("------CADASTRO DE HÓSPEDE------");
 		System.out.println("Digite os dados do hospede:\n");
 
@@ -48,14 +50,19 @@ public class Sistema {
 		System.out.println("Cóigo da conta:");
 		int codigoConta = scanner.nextInt();
 
+		Pessoa pessoa = new Pessoa(nome, cpf, telefone, dataNascimento, endereco);
+
 		System.out.println(nome + telefone + dataNascimento + endereco + sexo + codigoConta);
 
 		//Hospede hospede = new Hospede(nome, cpf, telefone, dataNascimento, endereco, sexo, codigoConta);
 
 		// primero tem que inserir um endereco, depois uma pessoa e depois um hospede no bd
 
+		Conexao.alterarBD("INSERT INTO endereco VALUES(" + endereco.getId() + ", '" + endereco.getRua() + "', " + endereco.getNumero() + ", '" + endereco.getBairro() + "', " + endereco.getCep() + ", '" + endereco.getCidade() + "', '" + endereco.getEstado() + "', '" + endereco.getComplemento() + "')");
 
-		//Conexao.alterarBD("INSERT INTO hospede VALUES('" + hospede.getCpf() + "', '" + hospede.getDataNasc()+ "', '" +hospede.getSexo()+"', "+hospede.getCodigoConta()+")");
+		Conexao.alterarBD("INSERT INTO pessoa VALUES('" + pessoa.getCpf() + "', " + endereco.getId() + ", '" + pessoa.getNome() + "', '" + pessoa.getDataNasc() + "', '" + pessoa.getTelefone() + "')");
+
+		Conexao.alterarBD("INSERT INTO hospede VALUES('" + hospede.getCpf() + "', '" + hospede.getDataNasc() + "', '" + hospede.getSexo() + "', " + hospede.getCodigoConta() + ")");
 
 	}
 

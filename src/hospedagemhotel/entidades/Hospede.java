@@ -11,8 +11,7 @@ public class Hospede extends Pessoa {
 	}
 	
 	
-	public Hospede(String nome, String cpf, int telefone, String dataNasc, 
-			Endereco endereco, String sexo, int codigoConta) {
+	public Hospede(String nome, String cpf, int telefone, String dataNasc, Endereco endereco, String sexo, int codigoConta) {
 		super(nome, cpf, telefone, dataNasc, endereco);
 		setSexo(sexo);
 		setCodigoConta(codigoConta);
