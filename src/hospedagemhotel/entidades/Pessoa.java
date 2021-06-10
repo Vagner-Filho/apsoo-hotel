@@ -7,32 +7,26 @@ import java.util.InputMismatchException;
 public class Pessoa {
 	private String nome;
 	private String cpf;
-<<<<<<< HEAD
-	private String telefone;
-	private Date dataNasc;
-
-	public Pessoa(){}
-	
-	public Pessoa(String nome, String cpf, String telefone, Date dataNasc) {
-=======
 	private int telefone;
-	public Date dataNasc;
+	public String dataNasc;
 	private Endereco endereco;
 	
 	public Pessoa() {}
 	
-	public Pessoa(String nome, String cpf, int telefone, Date dataNasc, Endereco endereco) {
->>>>>>> branch-Henrique
+	public Pessoa(String nome, String cpf, int telefone, String dataNasc, Endereco endereco) {
 		setNome(nome);
 		setCpf(cpf);
 		setTelefone(telefone);
 		setDataNasc(dataNasc);
-<<<<<<< HEAD
-	}
-=======
 		setEndereco(endereco);
 	}	
->>>>>>> branch-Henrique
+
+	public Pessoa(String nome, String cpf, int telefone, String dataNasc) {
+		setNome(nome);
+		setCpf(cpf);
+		setTelefone(telefone);
+		setDataNasc(dataNasc);
+	}
 
 	public String getNome() {
 		return nome;
@@ -52,33 +46,25 @@ public class Pessoa {
 			this.cpf = cpf;
 		}
 		else {
-<<<<<<< HEAD
 			System.out.println("O CPF informado não é válido.");
 		}*/ 
 		this.cpf = cpf;
-=======
-			Sistema sistema = new Sistema();
-			sistema.msgCpfInvalido();
-		}
->>>>>>> branch-Henrique
 	}
 
-	public String getTelefone() {
+	public int getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(String telefone) {
+	public void setTelefone(int telefone) {
 		this.telefone = telefone;
 	}
 	
-	public Date getDataNasc() {
+	public String getDataNasc() {
 		return dataNasc;
 	}
 
-	public void setDataNasc(Date dataNasc) {
+	public void setDataNasc(String dataNasc) {
 		this.dataNasc = dataNasc;
-<<<<<<< HEAD
-=======
 	}
 	
 	public Endereco getEndereco() {
@@ -87,7 +73,6 @@ public class Pessoa {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
->>>>>>> branch-Henrique
 	}
 
 	//Por enquanto ta bugadoo
@@ -146,16 +131,9 @@ public class Pessoa {
 		return (false);
 	}
 	}
-<<<<<<< HEAD
-
-	@Override
-	public String toString() {
-		return "Pessoa [cpf=" + cpf + ", dataNasc=" + dataNasc + ", nome=" + nome + ", telefone=" + telefone + "]";
-=======
 	
 	public String toString() {
-		return "Nome: " + nome + "\nCPF: " + cpf + "\nTelefone: " + telefone + "\nData de Nascimento: " + dataNasc + "\nEndere�o: \n" + endereco; 
->>>>>>> branch-Henrique
+		return "Nome: " + nome + "\nCPF: " + cpf + "\nTelefone: " + telefone + "\nData de Nascimento: " + dataNasc + "\nEndere�o: \n" + endereco; 
 	}
 	
 }

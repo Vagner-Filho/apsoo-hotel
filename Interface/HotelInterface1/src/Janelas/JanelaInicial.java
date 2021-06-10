@@ -63,6 +63,7 @@ public class JanelaInicial extends JFrame {
 		btnNewButton.setBounds(173, 409, 105, 23);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 		contentPane.setLayout(null);

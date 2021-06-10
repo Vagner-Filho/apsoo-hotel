@@ -14,18 +14,9 @@ public class Hospedagem {
         setReserva(reserva);
     }
 
-<<<<<<< HEAD
-    public Hospedagem() {
-        
-    }
-
-    public void setData(int dia, int mes, int ano) {
-        data = new Date(dia, mes, ano);
-=======
 
 	public void setData(Date data) {
         this.data = data;
->>>>>>> branch-Henrique
     }
     
     public Date getData() {

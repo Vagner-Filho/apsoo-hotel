@@ -5,11 +5,14 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Random;
 
-
+import hospedagemhotel.Sistema;
 import hospedagemhotel.entidades.Hospede;
 import hospedagemhotel.entidades.Quarto;
 import hospedagemhotel.entidades.TipoDeQuarto;
+
+// TODO add not null no atributo funcionario na criacao da tabela reserva
 
 public class Conexao{
 
@@ -64,6 +67,7 @@ public class Conexao{
 	 */
 	public static void InitBD(){
 		try {
+
 			// recupera a conxão com o bd
 			conexao = getConexao();
 			// cria um statement (não sei o que é, mas precisa dele para executar as querys kkkkkk)
@@ -75,7 +79,7 @@ public class Conexao{
 				"pes_end integer NOT NULL," +
 				"nome varchar (255) NOT NULL," +
 				"dataNasc varchar (10)," +
-				"telefone varchar(15)," +
+				"telefone integer," +
 				"foreign key (pes_end) references endereco(idEnd));");
 
 			stm.executeUpdate("DROP TABLE IF EXISTS funcionario");
@@ -105,9 +109,9 @@ public class Conexao{
 			stm.executeUpdate("DROP TABLE IF EXISTS reserva");
 			stm.executeUpdate("CREATE TABLE reserva (" + 			
 				"idRes integer NOT NULL primary key," +
-				"fcpf varchar (255) NOT NULL," +
-				"dataInicial date," +
-				"dataFinal date," +
+				"fcpf varchar (255)," +
+				"dataInicial varchar(10)," +
+				"dataFinal varchar(10)," +
 				"pagamento varchar (255)," + 
 				"FOREIGN KEY (fcpf) REFERENCES funcionario (fcpf))"
 				);
@@ -179,7 +183,7 @@ public class Conexao{
 				"ser_tip_ser integer NOT NULL," +
 				"FOREIGN KEY (ser_tip_ser) REFERENCES itemServico(idTipSer))"
 				);
-
+				
 			// insere um endereço no bd
 			stm.executeUpdate("INSERT INTO endereco VALUES(1, 'Rua 123', 2200, 'Vilas Boas', 12345678, 'Campo Grande', 'MS', 'Casa 1')");
 
@@ -225,7 +229,7 @@ public class Conexao{
 			conexao = getConexao();
 			Statement stm = conexao.createStatement();
 
-			stm.executeQuery(query);
+			stm.executeUpdate(query);
 			
 
 		} catch (SQLException e) {
@@ -252,8 +256,8 @@ public class Conexao{
 			
 				hospede.setNome(rs.getString("nome"));
 				hospede.setCpf(rs.getString("cpf"));
-				hospede.setTelefone(rs.getString("telefone"));
-				hospede.setData(rs.getString("dataNasc"));
+				hospede.setTelefone(rs.getInt("telefone"));
+				hospede.setDataNasc(rs.getString("dataNasc"));
 				hospede.setSexo(rs.getString("sexo"));
 				hospede.setCodigoConta(rs.getInt("codigoConta"));
 				

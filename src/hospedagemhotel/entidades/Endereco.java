@@ -1,14 +1,17 @@
 package hospedagemhotel.entidades;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Endereco {
+	private int id;
     private String rua, bairro, cidade, estado, complemento;
     private int numero, cep;
     
     Scanner scanner = new Scanner(System.in);
 
-    public Endereco(String rua, String bairro, String cidade, String estado, String complemento, int numero, int cep) {
+    public Endereco(int id, String rua, String bairro, String cidade, String estado, String complemento, int numero, int cep) {
+		setId(id);
         setRua(rua);
         setBairro(bairro);
         setCidade(cidade);
@@ -50,7 +53,9 @@ public class Endereco {
 		int cep = scanner.nextInt();
 		System.out.println();
 		
-	
+		Random aleatorio = new Random();
+		setId(aleatorio.nextInt(100));
+		
 		setRua(rua);
 		setBairro(bairro);
 		setCidade(cidade);
@@ -61,7 +66,15 @@ public class Endereco {
     }
     
     
-    public void setRua(String rua) {
+    public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setRua(String rua) {
         this.rua = rua;
     }
 
