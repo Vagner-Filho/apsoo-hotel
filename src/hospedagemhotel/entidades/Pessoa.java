@@ -131,6 +131,26 @@ public class Pessoa {
 		return (false);
 	}
 	}
+
+	public boolean validaCPF(String cpf) {
+		if (cpf.length() != 11) {
+			System.out.println("Quantidade de caracteres informada inválida.");
+			return false;
+		}
+		else {
+			for (int i = 0;  i < cpf.length(); i++) {
+
+				String numero = cpf.substring(i, i++);
+
+				if (!validosCPF.contains(numero)) {
+					return false;
+				}
+			}
+			// Retorna true se o cpf informado possuí 11 caracteres e todos são números e apenas números de 0 a 9
+			System.out.println("CPF válido!");
+			return true;
+		}
+	}
 	
 	public String toString() {
 		return "Nome: " + nome + "\nCPF: " + cpf + "\nTelefone: " + telefone + "\nData de Nascimento: " + dataNasc + "\nEndere�o: \n" + endereco; 
