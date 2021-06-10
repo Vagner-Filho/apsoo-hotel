@@ -6,11 +6,28 @@ import hospedagemhotel.bd.Conexao;
 import hospedagemhotel.entidades.Quarto;
 import hospedagemhotel.entidades.TipoDeQuarto;
 
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+
+import telas.realizarReserva;
+
 public class Main {
 	
     public static void main(String[] args) {
 
-		Scanner scanner = new Scanner(System.in);
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					realizarReserva frame = new realizarReserva();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+
+		/*Scanner scanner = new Scanner(System.in);
 		
 		Sistema sistema = new Sistema();
 
@@ -36,7 +53,7 @@ public class Main {
         	//valido = sistema.autenticaCPF(cpf);
         	System.out.println();
     	}
-    	*/
+    	
 
     	sistema.buscarHospede(cpf);
     	
@@ -51,7 +68,7 @@ public class Main {
     	dataInicial.setData();
     	
     	System.out.println("Qual a data de Saida?");
-    	dataFinal.setData();*/
+    	dataFinal.setData();
 
 
 		// DEIXAR DESSA FORMA SE FOR DECIDIDO QUE AS DATAS SERÃO DO TIPO STRING	
@@ -98,6 +115,6 @@ public class Main {
 
 
 		scanner.close();
-		
+		*/
     }
 }
