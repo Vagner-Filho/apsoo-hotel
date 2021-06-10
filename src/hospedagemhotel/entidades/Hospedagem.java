@@ -1,6 +1,5 @@
 package hospedagemhotel.entidades;
 
-import java.util.ArrayList;
 
 public class Hospedagem {
     public Date data;
@@ -17,7 +16,7 @@ public class Hospedagem {
 
 
 	public void setData(Date data) {
-        this.data = new Date(data.getDia(), data.getMes(), data.getAno());
+        this.data = data;
     }
     
     public Date getData() {
@@ -37,9 +36,7 @@ public class Hospedagem {
 	}
 
 	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = new Funcionario(funcionario.getNome(), funcionario.getCpf(), funcionario.getTelefone(),
-				funcionario.getDataNasc(), funcionario.getEndereco(), funcionario.getLogin(), 
-				funcionario.getSenha(), funcionario.getSalario(), funcionario.getCargo());
+		this.funcionario = funcionario;
 	}
 
 	public Reserva getReserva() {
@@ -47,8 +44,7 @@ public class Hospedagem {
 	}
 
 	public void setReserva(Reserva reserva) {
-		this.reserva = new Reserva(reserva.getIdReserva(), reserva.getHospede(), reserva.getFuncionario(), 
-				reserva.getQuarto(), reserva.getDataInicial(), reserva.getDataFinal());
+		this.reserva = reserva;
 	}
 	
 	
