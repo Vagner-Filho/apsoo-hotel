@@ -10,6 +10,9 @@ public class Pessoa {
 	private String telefone;
 	private Date dataNasc;
 
+	// public String[] validosCPF = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+	public String validosCPF = "0123456789";
+
 	public Pessoa(){}
 	
 	public Pessoa(String nome, String cpf, String telefone, Date dataNasc) {
@@ -112,6 +115,26 @@ public class Pessoa {
 	} catch (InputMismatchException erro) {
 		return (false);
 	}
+	}
+
+	public boolean validaCPF(String cpf) {
+		if (cpf.length() != 11) {
+			System.out.println("Quantidade de caracteres informada inválida.");
+			return false;
+		}
+		else {
+			for (int i = 0;  i < cpf.length(); i++) {
+
+				String numero = cpf.substring(i, i++);
+
+				if (!validosCPF.contains(numero)) {
+					return false;
+				}
+			}
+			// Retorna true se o cpf informado possuí 11 caracteres e todos são números e apenas números de 0 a 9
+			System.out.println("CPF válido!");
+			return true;
+		}
 	}
 
 	@Override
