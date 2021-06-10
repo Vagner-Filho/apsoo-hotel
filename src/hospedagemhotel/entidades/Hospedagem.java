@@ -1,25 +1,31 @@
 package hospedagemhotel.entidades;
 
+
 public class Hospedagem {
-    private Date data;
+    public Date data;
     private int horario;
     private Funcionario funcionario;
     private Reserva reserva;
-    
-    //Arrumar
-    public Hospedagem(int dia, int mes, int ano, int horario, Funcionario funcionario, Reserva reserva) {
-        setData(dia, mes, ano);
+
+	public Hospedagem(Date data, int horario, Reserva reserva, Funcionario funcionario) {
+        setData(data);
         setHorario(horario);
         setFuncionario(funcionario);
         setReserva(reserva);
     }
 
+<<<<<<< HEAD
     public Hospedagem() {
         
     }
 
     public void setData(int dia, int mes, int ano) {
         data = new Date(dia, mes, ano);
+=======
+
+	public void setData(Date data) {
+        this.data = data;
+>>>>>>> branch-Henrique
     }
     
     public Date getData() {
@@ -33,12 +39,11 @@ public class Hospedagem {
     public int getHorario() {
         return horario;
     }
-
-	public Funcionario getFuncionario() {
+    
+    public Funcionario getFuncionario() {
 		return funcionario;
 	}
 
-	//Arrumar
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
@@ -46,11 +51,11 @@ public class Hospedagem {
 	public Reserva getReserva() {
 		return reserva;
 	}
-	
-	//Arrumar
+
 	public void setReserva(Reserva reserva) {
 		this.reserva = reserva;
 	}
-    
-    
+	
+	
+	
 }

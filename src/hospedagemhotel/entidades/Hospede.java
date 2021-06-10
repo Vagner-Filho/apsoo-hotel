@@ -10,18 +10,33 @@ public class Hospede extends Pessoa {
 		super();
 	}
 	
+<<<<<<< HEAD
 	public Hospede(String nome, String cpf, String telefone, Date dataNasc, String sexo, int codigoConta, Hospedagem hospedagem) {
 		super(nome, cpf, telefone, dataNasc);
 		this.sexo = sexo;
 		this.codigoConta = codigoConta;
 		this.hospedagem = hospedagem;
+=======
+	
+	public Hospede(String nome, String cpf, int telefone, Date dataNasc, 
+			Endereco endereco, String sexo, int codigoConta) {
+		super(nome, cpf, telefone, dataNasc, endereco);
+		setSexo(sexo);
+		setCodigoConta(codigoConta);
+>>>>>>> branch-Henrique
 	}
+	
 
+<<<<<<< HEAD
 	public Hospede(String nome, String cpf, String telefone, Date dataNasc, String sexo, int codigoConta) {
 		super(nome, cpf, telefone, dataNasc);
 		this.sexo = sexo;
 		this.codigoConta = codigoConta;
+=======
+	public Hospede() {
+>>>>>>> branch-Henrique
 	}
+
 
 	public String getSexo() {
 		return sexo;
@@ -43,9 +58,9 @@ public class Hospede extends Pessoa {
 		return hospedagem;
 	}
 	
-	//Arrumar
 	public void setHospedagem(Hospedagem hospedagem) {
 		this.hospedagem = hospedagem;
+<<<<<<< HEAD
 	}
 
 	@Override
@@ -56,4 +71,8 @@ public class Hospede extends Pessoa {
 
 
 	
+=======
+	}	
+
+>>>>>>> branch-Henrique
 }

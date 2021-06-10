@@ -1,17 +1,27 @@
 package hospedagemhotel.entidades;
 
+import java.util.ArrayList;
+
 public class TipoDeQuarto {
 	private int id;
+<<<<<<< HEAD
     private float valor;
     private String descricao;
 
 	public TipoDeQuarto(){
 
 	}
+=======
+    private int valor;
+    private String descricao;
+>>>>>>> branch-Henrique
 
-    public TipoDeQuarto(float valor, String descricao, Quarto quarto) {
+    public TipoDeQuarto() {}
+    
+    public TipoDeQuarto(int valor, String descricao) {
         setValor(valor);
         setDescricao(descricao);
+<<<<<<< HEAD
     }
 
 	public void setId(int id) {
@@ -20,13 +30,37 @@ public class TipoDeQuarto {
 
     public int getId() {
         return id;
+=======
+>>>>>>> branch-Henrique
     }
 
-    public void setValor(float valor) {
+    //Metodo pra testar na main a gambiarra
+    public void setTipoDeQuarto(int tipo) {
+    	if(tipo == 1) {
+    		setValor(100);
+    		setDescricao("Quarto nivel Baixo");
+    	} else if(tipo == 1) {
+    		setValor(200);
+    		setDescricao("Quarto nivel Intermediario");
+    	} else {
+    		setValor(300);
+    		setDescricao("Quarto nivel Alto");
+    	}
+    }
+    
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+    
+    public void setValor(int valor) {
         this.valor = valor;
     }
 
-    public float getValor() {
+    public int getValor() {
         return valor;
     }
 
@@ -37,6 +71,7 @@ public class TipoDeQuarto {
     public String getDescricao() {
         return descricao;
     }
+<<<<<<< HEAD
 
 	@Override
 	public String toString() {
@@ -47,3 +82,7 @@ public class TipoDeQuarto {
 	
 
 }
+=======
+   
+}
+>>>>>>> branch-Henrique

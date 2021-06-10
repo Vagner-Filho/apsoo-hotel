@@ -2,22 +2,37 @@ package hospedagemhotel.entidades;
 
 import java.util.InputMismatchException;
 
-// TODO Implementar m�todo validarCpf()
+//Arrumar metodo validarCpf()
 
 public class Pessoa {
 	private String nome;
 	private String cpf;
+<<<<<<< HEAD
 	private String telefone;
 	private Date dataNasc;
 
 	public Pessoa(){}
 	
 	public Pessoa(String nome, String cpf, String telefone, Date dataNasc) {
+=======
+	private int telefone;
+	public Date dataNasc;
+	private Endereco endereco;
+	
+	public Pessoa() {}
+	
+	public Pessoa(String nome, String cpf, int telefone, Date dataNasc, Endereco endereco) {
+>>>>>>> branch-Henrique
 		setNome(nome);
 		setCpf(cpf);
 		setTelefone(telefone);
 		setDataNasc(dataNasc);
+<<<<<<< HEAD
 	}
+=======
+		setEndereco(endereco);
+	}	
+>>>>>>> branch-Henrique
 
 	public String getNome() {
 		return nome;
@@ -31,15 +46,21 @@ public class Pessoa {
 		return cpf;
 	}
 
-	//Autentica a entrada do CPF
+	//Autentica a entrada do CPF mas por enquanto nenhuma autenticacao funciona
 	public void setCpf(String cpf) {
 		/*if(autenticaCPF(cpf)) {
 			this.cpf = cpf;
 		}
 		else {
+<<<<<<< HEAD
 			System.out.println("O CPF informado não é válido.");
 		}*/ 
 		this.cpf = cpf;
+=======
+			Sistema sistema = new Sistema();
+			sistema.msgCpfInvalido();
+		}
+>>>>>>> branch-Henrique
 	}
 
 	public String getTelefone() {
@@ -49,15 +70,27 @@ public class Pessoa {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-
+	
 	public Date getDataNasc() {
 		return dataNasc;
 	}
 
 	public void setDataNasc(Date dataNasc) {
 		this.dataNasc = dataNasc;
+<<<<<<< HEAD
+=======
+	}
+	
+	public Endereco getEndereco() {
+		return endereco;
 	}
 
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+>>>>>>> branch-Henrique
+	}
+
+	//Por enquanto ta bugadoo
 	public boolean autenticaCPF(String cpf) {
 		if (cpf.equals("00000000000") || cpf.equals("11111111111") || cpf.equals("22222222222")
 		|| cpf.equals("33333333333") || cpf.equals("44444444444") || cpf.equals("55555555555")
@@ -113,10 +146,16 @@ public class Pessoa {
 		return (false);
 	}
 	}
+<<<<<<< HEAD
 
 	@Override
 	public String toString() {
 		return "Pessoa [cpf=" + cpf + ", dataNasc=" + dataNasc + ", nome=" + nome + ", telefone=" + telefone + "]";
+=======
+	
+	public String toString() {
+		return "Nome: " + nome + "\nCPF: " + cpf + "\nTelefone: " + telefone + "\nData de Nascimento: " + dataNasc + "\nEndere�o: \n" + endereco; 
+>>>>>>> branch-Henrique
 	}
 	
 }

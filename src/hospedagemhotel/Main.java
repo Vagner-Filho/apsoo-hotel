@@ -3,8 +3,20 @@ package hospedagemhotel;
 import java.util.Scanner;
 
 import hospedagemhotel.bd.Conexao;
+<<<<<<< HEAD
 import hospedagemhotel.entidades.Hospede;
 import hospedagemhotel.entidades.Quarto;
+=======
+import hospedagemhotel.entidades.Date;
+import hospedagemhotel.entidades.Endereco;
+import hospedagemhotel.entidades.Funcionario;
+import hospedagemhotel.entidades.Hospedagem;
+import hospedagemhotel.entidades.Hospede;
+import hospedagemhotel.entidades.Pessoa;
+import hospedagemhotel.entidades.Quarto;
+import hospedagemhotel.entidades.Reserva;
+import hospedagemhotel.entidades.Sistema;
+>>>>>>> branch-Henrique
 import hospedagemhotel.entidades.TipoDeQuarto;
 
 public class Main {
@@ -12,6 +24,60 @@ public class Main {
     public static void main(String[] args) {
 
 		Scanner scanner = new Scanner(System.in);
+		
+		Sistema sistema = new Sistema();
+    	
+    	System.out.println("------TELA DE REALIZAR RESERVA-------");
+    	System.out.println("Indique o cpf do cliente: ");
+    	
+    	String cpf = scanner.nextLine();
+    	System.out.println();
+    	
+    	Boolean valido = sistema.autenticaCPF(cpf);
+    	System.out.println();
+    	
+    	while (valido != true)
+    	{
+    		sistema.msgCpfInvalido();
+    		System.out.println("Indique o cpf do cliente: ");
+    		
+    		cpf = scanner.nextLine();
+        	System.out.println();
+        	
+        	valido = sistema.autenticaCPF(cpf);
+        	System.out.println();
+    	}
+    	
+    	Hospede hospede = Conexao.buscarHospede(cpf);
+    	
+    	if (hospede == null)
+    	{
+    		sistema.msgHospedeNaoCadastrado();
+    		sistema.cadastrarHospede(cpf);
+    	}
+    	
+    	Date dataInicial = new Date();
+    	Date dataFinal = new Date();
+    	
+    	System.out.println("Qual a data de Entrada?");
+    	dataInicial.setData();
+    	
+    	System.out.println("Qual a data de Saida?");
+    	dataFinal.setData();
+    	
+    	System.out.println("Selecione um tipo de Quarto:");
+    	sistema.verTiposDeQuarto();
+    	
+    	TipoDeQuarto tipoDeQuartoDesejado = new TipoDeQuarto();
+    	tipoDeQuartoDesejado.setTipoDeQuarto(scanner.nextInt());
+    	
+    	sistema.verQuartosDisponiveis(dataInicial, dataFinal, tipoDeQuartoDesejado);
+    	
+    	System.out.println("Selecione um Quarto:");
+    	
+    	Quarto quartoEscolhido = new Quarto();
+    	
+    	
 
 		// inicializa o banco de dados 
 		Conexao.InitBD();

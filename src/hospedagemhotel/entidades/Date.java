@@ -9,7 +9,27 @@ public class Date {
 
 	Scanner scanner = new Scanner(System.in);
 	
+	Scanner scanner = new Scanner(System.in);
+	
 	public Date(int dia, int mes, int ano) {
+		setDia(dia);
+		setMes(mes);
+		setAno(ano);
+	}
+	
+	public Date() { }
+	
+	public void setData() {
+
+		System.out.println("Dia: ");
+		int dia = scanner.nextInt();
+
+		System.out.println("Mes: ");
+		int mes = scanner.nextInt();
+
+		System.out.println("Ano: ");
+		int ano = scanner.nextInt();
+
 		setDia(dia);
 		setMes(mes);
 		setAno(ano);
@@ -44,11 +64,19 @@ public class Date {
 	}
 
 	public void setDia(int dia) {
+<<<<<<< HEAD
 		if (dia > 0 && dia < 31) {
 			this.dia = dia;
 		}
 		else {
 			System.out.println("Dia inválido");
+=======
+		if (dia > 0 && dia < 32) {
+			this.dia = dia;
+		}
+		else {
+			System.out.println("Dia invalido");
+>>>>>>> branch-Henrique
 		}
 	}
 
@@ -74,7 +102,6 @@ public class Date {
 	}
 	
 	public String toString(){
-		
 		return getDia() + "/" + getMes() + "/" + getAno();
 	}
 }
