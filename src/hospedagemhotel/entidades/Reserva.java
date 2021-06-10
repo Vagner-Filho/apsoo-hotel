@@ -1,95 +1,94 @@
 package hospedagemhotel.entidades;
 
-// TODO Implementar m�todos 'confirmarReserva()' e 'cancelarReserva()'
+import java.util.ArrayList;
+import java.util.Random;
+
 
 public class Reserva {
-	private int IdReserva;
+	private int idReserva;
 	private Hospede hospede; 
 	private Funcionario funcionario ;
-	private Quarto quarto;
-	private Hospedagem hospedagem;
-	private Date dataInicial; 
-	private Date dataFinal; 
+	private ArrayList<Quarto> quartos = new ArrayList();
+	public Date dataInicial; 
+	public Date dataFinal; 
 	private String pagamento;
 	
-	public Reserva(String hospede, Funcionario funcionario, int codigoQuarto, int diaI, 
-			int mesI, int anoI, int diaF, int mesF, int anoF) {
-		setHospede(hospede);
-		setFuncionario(funcionario);
-		setQuarto(codigoQuarto);
-		setDataInicial(diaI, mesI, anoI);
-		setDataFinal(diaF, mesF, anoF);
-	}
-
 	public Reserva() {
+		
 	}
 
-	//Métodos de reserva
+	public Reserva(int idReserva, Hospede hospede, Funcionario funcionario, 
+			Quarto quarto, Date dataInicial, Date dataFinal) {
+			setIdReserva(idReserva);
+			setHospede(hospede);
+			setFuncionario(funcionario);
+			setQuarto(quarto);
+			setDataInicial(dataInicial);
+			setDataFinal(dataFinal);
+	}
+
+
+	//Metodos de reserva
 	public int getIdReserva() {
-		return IdReserva;
+		return idReserva;
 	}
 
 	public void setIdReserva(int idReserva) {
-		IdReserva = idReserva;
+		this.idReserva = idReserva;
 	}
 	
-	//Métodos de pessoas
+	//Metodos de pessoas
 	public Hospede getHospede() {
 		return hospede;
 	}
 
-	//Arrumar
+	public void setHospede(Hospede hospede) {
+		this.hospede = hospede;
+	}
+	
 	public void setHospede(String hospede) {
 		this.hospede.setNome(hospede);
 	}
 
-	public String getFuncionario() {
-		return funcionario.getNome();
+	public Funcionario getFuncionario() {
+		return funcionario;
 	}
 
-	//Arrumar
+	//Coloquei aqui uma opcao para criar o id da reserva, 
+	//com um numero aleatorio de 0 at� 20
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
+		Random aleatorio = new Random();
+		setIdReserva(aleatorio.nextInt(20));
 	}
 
-	//Métodos de quarto
-	public int getQuarto() {
-		return quarto.getCodigoQuarto();
-	}
-
-	//Arrumar
-	public void setQuarto(int codigoQuarto) {
-		this.quarto.setCodigoQuarto(codigoQuarto);
-	}
-
-	//Métodos de hospedagem
-	public Hospedagem getHospedagem() {
-		return hospedagem;
+	//Arrumar esse metodo, so mostra 1 quarto
+	public Quarto getQuarto() {
+		return quartos.get(0);	
 	}
 	
-	//Arrumar
-	public void setHospedagem(Hospedagem hospedagem) {
-		this.hospedagem = hospedagem;
+	public void setQuarto(Quarto quarto) {
+		quartos.add(quarto);
 	}
 
-	//Métodos de datas
+	//Metodos de datas
 	public Date getDataInicial() {
 		return dataInicial;
 	}
 
-	public void setDataInicial(int diaI, int mesI, int anoI) {
-		dataInicial = new Date(diaI, mesI, anoI);
+	public void setDataInicial(Date dataInicial) {
+		this.dataInicial = dataInicial;
 	}
 
 	public Date getDataFinal() {
 		return dataFinal;
 	}
 
-	public void setDataFinal(int diaF, int mesF, int anoF) {
-		dataFinal = new Date(diaF, mesF, anoF);
+	public void setDataFinal(Date dataFinal) {
+		this.dataFinal = dataFinal;
 	}
 
-	//Métodos de pagamento
+	//Metodos de pagamento
 	public String getPagamento() {
 		return pagamento;
 	}
@@ -100,7 +99,7 @@ public class Reserva {
 	
 	@Override
 	public String toString() {
-		return "Reserva [hospede=" + hospede + ", funcionario=" + funcionario + ", quarto=" + quarto + ", dataInicial="
+		return "Reserva [hospede=" + hospede + ", funcionario=" + funcionario + ", quartos=" + quartos.toString() + ", dataInicial="
 				+ dataInicial + ", dataFinal=" + dataFinal + "]";
 	}
 	

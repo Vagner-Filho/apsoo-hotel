@@ -1,21 +1,46 @@
 package hospedagemhotel.entidades;
 
-public class TipoDeQuarto {
-    private float valor;
-    private String descricao;
-    private Quarto quarto; //Tem que ser uma lista de quartos
+import java.util.ArrayList;
 
-    public TipoDeQuarto(float valor, String descricao, Quarto quarto) {
+public class TipoDeQuarto {
+	private int id;
+    private int valor;
+    private String descricao;
+
+    public TipoDeQuarto() {}
+    
+    public TipoDeQuarto(int valor, String descricao) {
         setValor(valor);
         setDescricao(descricao);
-        setQuarto(quarto);
     }
 
-    public void setValor(float valor) {
+    //Metodo pra testar na main a gambiarra
+    public void setTipoDeQuarto(int tipo) {
+    	if(tipo == 1) {
+    		setValor(100);
+    		setDescricao("Quarto nivel Baixo");
+    	} else if(tipo == 1) {
+    		setValor(200);
+    		setDescricao("Quarto nivel Intermediario");
+    	} else {
+    		setValor(300);
+    		setDescricao("Quarto nivel Alto");
+    	}
+    }
+    
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+    
+    public void setValor(int valor) {
         this.valor = valor;
     }
 
-    public float getValor() {
+    public int getValor() {
         return valor;
     }
 
@@ -26,38 +51,5 @@ public class TipoDeQuarto {
     public String getDescricao() {
         return descricao;
     }
-
-	public Quarto getQuarto() {
-		return quarto;
-	}
-	
-	//Arrumar
-	public void setQuarto(Quarto quarto) {
-		this.quarto = quarto;
-	}
-    
-	//Arrumar
-	public void verTiposDeQuarto() {
-		System.out.print("Tipo 1: \n" + "Valor: 100\n" + "Descrição: Quarto nível Baixo" + 
-		"Quarto 1234");
-		System.out.print("Tipo 2: \n" + "Valor: 200\n" + "Descrição: Quarto nível Médio" + 
-		"Quarto 3456");
-		System.out.print("Tipo 3: \n" + "Valor: 300\n" + "Descrição: Quarto nível Alto" + 
-		"Quarto 5678");
-	}
-	
-	//Arrumar
-	public Quarto verQuartosDisponiveis(int diaI, int mesI, int anoI, int diaF, int mesF, 
-			int anoF, TipoDeQuarto tipoDeQuartoDesejado) {
-		if (tipoDeQuartoDesejado.quarto.getSituacao() == 0) {
-			return quarto;
-		}
-		return null;
-	}
-	
-	
+   
 }
-	
-	
-	
-	

@@ -6,20 +6,18 @@ public class Hospede extends Pessoa {
 	private int codigoConta;
 	private Hospedagem hospedagem;
 	
-	public Hospede(String nome, String cpf, int telefone, int dia, int mes, int ano, 
-			String rua, String bairro, String cidade, String estado, String complemento, 
-			int numero, int cep, String sexo, int codigoConta, Hospedagem hospedagem) {
-		super(nome, cpf, telefone, dia, mes, ano, rua, bairro, cidade, estado, complemento, numero, cep);
+	
+	public Hospede(String nome, String cpf, int telefone, Date dataNasc, 
+			Endereco endereco, String sexo, int codigoConta) {
+		super(nome, cpf, telefone, dataNasc, endereco);
 		setSexo(sexo);
 		setCodigoConta(codigoConta);
-		setHospedagem(hospedagem);
+	}
+	
+
+	public Hospede() {
 	}
 
-	public Hospede(String nome, String cpf, int telefone, int dia, int mes, int ano, String rua, String bairro, String cidade, String estado, String complemento, int numero, int cep, String sexo, int codigoConta) {
-		super(nome, cpf, telefone, dia, mes, ano, rua, bairro, cidade, estado, complemento, numero, cep);
-		setSexo(sexo);
-		setCodigoConta(codigoConta);
-	}
 
 	public String getSexo() {
 		return sexo;
@@ -41,8 +39,8 @@ public class Hospede extends Pessoa {
 		return hospedagem;
 	}
 	
-	//Arrumar
 	public void setHospedagem(Hospedagem hospedagem) {
 		this.hospedagem = hospedagem;
 	}	
+
 }
