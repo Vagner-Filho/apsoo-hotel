@@ -2,7 +2,7 @@ package hospedagemhotel.entidades;
 
 import java.util.InputMismatchException;
 
-// TODO Implementar mï¿½todo validarCpf()
+//Arrumar metodo validarCpf()
 
 public class Pessoa {
 	private String nome;
@@ -11,14 +11,7 @@ public class Pessoa {
 	public Date dataNasc;
 	private Endereco endereco;
 	
-	public Pessoa(String nome, String cpf, int telefone, int dia, int mes, int ano, String rua, 
-			String bairro, String cidade, String estado, String complemento, int numero, int cep) {
-		setNome(nome);
-		setCpf(cpf);
-		setTelefone(telefone);
-		setDataNasc(dia, mes, ano);
-		setEndereco(rua, bairro, cidade, estado, complemento, numero, cep);
-	}
+	public Pessoa() {}
 	
 	public Pessoa(String nome, String cpf, int telefone, Date dataNasc, Endereco endereco) {
 		setNome(nome);
@@ -26,15 +19,7 @@ public class Pessoa {
 		setTelefone(telefone);
 		setDataNasc(dataNasc);
 		setEndereco(endereco);
-	}
-	
-	public Pessoa( ) {}
-	
-
-	public Pessoa(String nome) {
-		this.nome = nome;
-	}
-
+	}	
 
 	public String getNome() {
 		return nome;
@@ -48,7 +33,7 @@ public class Pessoa {
 		return cpf;
 	}
 
-	//Autentica a entrada do CPF
+	//Autentica a entrada do CPF mas por enquanto nenhuma autenticacao funciona
 	public void setCpf(String cpf) {
 		if(autenticaCPF(cpf)) {
 			this.cpf = cpf;
@@ -71,29 +56,19 @@ public class Pessoa {
 		return dataNasc;
 	}
 
-	public void setDataNasc(int dia, int mes, int ano) {
-		this.dataNasc = new Date(dia, mes, ano);
-	}
-	
 	public void setDataNasc(Date dataNasc) {
-		this.dataNasc = new Date(dataNasc.getDia(), dataNasc.getMes(), dataNasc.getAno());
+		this.dataNasc = dataNasc;
 	}
 	
 	public Endereco getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(String rua, String bairro, String cidade, String estado, 
-			String complemento, int numero, int cep) {
-		this.endereco = new Endereco(rua, bairro, cidade, estado, complemento, numero, cep);
-	}
-	
 	public void setEndereco(Endereco endereco) {
-		this.endereco = new Endereco(endereco.getRua(), endereco.getBairro(), 
-				endereco.getCidade(), endereco.getEstado(), endereco.getComplemento(),
-				endereco.getNumero(), endereco.getCep());
+		this.endereco = endereco;
 	}
 
+	//Por enquanto ta bugadoo
 	public boolean autenticaCPF(String cpf) {
 		if (cpf.equals("00000000000") || cpf.equals("11111111111") || cpf.equals("22222222222")
 		|| cpf.equals("33333333333") || cpf.equals("44444444444") || cpf.equals("55555555555")
@@ -151,7 +126,7 @@ public class Pessoa {
 	}
 	
 	public String toString() {
-		return "Nome: " + nome + "\nCPF: " + cpf + "\nTelefone: " + telefone + "\nData de Nascimento: " + dataNasc + "\nEndereço: " + endereco; 
+		return "Nome: " + nome + "\nCPF: " + cpf + "\nTelefone: " + telefone + "\nData de Nascimento: " + dataNasc + "\nEndereço: \n" + endereco; 
 	}
 	
 }
