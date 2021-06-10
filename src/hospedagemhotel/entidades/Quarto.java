@@ -15,7 +15,6 @@ public class Quarto {
         setCodigoQuarto(codigoQuarto);
         setLocalizacao(localizacao);
         setSituacao(situacao);
-        setHospedagem();
     }
 
     public void setCodigoQuarto(int codigoQuarto) {
@@ -37,10 +36,26 @@ public class Quarto {
     public void setSituacao(int situacao) {
         this.situacao = situacao;
     }
+    
+    public Hospedagem getHospedagem() {
+		return hospedagem;
+	}
+	
+	public void setHospedagem(Hospedagem hospedagem) {
+		this.hospedagem = hospedagem;
+	}
 
     public int getSituacao() {
         return situacao;
     }
+    
+    public TipoDeQuarto getTipoDeQuarto() {
+		return tipoDeQuarto;
+	}
+
+	public void setTipoDeQuarto(TipoDeQuarto tipoDeQuarto) {
+		this.tipoDeQuarto = tipoDeQuarto;
+	}
 
     // Parametro da funcao setSituacao pode mudar para atender diferentes situacoes de um quarto
     public void mudarSituacaoQuarto(Quarto quarto) {
@@ -52,14 +67,6 @@ public class Quarto {
         
         leitor.close();
     }
-
-	public Hospedagem getHospedagem() {
-		return hospedagem;
-	}
-	
-	public void setHospedagem() {
-		hospedagem = null;
-	}
     
 	public String toString() {
 		return "Codigo: " + codigoQuarto + "\nLocalizacao: " + localizacao + 
