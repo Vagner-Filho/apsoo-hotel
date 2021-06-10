@@ -3,21 +3,39 @@ package hospedagemhotel.entidades;
 import java.util.ArrayList;
 
 public class TipoDeQuarto {
+	private int id;
     private int valor;
     private String descricao;
-    private ArrayList<Quarto> quartos = new ArrayList();
 
+    public TipoDeQuarto() {}
+    
     public TipoDeQuarto(int valor, String descricao) {
         setValor(valor);
         setDescricao(descricao);
     }
+
+    //Metodo pra testar na main a gambiarra
+    public void setTipoDeQuarto(int tipo) {
+    	if(tipo == 1) {
+    		setValor(100);
+    		setDescricao("Quarto nivel Baixo");
+    	} else if(tipo == 1) {
+    		setValor(200);
+    		setDescricao("Quarto nivel Intermediario");
+    	} else {
+    		setValor(300);
+    		setDescricao("Quarto nivel Alto");
+    	}
+    }
     
-    public TipoDeQuarto(int valor, String descricao, Quarto quarto1, Quarto quarto2) {
-        setValor(valor);
-        setDescricao(descricao);
-        setQuarto(quarto1, quarto2);
+    public void setId(int id) {
+        this.id = id;
     }
 
+    public int getId() {
+        return id;
+    }
+    
     public void setValor(int valor) {
         this.valor = valor;
     }
@@ -33,23 +51,5 @@ public class TipoDeQuarto {
     public String getDescricao() {
         return descricao;
     }
-
-	public String getQuarto() {
-		return quartos.toString();
-	}
-
-	public void setQuarto(Quarto quarto1, Quarto quarto2) {
-		quartos.add(quarto1);
-		quartos.add(quarto2);
-	}
-    
-	//FALTA FAZER ESSE METODO
-	public String verQuartosDisponiveis(Date Inicial, Date Final, TipoDeQuarto tipoDeQuartoDesejado) {
-		if (tipoDeQuartoDesejado.quartos.get(0).getHospedagem().getReserva().dataInicial != Inicial || 
-			tipoDeQuartoDesejado.quartos.get(0).getHospedagem().getReserva().dataFinal != Final	) {
-			return quartos.toString();
-		}
-		else 
-			return "Não há quartos disponíveis";
-	}
+   
 }
