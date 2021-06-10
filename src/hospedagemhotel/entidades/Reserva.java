@@ -3,7 +3,6 @@ package hospedagemhotel.entidades;
 import java.util.ArrayList;
 import java.util.Random;
 
-// TODO Implementar m�todos 'confirmarReserva()' e 'cancelarReserva()'
 
 public class Reserva {
 	private int idReserva;
@@ -29,8 +28,7 @@ public class Reserva {
 	}
 
 
-
-	//Métodos de reserva
+	//Metodos de reserva
 	public int getIdReserva() {
 		return idReserva;
 	}
@@ -39,13 +37,13 @@ public class Reserva {
 		this.idReserva = idReserva;
 	}
 	
-	//Métodos de pessoas
+	//Metodos de pessoas
 	public Hospede getHospede() {
 		return hospede;
 	}
 
 	public void setHospede(Hospede hospede) {
-		this.hospede = new Hospede(hospede.getSexo(), hospede.getCodigoConta());
+		this.hospede = hospede;
 	}
 	
 	public void setHospede(String hospede) {
@@ -56,15 +54,15 @@ public class Reserva {
 		return funcionario;
 	}
 
+	//Coloquei aqui uma opcao para criar o id da reserva, 
+	//com um numero aleatorio de 0 at� 20
 	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = new Funcionario(funcionario.getNome(), funcionario.getCpf(), funcionario.getTelefone(),
-				funcionario.getDataNasc(), funcionario.getEndereco(), funcionario.getLogin(), 
-				funcionario.getSenha(), funcionario.getSalario(), funcionario.getCargo());
+		this.funcionario = funcionario;
 		Random aleatorio = new Random();
 		setIdReserva(aleatorio.nextInt(20));
 	}
 
-	//Arrumar esse metodo, s� mostra 1 quarto
+	//Arrumar esse metodo, so mostra 1 quarto
 	public Quarto getQuarto() {
 		return quartos.get(0);	
 	}
@@ -73,13 +71,13 @@ public class Reserva {
 		quartos.add(quarto);
 	}
 
-	//Métodos de datas
+	//Metodos de datas
 	public Date getDataInicial() {
 		return dataInicial;
 	}
 
 	public void setDataInicial(Date dataInicial) {
-		this.dataInicial = new Date(dataInicial.getDia(), dataInicial.getMes(), dataInicial.getAno());
+		this.dataInicial = dataInicial;
 	}
 
 	public Date getDataFinal() {
@@ -87,10 +85,10 @@ public class Reserva {
 	}
 
 	public void setDataFinal(Date dataFinal) {
-		this.dataFinal = new Date(dataFinal.getDia(), dataFinal.getMes(), dataFinal.getAno());
+		this.dataFinal = dataFinal;
 	}
 
-	//Métodos de pagamento
+	//Metodos de pagamento
 	public String getPagamento() {
 		return pagamento;
 	}
