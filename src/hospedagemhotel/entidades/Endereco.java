@@ -18,8 +18,10 @@ public class Endereco {
         setCep(cep);
     }
     
-    
-    public void setEndereco() {
+    public Endereco() {}
+
+
+	public void setEndereco() {
 	    System.out.println("Rua: ");
 		String rua = scanner.nextLine();
 		System.out.println();
