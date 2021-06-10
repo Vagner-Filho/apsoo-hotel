@@ -15,6 +15,10 @@ public class Hospede extends Pessoa {
 	}
 	
 
+	public Hospede() {
+	}
+
+
 	public String getSexo() {
 		return sexo;
 	}
