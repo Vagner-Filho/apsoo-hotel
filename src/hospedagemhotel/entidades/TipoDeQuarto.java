@@ -56,7 +56,7 @@ public class TipoDeQuarto {
 
 	@Override
 	public String toString() {
-		return "ID: " + getId() + "\nDescrição: " + getDescricao() + "\nValor: R$" + getValor();
+		return getDescricao();
 	}
    
 }

@@ -118,10 +118,7 @@ public class Sistema {
 
 	public TipoDeQuarto[] verTiposDeQuarto() {
 		TipoDeQuarto[] tipos = Conexao.verTiposDeQuarto();
-		for (TipoDeQuarto tipoDeQuarto : tipos) {
-			System.out.println(tipoDeQuarto);
-		}
-
+		
 		return tipos;
 	}
 	
@@ -135,15 +132,11 @@ public class Sistema {
 			tipoDeQuartoDesejado.setTipoDeQuarto(scanner.nextInt());
 			verQuartosDisponiveis(tipoDeQuartoDesejado);
 		}
-		
-		for (Quarto quarto : listaQuartos) {
-			System.out.println(quarto);
-		}
 
 		return listaQuartos;
 	}
 
-	public void buscarHospede(String cpf){
+	public Hospede buscarHospede(String cpf){
 		Hospede hospede = new Hospede();
 		hospede = Conexao.buscarHospede(cpf);
 		if (hospede == null){
@@ -152,10 +145,10 @@ public class Sistema {
     	}else{
 			System.out.println("nome" + hospede.getNome());
 		}
+
+		return hospede;
 		
 	}
-
-	//O metodo autenticaCpf pode ser aqui tambem
 
 
 	public int numeroAleatorio(){

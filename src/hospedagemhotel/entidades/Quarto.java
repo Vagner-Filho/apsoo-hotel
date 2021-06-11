@@ -3,13 +3,14 @@ package hospedagemhotel.entidades;
 import java.util.Scanner;
 
 public class Quarto {
-    private int codigoQuarto, localizacao, situacao; //Situa��o 0 n�o est�o usando / Situa��o 1 est�o usando
+    private int codigoQuarto, situacao; //Situa��o 0 n�o est�o usando / Situa��o 1 est�o usando
     private Hospedagem hospedagem;
+	private String localizacao; 
 	private TipoDeQuarto tipoDeQuarto;
 
 	public Quarto(){}
 
-    public Quarto(int codigoQuarto, int localizacao, int situacao) {
+    public Quarto(int codigoQuarto, String localizacao, int situacao) {
         setCodigoQuarto(codigoQuarto);
         setLocalizacao(localizacao);
         setSituacao(situacao);
@@ -23,11 +24,11 @@ public class Quarto {
         return codigoQuarto;
     }
 
-    public void setLocalizacao(int localizacao) {
+    public void setLocalizacao(String localizacao) {
         this.localizacao = localizacao;
     }
 
-    public int getLocalizacao() {
+    public String getLocalizacao() {
         return localizacao;
     }
 
@@ -74,8 +75,7 @@ public class Quarto {
 			sit = "Indisponível";
 		}
 
-		return "Codigo: " + getCodigoQuarto() + "\nLocalizacao: " + getLocalizacao() + 
-				"\nSituacao: " + sit;
+		return "Localização: " + getLocalizacao() + "-Situação: " + sit;
 
 	}
     

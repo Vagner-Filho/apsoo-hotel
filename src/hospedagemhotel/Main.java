@@ -2,15 +2,17 @@ package hospedagemhotel;
 
 import java.awt.EventQueue;
 
+
 import hospedagemhotel.bd.Conexao;
 import hospedagemhotel.telas.procurarHospede;
+
 
 public class Main {
 	
     public static void main(String[] args) {
-		
-		Conexao.InitBD();
 
+		Conexao.InitBD();
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -22,9 +24,10 @@ public class Main {
 			}
 		});
 
-		
 
-		/*Scanner scanner = new Scanner(System.in);
+		
+/*
+		Scanner scanner = new Scanner(System.in);
 		
 		Sistema sistema = new Sistema();
 

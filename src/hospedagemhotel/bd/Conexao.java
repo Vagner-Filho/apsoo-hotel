@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import hospedagemhotel.entidades.Endereco;
 import hospedagemhotel.entidades.Hospede;
@@ -23,7 +24,7 @@ public class Conexao{
 			conexao = DriverManager.getConnection(url);
 			return true;
 		}catch(SQLException e){
-			System.err.println(e.getMessage());
+			System.err.println("conectar: " + e.getMessage());
 			return false;
 		}
 		
@@ -72,7 +73,7 @@ public class Conexao{
 			// cria um statement (não sei o que é, mas precisa dele para executar as querys kkkkkk)
 			Statement stm = conexao.createStatement();
 
-			stm.executeUpdate("DROP TABLE IF EXISTS pessoa");
+			//stm.executeUpdate("DROP TABLE IF EXISTS pessoa");
 			stm.executeUpdate("CREATE TABLE pessoa (" + 
 				"cpf varchar (11) NOT NULL PRIMARY KEY," +
 				"pes_end integer NOT NULL," +
@@ -80,7 +81,7 @@ public class Conexao{
 				"dataNasc varchar (10)," +
 				"foreign key (pes_end) references endereco(idEnd));");
 
-			stm.executeUpdate("DROP TABLE IF EXISTS funcionario");
+			//stm.executeUpdate("DROP TABLE IF EXISTS funcionario");
 			stm.executeUpdate("CREATE TABLE funcionario (" + 		
 				"fcpf varchar (11) NOT NULL primary key," +
 				"login varchar (255) NOT NULL," +
@@ -89,7 +90,7 @@ public class Conexao{
 				"cargo varchar (255) NOT NULL," +
 				"FOREIGN KEY (fcpf) REFERENCES pessoa(cpf))");
 
-			stm.executeUpdate("DROP TABLE IF EXISTS hospede");
+			//stm.executeUpdate("DROP TABLE IF EXISTS hospede");
 			stm.executeUpdate("CREATE TABLE hospede (" + 			
 				"hcpf varchar (11) NOT NULL primary key," +
 				"hos_res integer NOT NULL," +
@@ -98,13 +99,13 @@ public class Conexao{
 				"FOREIGN KEY (hcpf) REFERENCES pessoa(cpf)," +
 				"FOREIGN KEY (hos_res) REFERENCES reserva(idRes))");
 
-			stm.executeUpdate("DROP TABLE IF EXISTS p_telefone");
+			//stm.executeUpdate("DROP TABLE IF EXISTS p_telefone");
 			stm.executeUpdate("CREATE TABLE p_telefone (" + 		
 				"pcpf varchar (255) NOT NULL primary key," +
 				"num_telefone varchar (11)," +
 				"FOREIGN KEY (pcpf) REFERENCES pessoa(cpf))");
 
-			stm.executeUpdate("DROP TABLE IF EXISTS reserva");
+			//stm.executeUpdate("DROP TABLE IF EXISTS reserva");
 			stm.executeUpdate("CREATE TABLE reserva (" + 			
 				"idRes integer NOT NULL primary key," +
 				"fcpf varchar (255)," +
@@ -114,7 +115,7 @@ public class Conexao{
 				"FOREIGN KEY (fcpf) REFERENCES funcionario (fcpf))"
 				);
 
-			stm.executeUpdate("DROP TABLE IF EXISTS reservaQuarto");
+			//stm.executeUpdate("DROP TABLE IF EXISTS reservaQuarto");
 			stm.executeUpdate("CREATE TABLE reservaQuarto (" + 		
 				"idRes integer NOT NULL," +
 				"codigoQuarto integer NOT NULL primary key," +
@@ -122,18 +123,18 @@ public class Conexao{
 				"FOREIGN KEY (codigoQuarto) REFERENCES quarto(codigoQuarto))" 
 				);
 
-			stm.executeUpdate("DROP TABLE IF EXISTS quarto");
+			//stm.executeUpdate("DROP TABLE IF EXISTS quarto");
 			stm.executeUpdate("CREATE TABLE quarto (" + 			
 				"codigoQuarto integer NOT NULL primary key," +
 				"qua_tip_quarto qua_tip_quarto integer NOT NULL," +
 				"qua_hospedagem integer NOT NULL," +
-				"localizacao integer," +
+				"localizacao varchar(5)," +
 				"situacao integer," +
 				"FOREIGN KEY (qua_hospedagem) REFERENCES hospedagem(idHospedagem)," + 
 				"FOREIGN KEY (qua_tip_quarto) REFERENCES tipoDeQuarto(idTipQuarto))"
 				);
 			
-			stm.executeUpdate("DROP TABLE IF EXISTS hospedagem");
+			//stm.executeUpdate("DROP TABLE IF EXISTS hospedagem");
 			stm.executeUpdate("CREATE TABLE hospedagem (" + 		
 				"idHospedagem integer NOT NULL primary key," +
 				"hos_res integer NOT NULL," +
@@ -146,7 +147,7 @@ public class Conexao{
 				"FOREIGN KEY (hcpf) REFERENCES hospede(hcpf))"
 				);
 
-			stm.executeUpdate("DROP TABLE IF EXISTS endereco");
+			//stm.executeUpdate("DROP TABLE IF EXISTS endereco");
 			stm.executeUpdate("CREATE TABLE endereco (" + 			
 				"idEnd integer NOT NULL primary key," +
 				"rua varchar (255)," +
@@ -158,14 +159,14 @@ public class Conexao{
 				"complemento varchar (500))"
 				);
 			
-			stm.executeUpdate("DROP TABLE IF EXISTS tipoDeQuarto");
+			//stm.executeUpdate("DROP TABLE IF EXISTS tipoDeQuarto");
 			stm.executeUpdate("CREATE TABLE tipoDeQuarto (" + 		
 				"idTipQuarto integer NOT NULL primary key," +
 				"valor integer," +
 				"descricao varchar (500))" 
 				);
 
-			stm.executeUpdate("DROP TABLE IF EXISTS itemServico");
+			//stm.executeUpdate("DROP TABLE IF EXISTS itemServico");
 			stm.executeUpdate("CREATE TABLE itemServico (" + 		
 				"item_ser_hospedagem integer NOT NULL," +
 				"idTipSer integer NOT NULL primary key," +
@@ -175,7 +176,7 @@ public class Conexao{
 				"FOREIGN KEY (item_ser_hospedagem) REFERENCES hospedagem(idHospedagem))"
 				);
 			
-			stm.executeUpdate("DROP TABLE IF EXISTS servico");
+			//stm.executeUpdate("DROP TABLE IF EXISTS servico");
 			stm.executeUpdate("CREATE TABLE servico (" + 			
 				"codigo integer NOT NULL primary key," +
 				"ser_tip_ser integer NOT NULL," +
@@ -204,13 +205,16 @@ public class Conexao{
 
 
 			//insere um tipoDeQuarto
-			stm.executeUpdate("insert into tipoDeQuarto values(1, 13, 'Suite')");
+			stm.executeUpdate("insert into tipoDeQuarto values(1, 500, 'Suite')");
+			stm.executeUpdate("insert into tipoDeQuarto values(2, 100, 'Comum')");
+			stm.executeUpdate("insert into tipoDeQuarto values(3, 150, 'Intermediária')");
 
 			// insere uma hospedagem
 			stm.executeUpdate("insert into hospedagem values(1, 1, '23556987451', '06451237894', '2021-02-17', '15:00:02')");
 
 			//insere um quarto
 			stm.executeUpdate("insert into quarto values(1, 1, 1, 12, 0)");
+			stm.executeUpdate("insert into quarto values(2, 1, 1, 15, 0)");
 
 			
 		} catch (SQLException e) {
@@ -273,7 +277,7 @@ public class Conexao{
 			
 			
 		}catch(SQLException e){
-			System.out.println(e.getMessage());
+			System.out.println("buscarHospede " + e.getMessage());
 			return null;
 		}
 		
@@ -295,7 +299,7 @@ public class Conexao{
 
 			while(rs.next()) {
 				quarto.setCodigoQuarto(rs.getInt("codigoQuarto"));
-				quarto.setLocalizacao(rs.getInt("localizacao"));
+				quarto.setLocalizacao(rs.getString("localizacao"));
 				quarto.setSituacao(rs.getInt("situacao"));
 			}
 			return quarto;
@@ -312,28 +316,32 @@ public class Conexao{
 	 * Retorna um array de objetos do tipo tipoDeQuarto que são os tipos de quartos que existem 
 	 */
 	public static TipoDeQuarto[] verTiposDeQuarto(){
-		int qtdDeTipQuartos = 1;
-		TipoDeQuarto[] tipoDeQuarto = new TipoDeQuarto[qtdDeTipQuartos];
 		
+		TipoDeQuarto tipos[] = new TipoDeQuarto[100];
+		int qtdDeTipQuartos = 0;
 		try{
 
 			String query = "select * from tipoDeQuarto";
 			
 			Statement stm = conexao.createStatement();
 			ResultSet rs = stm.executeQuery(query);
-
+			
+			
 			while(rs.next()) {
-				tipoDeQuarto[qtdDeTipQuartos-1] = new TipoDeQuarto();
-				tipoDeQuarto[qtdDeTipQuartos-1].setId(rs.getInt("idTipQuarto"));
-				tipoDeQuarto[qtdDeTipQuartos-1].setValor(rs.getInt("valor"));
-				tipoDeQuarto[qtdDeTipQuartos-1].setDescricao(rs.getString("descricao"));
+				TipoDeQuarto tipoDeQuarto = new TipoDeQuarto();
+				
+				tipoDeQuarto.setId(rs.getInt("idTipQuarto"));
+				tipoDeQuarto.setValor(rs.getInt("valor"));
+				tipoDeQuarto.setDescricao(rs.getString("descricao"));
+
+				tipos[qtdDeTipQuartos] = tipoDeQuarto;
 				qtdDeTipQuartos++;
 			}
 			
-			return tipoDeQuarto;
+			return tipos;
 			
 		}catch(SQLException e){
-			System.out.println(e.getMessage());
+			System.out.println("con_verTipos " + e.getMessage());
 			return null;
 		}
 	}
@@ -342,9 +350,9 @@ public class Conexao{
 	 * Retorna um array de objetos do tipo Quarto que são os quartos disponiveis de acordo com o TIPO DE QUARTO	passado como parametro
 	 */
 	public static Quarto[] verQuartosDisponiveis(TipoDeQuarto tipoDeQuartoDesejado) {
-		int qtdDeQuartos = 1;
-		Quarto[] quartos = new Quarto[qtdDeQuartos];
-
+		
+		Quarto[] quartos = new Quarto[100];
+		int qtdDeQuartos = 0;
 		try{
 
 			String query = "select * from quarto join tipoDeQuarto on qua_tip_quarto = " + tipoDeQuartoDesejado.getId() + " and situacao = 0";
@@ -353,11 +361,15 @@ public class Conexao{
 			ResultSet rs = stm.executeQuery(query);
 
 			while(rs.next()) {
-				quartos[qtdDeQuartos-1] = new Quarto();
-				quartos[qtdDeQuartos-1].setCodigoQuarto(rs.getInt("codigoQuarto"));
-				quartos[qtdDeQuartos-1].setLocalizacao(rs.getInt("localizacao"));
-				quartos[qtdDeQuartos-1].setSituacao(rs.getInt("situacao"));
-				quartos[qtdDeQuartos-1].setTipoDeQuarto(tipoDeQuartoDesejado);
+				Quarto quarto = new Quarto();
+				
+				quarto.setCodigoQuarto(rs.getInt("codigoQuarto"));
+				quarto.setLocalizacao(rs.getString("localizacao"));
+				quarto.setSituacao(rs.getInt("situacao"));
+				quarto.setTipoDeQuarto(tipoDeQuartoDesejado);
+
+				quartos[qtdDeQuartos] = quarto;
+				qtdDeQuartos++;
 			}
 			
 			return quartos;

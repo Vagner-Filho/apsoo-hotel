@@ -1,6 +1,7 @@
 package hospedagemhotel.telas;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -16,25 +18,11 @@ import hospedagemhotel.Sistema;
 import hospedagemhotel.bd.Conexao;
 import hospedagemhotel.entidades.Hospede;
 
+import java.awt.EventQueue;
+
 public class procurarHospede extends JFrame {
 
 	private JPanel contentPane;
-
-	/**
-	 * Launch the application.
-	 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					procurarHospede frame = new procurarHospede();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
 
 	/**
 	 * Create the frame.
@@ -62,21 +50,61 @@ public class procurarHospede extends JFrame {
 		cpfLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		cpfLabel.setBounds(195, 152, 50, 37);
 		contentPane.add(cpfLabel);
+
 		
 		JButton btnBuscar = new JButton("BUSCAR");
 		btnBuscar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnBuscar.setBackground(Color.BLACK);
-		btnBuscar.setBounds(341, 223, 140, 40);
+		btnBuscar.setBounds(341, 250, 140, 40);
 		btnBuscar.addActionListener(new ActionListener(){
+			Hospede hos = new Hospede();
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("botao confirmar clicado");
 				
 				Sistema sis = new Sistema();
-				//System.out.println(cpfCaixaDeTexto.getText());
-				//sis.buscarHospede(cpfCaixaDeTexto.getText());
-				Hospede hos = new Hospede();
-				hos = Conexao.buscarHospede(cpfCaixaDeTexto.getText());
-				System.out.println(hos.getNome());
+				
+				
+				hos = sis.buscarHospede(cpfCaixaDeTexto.getText());
+
+				JLabel nomeLabel = new JLabel();
+				nomeLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+				nomeLabel.setBounds(195, 200, 200, 37);
+
+				if(hos == null){
+					nomeLabel.setText("Hóspede não cadastrado");
+				}else{
+					nomeLabel.setText("Hóspede: " + hos.getNome());
+				}
+				
+				contentPane.updateUI();
+				contentPane.add(nomeLabel);
+
+				JButton btnContinuar = new JButton("Continuar");
+				btnContinuar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+				btnContinuar.setBackground(Color.BLACK);
+				btnContinuar.setBounds(500, 250, 140, 40);
+				btnContinuar.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent e) {
+						
+						System.out.println("botao continuar clicado");
+						
+						EventQueue.invokeLater(new Runnable() {
+							public void run() {
+								try {
+									realizarReserva frame = new realizarReserva(hos.getCpf());
+									frame.setVisible(true);
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+							}
+						});
+
+						//JOptionPane.showMessageDialog(contentPane, hos.getNome());
+					}
+				});
+				
+				contentPane.add(btnContinuar);
+				
 			}
 		});
 		contentPane.add(btnBuscar);
