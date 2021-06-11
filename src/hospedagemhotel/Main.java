@@ -1,16 +1,8 @@
 package hospedagemhotel;
 
-import java.util.Scanner;
-
-import hospedagemhotel.bd.Conexao;
-import hospedagemhotel.entidades.Quarto;
-import hospedagemhotel.entidades.TipoDeQuarto;
-
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
-
-import telas.realizarReserva;
+import hospedagemhotel.telas.realizarReserva;
 
 public class Main {
 	

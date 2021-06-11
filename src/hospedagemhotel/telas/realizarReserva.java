@@ -1,4 +1,4 @@
-package telas;
+package hospedagemhotel.telas;
 
 import java.awt.Color;
 import java.awt.Font;

@@ -6,6 +6,7 @@ import java.util.Scanner;
 import hospedagemhotel.bd.Conexao;
 import hospedagemhotel.entidades.Endereco;
 import hospedagemhotel.entidades.Hospede;
+import hospedagemhotel.entidades.Pessoa;
 import hospedagemhotel.entidades.Quarto;
 import hospedagemhotel.entidades.Reserva;
 import hospedagemhotel.entidades.TipoDeQuarto;
@@ -54,7 +55,7 @@ public class Sistema {
 
 		System.out.println(nome + telefone + dataNascimento + endereco + sexo + codigoConta);
 
-		//Hospede hospede = new Hospede(nome, cpf, telefone, dataNascimento, endereco, sexo, codigoConta);
+		Hospede hospede = new Hospede(nome, cpf, telefone, dataNascimento, endereco, sexo, codigoConta);
 
 		// primero tem que inserir um endereco, depois uma pessoa e depois um hospede no bd
 

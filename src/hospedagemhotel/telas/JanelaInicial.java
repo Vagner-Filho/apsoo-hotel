@@ -1,4 +1,4 @@
-package Janelas;
+package hospedagemhotel.telas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
