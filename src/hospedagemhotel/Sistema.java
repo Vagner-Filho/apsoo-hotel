@@ -90,6 +90,10 @@ public class Sistema {
 			//relaciona a reserva ao hospede
 			Conexao.alterarBD(query);
 
+			// altera a situacao do quarto
+			query = "update quarto set situacao = 1 where codigoQuarto = " + quarto.getCodigoQuarto();
+			Conexao.alterarBD(query);
+
 			System.out.print("Reserva efetuada com sucesso!");
 		}catch (Error e){
 			System.out.println("Não foi possível cadastrar a reserva.");
@@ -100,7 +104,7 @@ public class Sistema {
 
 
 	public String cancelarReserva() {
-		return "Reserva n�o efetuada";
+		return "Reserva não efetuada";
 	}
 
 	public String msgCpfInvalido() {

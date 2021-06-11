@@ -86,6 +86,12 @@ public class realizarReserva extends JFrame {
 		btnCancelar.setBounds(582, 470, 112, 32);
 		contentPane.add(btnCancelar);
 
+		btnCancelar.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				sis.cancelarReserva();
+			}
+		});
+
 		
 		JFormattedTextField dataInicialCaixaDeTexto = new JFormattedTextField(new MaskFormatter("##/##/####"));
 		dataInicialCaixaDeTexto.setBounds(114, 180, 207, 32);
@@ -101,8 +107,6 @@ public class realizarReserva extends JFrame {
 		//tipoDeQuartoLista.setListData(tipos);
 		tipoDeQuartoLista.setBounds(154, 246, 167, 70);
 		contentPane.add(tipoDeQuartoLista);
-
-		
 		
 		tipoDeQuartoLista.addListSelectionListener(new ListSelectionListener(){
 
