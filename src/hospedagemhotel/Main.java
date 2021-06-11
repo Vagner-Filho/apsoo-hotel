@@ -1,11 +1,9 @@
 package hospedagemhotel;
 
 import java.awt.EventQueue;
-import java.util.Scanner;
 
 import hospedagemhotel.bd.Conexao;
-import hospedagemhotel.entidades.Hospede;
-import hospedagemhotel.telas.realizarReserva;
+import hospedagemhotel.telas.procurarHospede;
 
 public class Main {
 	
@@ -16,7 +14,7 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					realizarReserva frame = new realizarReserva();
+					procurarHospede frame = new procurarHospede();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

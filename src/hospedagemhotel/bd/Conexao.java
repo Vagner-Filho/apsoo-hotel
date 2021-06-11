@@ -5,9 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Random;
 
-import hospedagemhotel.Sistema;
 import hospedagemhotel.entidades.Endereco;
 import hospedagemhotel.entidades.Hospede;
 import hospedagemhotel.entidades.Quarto;

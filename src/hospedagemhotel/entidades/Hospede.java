@@ -1,4 +1,6 @@
 package hospedagemhotel.entidades;
+
+import hospedagemhotel.entidades.Hospedagem;
  
 public class Hospede extends Pessoa {
 	

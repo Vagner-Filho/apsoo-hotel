@@ -1,17 +1,20 @@
-package interfaceGrafica;
+package hospedagemhotel.telas;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.Color;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JFormattedTextField;
-import javax.swing.JButton;
+
+import hospedagemhotel.Sistema;
+import hospedagemhotel.bd.Conexao;
+import hospedagemhotel.entidades.Hospede;
 
 public class procurarHospede extends JFrame {
 
@@ -19,7 +22,7 @@ public class procurarHospede extends JFrame {
 
 	/**
 	 * Launch the application.
-	 */
+	 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -31,7 +34,7 @@ public class procurarHospede extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
@@ -64,6 +67,18 @@ public class procurarHospede extends JFrame {
 		btnBuscar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnBuscar.setBackground(Color.BLACK);
 		btnBuscar.setBounds(341, 223, 140, 40);
+		btnBuscar.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("botao confirmar clicado");
+				
+				Sistema sis = new Sistema();
+				//System.out.println(cpfCaixaDeTexto.getText());
+				//sis.buscarHospede(cpfCaixaDeTexto.getText());
+				Hospede hos = new Hospede();
+				hos = Conexao.buscarHospede(cpfCaixaDeTexto.getText());
+				System.out.println(hos.getNome());
+			}
+		});
 		contentPane.add(btnBuscar);
 	}
 

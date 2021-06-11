@@ -3,13 +3,13 @@ package hospedagemhotel;
 import java.util.Random;
 import java.util.Scanner;
 
-import hospedagemhotel.bd.Conexao;
 import hospedagemhotel.entidades.Endereco;
 import hospedagemhotel.entidades.Hospede;
 import hospedagemhotel.entidades.Pessoa;
 import hospedagemhotel.entidades.Quarto;
 import hospedagemhotel.entidades.Reserva;
 import hospedagemhotel.entidades.TipoDeQuarto;
+import hospedagemhotel.bd.Conexao;
 
 // TODO Voltar o tipo dataNascimento de date para string caso a instanciação com date não der certo
 
@@ -144,13 +144,13 @@ public class Sistema {
 	}
 
 	public void buscarHospede(String cpf){
-		Hospede hospede = Conexao.buscarHospede(cpf);
-		if (hospede == null)
-    	{
+		Hospede hospede = new Hospede();
+		hospede = Conexao.buscarHospede(cpf);
+		if (hospede == null){
     		msgHospedeNaoCadastrado();
     		//cadastrarHospede(cpf);
     	}else{
-			System.out.println(hospede.getNome());
+			System.out.println("nome" + hospede.getNome());
 		}
 		
 	}

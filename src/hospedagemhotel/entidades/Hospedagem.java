@@ -2,12 +2,12 @@ package hospedagemhotel.entidades;
 
 
 public class Hospedagem {
-    public Date data;
+    public String data;
     private int horario;
     private Funcionario funcionario;
     private Reserva reserva;
 
-	public Hospedagem(Date data, int horario, Reserva reserva, Funcionario funcionario) {
+	public Hospedagem(String data, int horario, Reserva reserva, Funcionario funcionario) {
         setData(data);
         setHorario(horario);
         setFuncionario(funcionario);
@@ -15,11 +15,11 @@ public class Hospedagem {
     }
 
 
-	public void setData(Date data) {
+	public void setData(String data) {
         this.data = data;
     }
     
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
