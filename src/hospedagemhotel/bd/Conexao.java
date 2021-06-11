@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.Random;
 
 import hospedagemhotel.Sistema;
+import hospedagemhotel.entidades.Endereco;
 import hospedagemhotel.entidades.Hospede;
 import hospedagemhotel.entidades.Quarto;
 import hospedagemhotel.entidades.TipoDeQuarto;
@@ -243,14 +244,20 @@ public class Conexao{
 	 * Retorna um hospede sem o atributo 'hospedagem'
 	 */
 	public static Hospede buscarHospede(String cpf){
+		Random aleatorio = new Random();
+		int num = aleatorio.nextInt(100);
+		
 		Hospede hospede = new Hospede();
 		try{
 			String query = "select * from hospede join pessoa on '" + cpf + "' = pessoa.cpf";
+			String query2 = "select * from endereco where idEnd in (select pes_end from pessoa where '" + cpf + "' = pessoa.cpf)";
 			
 			conexao = getConexao();
 			Statement stm = conexao.createStatement();
+			Statement atm = conexao.createStatement();
 
 			ResultSet rs = stm.executeQuery(query);
+			ResultSet ru = atm.executeQuery(query2);
 			
 			while(rs.next()) {
 			
@@ -260,7 +267,9 @@ public class Conexao{
 				hospede.setDataNasc(rs.getString("dataNasc"));
 				hospede.setSexo(rs.getString("sexo"));
 				hospede.setCodigoConta(rs.getInt("codigoConta"));
-				
+				Endereco endereco = new Endereco(ru.getInt("idEnd"), ru.getString("rua"), ru.getString("bairro"), ru.getString("cidade"), 
+						ru.getString("estado"), ru.getString("complemento"), ru.getInt("numero"), ru.getInt("cep"));
+				hospede.setEndereco(endereco);
 
 			}
 			//System.out.println(stm.executeQuery(query).getString("nome"));
