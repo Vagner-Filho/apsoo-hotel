@@ -80,7 +80,6 @@ public class Conexao{
 				"pes_end integer NOT NULL," +
 				"nome varchar (255) NOT NULL," +
 				"dataNasc varchar (10)," +
-				"telefone integer," +
 				"foreign key (pes_end) references endereco(idEnd));");
 
 			stm.executeUpdate("DROP TABLE IF EXISTS funcionario");
@@ -189,11 +188,11 @@ public class Conexao{
 			stm.executeUpdate("INSERT INTO endereco VALUES(1, 'Rua 123', 2200, 'Vilas Boas', 12345678, 'Campo Grande', 'MS', 'Casa 1')");
 
 			//insere uma pessoa 
-			stm.executeUpdate("INSERT INTO pessoa VALUES('06451237894', 1, 'Maria', '2000-02-15', '55555-8888')");
-			stm.executeUpdate("INSERT INTO pessoa VALUES('45865201424', 1, 'Marta', '2000-10-20', '2654-8425')");
+			stm.executeUpdate("INSERT INTO pessoa VALUES('06451237894', 1, 'Maria', '2000-02-15')");
+			stm.executeUpdate("INSERT INTO pessoa VALUES('45865201424', 1, 'Marta', '2000-10-20')");
 
 			// insere uma pessoa 
-			stm.executeUpdate("INSERT INTO pessoa VALUES('23556987451', 1, 'João', '1950-03-30', '65489-2354')");
+			stm.executeUpdate("INSERT INTO pessoa VALUES('23556987451', 1, 'João', '1950-03-30')");
 			
 			// insere um funcionario
 			stm.executeUpdate("INSERT INTO funcionario VALUES('23556987451', 'joao123', '1234', 1200, 'Recepcionista')");
@@ -244,8 +243,6 @@ public class Conexao{
 	 * Retorna um hospede sem o atributo 'hospedagem'
 	 */
 	public static Hospede buscarHospede(String cpf){
-		Random aleatorio = new Random();
-		int num = aleatorio.nextInt(100);
 		
 		Hospede hospede = new Hospede();
 		try{
@@ -263,7 +260,7 @@ public class Conexao{
 			
 				hospede.setNome(rs.getString("nome"));
 				hospede.setCpf(rs.getString("cpf"));
-				hospede.setTelefone(rs.getInt("telefone"));
+				//hospede.setTelefone(rs.getInt("telefone"));
 				hospede.setDataNasc(rs.getString("dataNasc"));
 				hospede.setSexo(rs.getString("sexo"));
 				hospede.setCodigoConta(rs.getInt("codigoConta"));
