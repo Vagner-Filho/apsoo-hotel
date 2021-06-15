@@ -1,4 +1,4 @@
-package hospedagemhotel.bd;
+package hospedagemhotel.persistencia;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,10 +7,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import hospedagemhotel.entidades.Endereco;
-import hospedagemhotel.entidades.Hospede;
-import hospedagemhotel.entidades.Quarto;
-import hospedagemhotel.entidades.TipoDeQuarto;
+import hospedagemhotel.model.Endereco;
+import hospedagemhotel.model.Hospede;
+import hospedagemhotel.model.Quarto;
+import hospedagemhotel.model.TipoDeQuarto;
 
 // TODO add not null no atributo funcionario na criacao da tabela reserva
 

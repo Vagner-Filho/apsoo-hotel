@@ -1,4 +1,4 @@
-package hospedagemhotel.telas;
+package hospedagemhotel.view;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -21,9 +21,9 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.MaskFormatter;
 
-import hospedagemhotel.Sistema;
-import hospedagemhotel.entidades.Quarto;
-import hospedagemhotel.entidades.TipoDeQuarto;
+import hospedagemhotel.controller.Sistema;
+import hospedagemhotel.model.Quarto;
+import hospedagemhotel.model.TipoDeQuarto;
 
 public class realizarReserva extends JFrame {
 

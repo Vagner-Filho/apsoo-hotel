@@ -1,9 +1,9 @@
-package hospedagemhotel.entidades;
+package hospedagemhotel.model;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import hospedagemhotel.Sistema;
+import hospedagemhotel.controller.Sistema;
 
 public class Reserva {
 	private int idReserva;

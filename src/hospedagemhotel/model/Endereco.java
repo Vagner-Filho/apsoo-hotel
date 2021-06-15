@@ -1,4 +1,4 @@
-package hospedagemhotel.entidades;
+package hospedagemhotel.model;
 
 import java.util.Random;
 import java.util.Scanner;

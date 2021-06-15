@@ -1,4 +1,4 @@
-package hospedagemhotel.telas;
+package hospedagemhotel.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -52,7 +52,7 @@ public class JanelaInicial extends JFrame {
 	 */
 	public JanelaInicial() {
 		setIconImage(
-				Toolkit.getDefaultToolkit().getImage(JanelaInicial.class.getResource("/Janelas/predioIcone1.2.png")));
+				Toolkit.getDefaultToolkit().getImage(JanelaInicial.class.getResource("./images/predioIcone1.2.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBackground(new Color(126, 208, 255));
 		setBounds(100, 100, 850, 550);
@@ -230,7 +230,7 @@ public class JanelaInicial extends JFrame {
 		contentPane.add(lblNewLabel_13);
 
 		JLabel lblNewLabel_14 = new JLabel("");
-		lblNewLabel_14.setIcon(new ImageIcon(JanelaInicial.class.getResource("/Janelas/cadastro.png")));
+		lblNewLabel_14.setIcon(new ImageIcon(JanelaInicial.class.getResource("./images/cadastro.png")));
 		lblNewLabel_14.setBounds(-80, 37, 954, 92);
 		contentPane.add(lblNewLabel_14);
 

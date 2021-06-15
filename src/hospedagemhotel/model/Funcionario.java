@@ -1,4 +1,4 @@
-package hospedagemhotel.entidades;
+package hospedagemhotel.model;
 
 public class Funcionario extends Pessoa{
 	private String login;

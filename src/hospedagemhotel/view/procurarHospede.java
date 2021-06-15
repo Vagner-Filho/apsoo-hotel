@@ -1,4 +1,4 @@
-package hospedagemhotel.telas;
+package hospedagemhotel.view;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -14,9 +14,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import hospedagemhotel.Sistema;
-import hospedagemhotel.bd.Conexao;
-import hospedagemhotel.entidades.Hospede;
+import hospedagemhotel.controller.Sistema;
+import hospedagemhotel.model.Hospede;
+import hospedagemhotel.persistencia.Conexao;
 
 import java.awt.EventQueue;
 

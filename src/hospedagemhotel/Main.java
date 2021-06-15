@@ -2,9 +2,8 @@ package hospedagemhotel;
 
 import java.awt.EventQueue;
 
-
-import hospedagemhotel.bd.Conexao;
-import hospedagemhotel.telas.procurarHospede;
+import hospedagemhotel.persistencia.Conexao;
+import hospedagemhotel.view.procurarHospede;
 
 
 public class Main {

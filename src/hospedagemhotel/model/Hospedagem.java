@@ -1,4 +1,4 @@
-package hospedagemhotel.entidades;
+package hospedagemhotel.model;
 
 
 public class Hospedagem {

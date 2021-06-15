@@ -1,15 +1,15 @@
-package hospedagemhotel;
+package hospedagemhotel.controller;
 
 import java.util.Random;
 import java.util.Scanner;
 
-import hospedagemhotel.entidades.Endereco;
-import hospedagemhotel.entidades.Hospede;
-import hospedagemhotel.entidades.Pessoa;
-import hospedagemhotel.entidades.Quarto;
-import hospedagemhotel.entidades.Reserva;
-import hospedagemhotel.entidades.TipoDeQuarto;
-import hospedagemhotel.bd.Conexao;
+import hospedagemhotel.model.Endereco;
+import hospedagemhotel.model.Hospede;
+import hospedagemhotel.model.Pessoa;
+import hospedagemhotel.model.Quarto;
+import hospedagemhotel.model.Reserva;
+import hospedagemhotel.model.TipoDeQuarto;
+import hospedagemhotel.persistencia.Conexao;
 
 // TODO Voltar o tipo dataNascimento de date para string caso a instanciação com date não der certo
 
