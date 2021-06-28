@@ -1,4 +1,4 @@
-package Janelas;
+package hospedagemhotel.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -25,8 +25,8 @@ public class telaMenu extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					telaMenu frame = new telaMenu();
-					frame.setVisible(true);
+					telaMenu frameMenu = new telaMenu();
+					frameMenu.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -38,33 +38,48 @@ public class telaMenu extends JFrame {
 	 * Create the frame.
 	 */
 	public telaMenu() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(telaMenu.class.getResource("/Janelas/predioIcone1.2.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(telaMenu.class.getResource("images/predioIcone1.2.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 866, 550);
 		contentPane = new JPanel();
-		
- 
+
 		contentPane.setLayout(null);
 		contentPane.setBackground(new Color(126, 208, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		
+
 		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon(telaMenu.class.getResource("/Janelas/paginainicial.png")));
+		lblNewLabel.setIcon(new ImageIcon(telaMenu.class.getResource("images/paginainicial.png")));
 		lblNewLabel.setBounds(0, 0, 851, 511);
 		contentPane.add(lblNewLabel);
 
-		
-		JButton BotãoReserva = new JButton("RESERVA");
-		BotãoReserva.addActionListener(new ActionListener() {
+		JButton BotaoReserva = new JButton("RESERVA");
+		BotaoReserva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (e.getSource() == BotaoReserva) {
+					procurarHospede frameReserva = new procurarHospede();
+					frameReserva.setVisible(true);
+
+				}
+
 			}
 		});
-		lblNewLabel.add(BotãoReserva);
-		BotãoReserva.setBounds(364, 244, 100, 35);
-		
+		lblNewLabel.add(BotaoReserva);
+		BotaoReserva.setBounds(364, 244, 100, 35);
+
 		JButton BotaoCheckIN = new JButton("CHECK-IN");
 		lblNewLabel.add(BotaoCheckIN);
 		BotaoCheckIN.setBounds(364, 289, 100, 35);
+		BotaoCheckIN.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (e.getSource() == BotaoCheckIN) {
+					procurarHospede frame = new procurarHospede();
+					frame.setVisible(true);
+
+				}
+
+			}
+		});
+
 	}
 }
