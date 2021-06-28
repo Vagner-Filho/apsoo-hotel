@@ -18,6 +18,7 @@ public class Sistema {
 	Scanner scanner = new Scanner(System.in);
 	
 	//Ja passei o cpf por parametro, pra nao precisar escrever ele mais uma vez a toa
+	// não estamos usando esse método ainda
 	public void cadastrarHospede(String cpf) {	
 		String cpfParaParametroPessoa = cpf;
 
@@ -78,26 +79,8 @@ public class Sistema {
 		reserva.setDataFinal(dataFinal);
 		reserva.setQuarto(quarto);
 		reserva.setHospede(hos); 
-	
-		//salvar a reserva no bd
-		String query = "insert into reserva values(" + reserva.getIdReserva() + ", '23556987451', '" + reserva.dataInicial + "', '" + reserva.dataFinal + "', null)";
-		try{
-			// insere a reserva no bd
-			Conexao.alterarBD(query);
 
-			query = "update hospede set hos_res = " + reserva.getIdReserva() + " where '" + cpf + "' = hcpf";
-
-			//relaciona a reserva ao hospede
-			Conexao.alterarBD(query);
-
-			// altera a situacao do quarto
-			query = "update quarto set situacao = 1 where codigoQuarto = " + quarto.getCodigoQuarto();
-			Conexao.alterarBD(query);
-
-			System.out.print("Reserva efetuada com sucesso!");
-		}catch (Error e){
-			System.out.println("Não foi possível cadastrar a reserva.");
-		}		
+		Conexao.salvarReserva(reserva);
 		
 		return reserva;
 	}
@@ -108,11 +91,11 @@ public class Sistema {
 	}
 
 	public String msgCpfInvalido() {
-		return "CPF Inv�lido";
+		return "CPF Inválido";
 	}
 
 	public String msgHospedeNaoCadastrado() {
-		return "Cliente n�o cadastrado";
+		return "Cliente não cadastrado";
 	}
 
 	public String msgQuartosIndisponiveis() {
@@ -125,7 +108,6 @@ public class Sistema {
 		
 		return tipos;
 	}
-	
 	
 	public Quarto[] verQuartosDisponiveis(TipoDeQuarto tipoDeQuartoDesejado) {
 		Quarto[] listaQuartos = Conexao.verQuartosDisponiveis(tipoDeQuartoDesejado);

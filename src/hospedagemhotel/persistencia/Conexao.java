@@ -5,11 +5,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 import hospedagemhotel.model.Endereco;
 import hospedagemhotel.model.Hospede;
 import hospedagemhotel.model.Quarto;
+import hospedagemhotel.model.Reserva;
 import hospedagemhotel.model.TipoDeQuarto;
 
 // TODO add not null no atributo funcionario na criacao da tabela reserva
@@ -115,7 +115,7 @@ public class Conexao{
 				"dataCheckin varchar(10)," +
 				"horaCheckin varchar(10)," + 
 				"FOREIGN KEY (fcpf) REFERENCES funcionario (fcpf)," +
-				"FOREIGN KEY (res_hos) REFERENCES reserva(hcpf))");
+				"FOREIGN KEY (res_hos) REFERENCES hospede(hcpf))");
 
 			//stm.executeUpdate("DROP TABLE IF EXISTS reservaQuarto");
 			stm.executeUpdate("CREATE TABLE reservaQuarto (" + 		
@@ -199,11 +199,11 @@ public class Conexao{
 			stm.executeUpdate("INSERT INTO funcionario VALUES('23556987451', 'joao123', '1234', 1200, 'Recepcionista')");
 
 			// insere uma reserva
-			stm.executeUpdate("INSERT INTO reserva VALUES(1, '23556987451', '2021-02-03', '2021-02-05', 'Dinheiro')");
+			stm.executeUpdate("INSERT INTO reserva VALUES(1, '23556987451', '06451237894', '2021-02-03', '2021-02-05', 'Dinheiro', null, null, null)");
 
 			// insere um hospede
-			stm.executeUpdate("INSERT INTO hospede VALUES( '06451237894', 1, 'F', 12)");
-			stm.executeUpdate("INSERT INTO hospede VALUES( '45865201424', 1, 'F', 15)");
+			stm.executeUpdate("INSERT INTO hospede VALUES( '06451237894', 'F', 12)");
+			stm.executeUpdate("INSERT INTO hospede VALUES( '45865201424', 'F', 15)");
 
 
 			//insere um tipoDeQuarto
@@ -382,4 +382,25 @@ public class Conexao{
 		}
 	}
 	
+
+
+	public static void salvarReserva(Reserva reserva){
+
+		try{
+			//insere a reserva no banco de dados
+			String query = "insert into reserva values(" + reserva.getIdReserva() + ", '23556987451', '" + reserva.getHospede().getCpf() + "', '" + reserva.getDataInicial() + "', '" + reserva.getDataFinal() + "', null, null, null, null)";
+
+			alterarBD(query);
+
+			// altera a situacao do quarto
+			query = "update quarto set situacao = 1 where codigoQuarto = " + reserva.getQuarto().getCodigoQuarto();
+
+			alterarBD(query);
+
+			System.out.print("Reserva efetuada com sucesso!");
+		} catch(Error e){
+			System.out.println("Não foi possível cadastrar a reserva.");
+		}
+
+	}
 }
