@@ -93,11 +93,9 @@ public class Conexao{
 			//stm.executeUpdate("DROP TABLE IF EXISTS hospede");
 			stm.executeUpdate("CREATE TABLE hospede (" + 			
 				"hcpf varchar (11) NOT NULL primary key," +
-				"hos_res integer NOT NULL," +
 				"sexo char (1)," +
 				"codigoConta integer NOT NULL," +
-				"FOREIGN KEY (hcpf) REFERENCES pessoa(cpf)," +
-				"FOREIGN KEY (hos_res) REFERENCES reserva(idRes))");
+				"FOREIGN KEY (hcpf) REFERENCES pessoa(cpf))");
 
 			//stm.executeUpdate("DROP TABLE IF EXISTS p_telefone");
 			stm.executeUpdate("CREATE TABLE p_telefone (" + 		
@@ -109,11 +107,15 @@ public class Conexao{
 			stm.executeUpdate("CREATE TABLE reserva (" + 			
 				"idRes integer NOT NULL primary key," +
 				"fcpf varchar (255)," +
+				"res_hos integer NOT NULL," +
 				"dataInicial varchar(10)," +
 				"dataFinal varchar(10)," +
-				"pagamento varchar (255)," + 
-				"FOREIGN KEY (fcpf) REFERENCES funcionario (fcpf))"
-				);
+				"pagamento varchar (255)," +
+				"checkin boolean," +
+				"dataCheckin varchar(10)," +
+				"horaCheckin varchar(10)," + 
+				"FOREIGN KEY (fcpf) REFERENCES funcionario (fcpf)," +
+				"FOREIGN KEY (res_hos) REFERENCES reserva(hcpf))");
 
 			//stm.executeUpdate("DROP TABLE IF EXISTS reservaQuarto");
 			stm.executeUpdate("CREATE TABLE reservaQuarto (" + 		

@@ -13,6 +13,10 @@ public class Reserva {
 	public String dataInicial; 
 	public String dataFinal; 
 	private String pagamento;
+	private boolean checkin;
+	private String dataCheckin;
+	private String horaCheckin;
+
 
 	Scanner leitor = new Scanner(System.in);
 
@@ -100,6 +104,33 @@ public class Reserva {
 		this.pagamento = pagamento;
 	}
 	
+	//Metodos de checking
+	public boolean getCheckin() {
+		return checkin;
+	}
+
+	public void setCheckin(boolean checkin) {
+		this.checkin = checkin;
+	}
+
+	//Metodos de dataCheckin
+	public String getDataCheckin() {
+		return dataCheckin;
+	}
+
+	public void setDataCheckin(String dataCheckin) {
+		this.dataCheckin = dataCheckin;
+	}
+	
+	//Metodos de horaCheckin
+	public String horaCheckin() {
+		return horaCheckin;
+	}
+
+	public void setHoraCheckin(String horaCheckin) {
+		this.horaCheckin = horaCheckin;
+	}
+
 	@Override
 	public String toString() {
 		return "Reserva [hospede=" + hospede + ", funcionario=" + funcionario + ", quartos=" + quartos.toString() + ", dataInicial="
