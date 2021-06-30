@@ -5,6 +5,8 @@ public class Funcionario extends Pessoa{
 	private String senha;
 	private float salario;
 	private String cargo;
+
+	public Funcionario(){}
 	
 	public Funcionario(String nome, String cpf, int telefone, String dataNasc, Endereco endereco, String login, String senha, float salario, String cargo) {
 		super(nome, cpf, telefone, dataNasc, endereco);
@@ -45,6 +47,13 @@ public class Funcionario extends Pessoa{
 
 	public void setCargo(String cargo) {
 		this.cargo = cargo;
+	}
+
+	@Override
+	public String toString() {
+		return "nome="+ getNome()+ "cpf=" + getCpf() + "telefone=" + getTelefone() + "dataNasc=" + getDataNasc() + "endereco=" + getEndereco() + "cargo=" + cargo + ", login=" + login + ", salario=" + salario + ", senha=" + senha ;
 	}	
+
+	
 	
 }

@@ -136,6 +136,10 @@ public class Sistema {
 		
 	}
 
+	/*public Reserva[] buscarReservasPorCpf(String cpf){
+		
+	}
+*/
 
 	public int numeroAleatorio(){
 		Random aleatorio = new Random();
