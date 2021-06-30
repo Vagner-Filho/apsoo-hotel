@@ -136,10 +136,11 @@ public class Sistema {
 		
 	}
 
-	/*public Reserva[] buscarReservasPorCpf(String cpf){
-		
+	public Reserva[] buscarReservasPorCpf(String cpf){
+		Reserva[] reservas = Conexao.buscarReservasPorCpf(cpf);
+		return reservas;
 	}
-*/
+
 
 	public int numeroAleatorio(){
 		Random aleatorio = new Random();

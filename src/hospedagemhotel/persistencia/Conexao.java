@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 import hospedagemhotel.model.Endereco;
 import hospedagemhotel.model.Funcionario;
 import hospedagemhotel.model.Hospede;
@@ -220,10 +222,13 @@ public class Conexao{
 			//insere um quarto
 			stm.executeUpdate("insert into quarto values(1, 1, 1, 12, 0)");
 			stm.executeUpdate("insert into quarto values(2, 1, 1, 15, 0)");
+			stm.executeUpdate("insert into quarto values(3, 1, 1, 20, 0)");
 
+			//associa um quarto a uma reserva
 			stm.executeUpdate("INSERT INTO reservaQuarto VALUES(1, 1)");
 
 			stm.executeUpdate("INSERT INTO reservaQuarto VALUES(2, 2)");
+			stm.executeUpdate("INSERT INTO reservaQuarto VALUES(2, 3)");
 
 			
 		} catch (SQLException e) {
@@ -413,7 +418,7 @@ public class Conexao{
 
 
 
-	public static void buscarReservasPorCpf(String cpf){
+	public static Reserva[] buscarReservasPorCpf(String cpf){
 
 		Reserva[] reservas = new Reserva[100];
 		int qtdDeReservas = 0;
@@ -428,19 +433,32 @@ public class Conexao{
 			ResultSet rs1 = stm.executeQuery(query);
 			
 			// recupera tudo de funcionario e pessoa de acordo com o cpf do funcionario responsavel pelas reservas recuperadas
-			String query2 = "select * from funcionario join pessoa on fcpf = cpf where fcpf in (select fcpf from reserva where fcpf = '" + rs1.getString("fcpf") + "')";
+			query = "select * from funcionario join pessoa on fcpf = cpf where fcpf in (select fcpf from reserva where fcpf = '" + rs1.getString("fcpf") + "')";
 			
-			ResultSet rs2 = conexao.createStatement().executeQuery(query2);
-
-			/* Falta recuperar os dados dos quartos das reservas, Henrique por favor, precisamos da sua ajuda nesta parte */
+			ResultSet rs2 = conexao.createStatement().executeQuery(query);
+			
 
 			Funcionario funcionario = criaFuncionario(rs2);
-
-			Reserva reserva = new Reserva();
 
 			Hospede hospede = buscarHospede(cpf);
 
 			while(rs1.next()) {
+
+				// falta recuperar o tipo de quarto de cada quarto recuperado
+
+				Reserva reserva = new Reserva();
+
+				query = "select * from quarto where codigoQuarto in (select codigoQuarto from reservaQuarto where reservaQuarto.idRes = " + rs1.getInt("idRes") + ")";
+
+				ResultSet rs3 = conexao.createStatement().executeQuery(query);
+				
+				while (rs3.next()) {
+					Quarto quarto = new Quarto();
+					quarto.setCodigoQuarto(rs3.getInt("codigoQuarto"));
+					quarto.setSituacao(rs3.getInt("situacao"));
+					quarto.setLocalizacao(rs3.getString("localizacao"));
+					reserva.setQuarto(quarto);
+				}
 	
 				reserva.setIdReserva(rs1.getInt("idRes"));
 				reserva.setHospede(hospede);
@@ -451,6 +469,7 @@ public class Conexao{
 				reserva.setCheckin(rs1.getBoolean("checkin"));
 				reserva.setDataCheckin(rs1.getString("dataCheckin"));
 				reserva.setHoraCheckin(rs1.getString("horaCHeckin"));
+				System.out.println(reserva);
 
 				reservas[qtdDeReservas] = reserva;
 				qtdDeReservas++;
@@ -462,6 +481,7 @@ public class Conexao{
 			System.out.println(e.getMessage());
 		}
 
+		return reservas;
 	}
 
 	// cria e retorna uma instância de Funcionario com os dados que foram recuperados do BD
