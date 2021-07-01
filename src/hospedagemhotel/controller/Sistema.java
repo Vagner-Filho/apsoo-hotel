@@ -102,6 +102,10 @@ public class Sistema {
 	public String msgQuartosIndisponiveis() {
 		return "Nao ha quartos disponiveis";
 	}
+	
+	public String msgDiasIguais() {
+		return "Esta reserva só pode ser efetuada a partir da sua data de inicio";
+	}
 
 
 	public TipoDeQuarto[] verTiposDeQuarto() {
