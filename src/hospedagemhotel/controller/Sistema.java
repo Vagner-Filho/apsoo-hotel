@@ -72,7 +72,7 @@ public class Sistema {
 
 	
 	// Esta� sem o parametro Funcionario porque acho que seria melhor fazer uma autenticação - Juliendy
-	public Reserva confirmarReserva(String cpf, String dataInicial, String dataFinal, Quarto quarto) {
+	public void confirmarReserva(String cpf, String dataInicial, String dataFinal, Quarto quarto) {
 		Hospede hos = Conexao.buscarHospede(cpf);
 		Conexao.buscarQuarto(quarto.getCodigoQuarto());
 		Reserva reserva = new Reserva();
@@ -82,8 +82,11 @@ public class Sistema {
 		reserva.setHospede(hos); 
 
 		Conexao.salvarReserva(reserva);
-		
-		return reserva;
+
+	}
+	
+	public String cancelarCheckin() {
+		return "Check-in nao efetuado";
 	}
 
 
