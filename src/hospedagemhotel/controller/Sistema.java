@@ -208,7 +208,6 @@ public class Sistema {
 					return reservas[i];
 				}
 			}
-			
 		}
 		
 		return null;
@@ -217,6 +216,28 @@ public class Sistema {
 	public int numeroAleatorio(){
 		Random aleatorio = new Random();
 		return aleatorio.nextInt(100);
+	}
+	
+	public boolean validarCPF(String cpf) {
+		String validosCPF = "0123456789";
+		
+		if (cpf.length() != 11) {
+			System.out.println("Quantidade de caracteres informada invalida.");
+			return false;
+		}
+		else {
+			for (int i = 0;  i < cpf.length(); i++) {
+
+				String numero = cpf.substring(i, i++);
+
+				if (!validosCPF.contains(numero)) {
+					return false;
+				}
+			}
+			// Retorna true se o cpf informado possui­ 11 caracteres e todos sao numeros e apenas numeros de 0 a 9
+			System.out.println("CPF vÃ¡lido!");
+			return true;
+		}
 	}
 	
 }

@@ -75,7 +75,7 @@ public class Pessoa {
 		this.endereco = endereco;
 	}
 
-	//Por enquanto ta bugadoo
+	/*
 	public boolean autenticaCPF(String cpf) {
 		if (cpf.equals("00000000000") || cpf.equals("11111111111") || cpf.equals("22222222222")
 		|| cpf.equals("33333333333") || cpf.equals("44444444444") || cpf.equals("55555555555")
@@ -130,29 +130,8 @@ public class Pessoa {
 	} catch (InputMismatchException erro) {
 		return (false);
 	}
-	}
+	}*/
 
-	public boolean validaCPF(String cpf) {
-		String validosCPF = "0123456789";
-		
-		if (cpf.length() != 11) {
-			System.out.println("Quantidade de caracteres informada inválida.");
-			return false;
-		}
-		else {
-			for (int i = 0;  i < cpf.length(); i++) {
-
-				String numero = cpf.substring(i, i++);
-
-				if (!validosCPF.contains(numero)) {
-					return false;
-				}
-			}
-			// Retorna true se o cpf informado possuí 11 caracteres e todos são números e apenas números de 0 a 9
-			System.out.println("CPF válido!");
-			return true;
-		}
-	}
 	
 	public String toString() {
 		return "Nome: " + nome + "\nCPF: " + cpf + "\nTelefone: " + telefone + "\nData de Nascimento: " + dataNasc + "\nEndere�o: \n" + endereco; 

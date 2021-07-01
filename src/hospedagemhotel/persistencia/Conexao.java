@@ -175,7 +175,7 @@ public class Conexao{
 				);
 
 			//stm.executeUpdate("DROP TABLE IF EXISTS itemServico");
-			stm.executeUpdate("CREATE TABLE itemServico (" + 		
+			stm.executeUpdate("CREATE TABLE itemServico (" +	
 				"item_ser_hospedagem integer NOT NULL," +
 				"idTipSer integer NOT NULL primary key," +
 				"tipo varchar (255)," + 
@@ -398,7 +398,6 @@ public class Conexao{
 	}
 	
 
-	//ARRUMAR / Se pa ta arrumado agora kakakaka
 	public static void salvarReserva(Reserva reserva){
 
 		try{
