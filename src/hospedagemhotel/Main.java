@@ -13,7 +13,7 @@ public class Main {
 	
     public static void main(String[] args) {
 
-		//Conexao.InitBD();
+		Conexao.InitBD();
 		
 	/*	EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -26,15 +26,17 @@ public class Main {
 			}
 		});*/
 
-		Sistema sis = new Sistema();
-
-		Quarto quarto = new Quarto(1, "12", 0);
-	
-
-		sis.confirmarReserva("45865201424", "02/07/2021", "05/07/2021", quarto);
-
-		//Conexao.buscarReservasPorCpf("6451237894");
 		
+
+
+
+		Reserva[] reservas = Conexao.buscarReservasPorCpf("06451237894");
+		
+		for(int i = 0; i < reservas.length; i++){
+			if(reservas[i] != null){
+				System.out.println(reservas[i]);
+			}
+		}
 		
 /*
 		Scanner scanner = new Scanner(System.in);
