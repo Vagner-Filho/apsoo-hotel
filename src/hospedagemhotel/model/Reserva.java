@@ -69,10 +69,9 @@ public class Reserva {
 		
 	}
 
-	//Arrumar esse metodo, so mostra 1 quarto
-	public Quarto getQuarto() {
-		return quartos.get(0);	
-	}
+	public ArrayList<Quarto> getQuarto() {
+		return quartos;
+	}	
 	
 	public void setQuarto(Quarto quarto) {
 		quartos.add(quarto);
@@ -133,8 +132,7 @@ public class Reserva {
 
 	@Override
 	public String toString() {
-		return "Reserva [hospede=" + hospede + ", funcionario=" + funcionario + ", quartos=" + quartos.toString() + ", dataInicial="
-				+ dataInicial + ", dataFinal=" + dataFinal + "]";
+		return "Reserva idReserva=" + idReserva + " [hospede=" + hospede + ", funcionario=" + funcionario + ", quartos=" + quartos.toString() + ", dataInicial=" + dataInicial + ", dataFinal=" + dataFinal + "]";
 	}
 	
 }

@@ -202,11 +202,13 @@ public class Conexao{
 			stm.executeUpdate("INSERT INTO funcionario VALUES('23556987451', 'joao123', '1234', 1200, 'Recepcionista')");
 
 			// insere uma reserva
-			stm.executeUpdate("INSERT INTO reserva VALUES(1, '23556987451', '2021-02-03', '2021-02-05', 'Dinheiro')");
+			stm.executeUpdate("INSERT INTO reserva VALUES(1, '23556987451', '06451237894', '2021-02-03', '2021-02-05', 'Dinheiro', null, null, null)");
+
+			stm.executeUpdate("INSERT INTO reserva VALUES(2, '23556987451', '06451237894', '2021-02-14', '2021-02-30', 'Dinheiro', null, null, null)");
 
 			// insere um hospede
-			stm.executeUpdate("INSERT INTO hospede VALUES( '06451237894', 1, 'F', 12)");
-			stm.executeUpdate("INSERT INTO hospede VALUES( '45865201424', 1, 'F', 15)");
+			stm.executeUpdate("INSERT INTO hospede VALUES( '06451237894', 'F', 12)");
+			stm.executeUpdate("INSERT INTO hospede VALUES( '45865201424', 'F', 15)");
 
 
 			//insere um tipoDeQuarto
@@ -220,6 +222,13 @@ public class Conexao{
 			//insere um quarto
 			stm.executeUpdate("insert into quarto values(1, 1, 1, 12, 0)");
 			stm.executeUpdate("insert into quarto values(2, 1, 1, 15, 0)");
+			stm.executeUpdate("insert into quarto values(3, 1, 1, 20, 0)");
+
+			//associa um quarto a uma reserva
+			stm.executeUpdate("INSERT INTO reservaQuarto VALUES(1, 1)");
+
+			stm.executeUpdate("INSERT INTO reservaQuarto VALUES(2, 2)");
+			stm.executeUpdate("INSERT INTO reservaQuarto VALUES(2, 3)");
 
 			
 		} catch (SQLException e) {
@@ -407,4 +416,122 @@ public class Conexao{
 
 	}
 	
+
+	//ARRUMAR / Se pa ta arrumado agora kakakaka
+	public static void salvarReserva(Reserva reserva){
+
+		try{
+			//insere a reserva no banco de dados
+			String query = "insert into reserva values(" + reserva.getIdReserva() + ", '23556987451', '" + reserva.getHospede().getCpf() + "', '" + reserva.getDataInicial() + "', '" + reserva.getDataFinal() + "', null, null, null, null)";
+
+			alterarBD(query);
+
+			// altera a situacao do quarto
+			for (int a = 0; a < reserva.getQuarto().size(); a++) {
+				query = "update quarto set situacao = 1 where codigoQuarto = " + reserva.getQuarto().get(a).getCodigoQuarto();
+				alterarBD(query);
+			}
+
+			System.out.print("Reserva efetuada com sucesso!");
+		} catch(Error e){
+			System.out.println("Não foi possível cadastrar a reserva.");
+		}
+
+	}
+
+
+	/**
+	 * Busca todas as reservas relacionadas ao cpf passado como parametro e retorna um array com essas reservas
+	 */
+	public static Reserva[] buscarReservasPorCpf(String cpf){
+
+		Reserva[] reservas = new Reserva[100];
+		int qtdDeReservas = 0;
+
+		try {
+
+			Statement stm = conexao.createStatement();
+
+			// recupera tudo da tabela reserva de acordo com o cpf passado
+			String query = "select * from reserva where res_hos = '" + cpf + "'";
+
+			ResultSet rs1 = stm.executeQuery(query);
+			
+			// recupera tudo de funcionario e pessoa de acordo com o cpf do funcionario responsavel pelas reservas recuperadas
+			query = "select * from funcionario join pessoa on fcpf = cpf where fcpf in (select fcpf from reserva where fcpf = '" + rs1.getString("fcpf") + "')";
+			
+			ResultSet rs2 = conexao.createStatement().executeQuery(query);
+			
+			Funcionario funcionario = criaFuncionario(rs2);
+
+			Hospede hospede = buscarHospede(cpf);
+
+			// percorre cada reserva recuperada 
+			while(rs1.next()) {
+
+				// falta recuperar o tipo de quarto de cada quarto recuperado
+
+				Reserva reserva = new Reserva();
+
+				// recupera os quartos da reserva recuperada 
+				query = "select * from quarto where codigoQuarto in (select codigoQuarto from reservaQuarto where reservaQuarto.idRes = " + rs1.getInt("idRes") + ")";
+
+				ResultSet rs3 = conexao.createStatement().executeQuery(query);
+				
+				// percorre cada quarto recuperado e cria um instancia de Quarto e o adiciona ao array de quartos do objeto reserva
+				while (rs3.next()) {
+					Quarto quarto = new Quarto();
+					quarto.setCodigoQuarto(rs3.getInt("codigoQuarto"));
+					quarto.setSituacao(rs3.getInt("situacao"));
+					quarto.setLocalizacao(rs3.getString("localizacao"));
+					reserva.setQuarto(quarto);
+				}
+	
+				reserva.setIdReserva(rs1.getInt("idRes"));
+				reserva.setHospede(hospede);
+				reserva.setFuncionario(funcionario);
+				reserva.setDataInicial(rs1.getString("dataInicial"));
+				reserva.setDataFinal(rs1.getString("dataFinal"));
+				reserva.setPagamento(rs1.getString("pagamento"));
+				reserva.setCheckin(rs1.getBoolean("checkin"));
+				reserva.setDataCheckin(rs1.getString("dataCheckin"));
+				reserva.setHoraCheckin(rs1.getString("horaCHeckin"));
+				//System.out.println(reserva);
+
+				reservas[qtdDeReservas] = reserva;
+				
+				qtdDeReservas++;
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+
+		
+		return reservas;
+	}
+	
+
+	/**
+	 * Cria e retorna uma instância de Funcionario com os dados que foram recuperados do BD
+	 */
+	public static Funcionario criaFuncionario(ResultSet rs){
+		Funcionario funcionario = new Funcionario();
+
+		try{
+			funcionario.setNome(rs.getString("nome"));
+			funcionario.setCpf(rs.getString("cpf"));
+			funcionario.setDataNasc(rs.getString("dataNasc"));
+			funcionario.setLogin(rs.getString("login"));
+			funcionario.setSenha(rs.getString("senha"));
+			funcionario.setCargo(rs.getString("cargo"));
+			funcionario.setSalario(rs.getFloat("salario"));
+		}catch(SQLException e){
+			System.out.println(e.getMessage());
+		}
+		return funcionario;
+	}
+
 }

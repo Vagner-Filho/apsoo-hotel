@@ -2,6 +2,7 @@ package hospedagemhotel;
 
 import java.awt.EventQueue;
 
+import hospedagemhotel.model.Reserva;
 import hospedagemhotel.persistencia.Conexao;
 import hospedagemhotel.view.telaMenu;
 
@@ -12,7 +13,7 @@ public class Main {
 
 		Conexao.InitBD();
 		
-		EventQueue.invokeLater(new Runnable() {
+	/*	EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					telaMenu frame = new telaMenu();
@@ -21,10 +22,11 @@ public class Main {
 					e.printStackTrace();
 				}
 			}
-		});
+		});*/
 
+		
 
-
+		//Conexao.buscarReservasPorCpf("6451237894");
 		
 		
 /*
