@@ -224,15 +224,8 @@ public class realizarReserva extends JFrame {
 		btnConfirmar.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("botao confirmar clicado");
-
-				Date data = new Date(System.currentTimeMillis()); 
-				SimpleDateFormat formatarDate = new SimpleDateFormat("dd-MM-yyyy");
-				
-
-
-				JOptionPane.showMessageDialog(null, formatarDate.format(data));
 				sis.confirmarReserva(cpfCaixaDeTexto.getText(), dataInicialCaixaDeTexto.getText(), dataFinalCaixaDeTexto.getText(), getQuarto());
-
+				
 				JOptionPane.showMessageDialog(contentPane, "Reserva realizada com sucesso!");
 				dispose();
 				

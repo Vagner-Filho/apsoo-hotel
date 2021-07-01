@@ -3,7 +3,7 @@ package hospedagemhotel;
 import java.awt.EventQueue;
 
 import hospedagemhotel.persistencia.Conexao;
-import hospedagemhotel.view.procurarHospede;
+import hospedagemhotel.view.telaMenu;
 
 
 public class Main {
@@ -15,7 +15,7 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					procurarHospede frame = new procurarHospede();
+					telaMenu frame = new telaMenu();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

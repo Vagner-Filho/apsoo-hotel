@@ -5,12 +5,12 @@ import java.util.Scanner;
 
 public class Endereco {
 	private int id;
-    private String rua, bairro, cidade, estado, complemento;
-    private int numero, cep;
+    private String rua, bairro, cidade, estado, complemento, cep;
+    private int numero;
     
     Scanner scanner = new Scanner(System.in);
 
-    public Endereco(int id, String rua, String bairro, String cidade, String estado, String complemento, int numero, int cep) {
+    public Endereco(int id, String rua, String bairro, String cidade, String estado, String complemento, int numero, String cep) {
 		setId(id);
         setRua(rua);
         setBairro(bairro);
@@ -50,7 +50,7 @@ public class Endereco {
 		System.out.println();
 		
 		System.out.println("Cep: ");
-		int cep = scanner.nextInt();
+		String cep = scanner.nextLine();
 		System.out.println();
 		
 		Random aleatorio = new Random();
@@ -122,11 +122,11 @@ public class Endereco {
         return numero;
     }
 
-    public void setCep(int cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 
-    public int getCep() {
+    public String getCep() {
         return cep;
     }
     

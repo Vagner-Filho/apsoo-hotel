@@ -5,11 +5,14 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+
+import javax.naming.spi.DirStateFactory.Result;
 
 import hospedagemhotel.model.Endereco;
+import hospedagemhotel.model.Funcionario;
 import hospedagemhotel.model.Hospede;
 import hospedagemhotel.model.Quarto;
+import hospedagemhotel.model.Reserva;
 import hospedagemhotel.model.TipoDeQuarto;
 
 // TODO add not null no atributo funcionario na criacao da tabela reserva
@@ -115,7 +118,7 @@ public class Conexao{
 				"dataCheckin varchar(10)," +
 				"horaCheckin varchar(10)," + 
 				"FOREIGN KEY (fcpf) REFERENCES funcionario (fcpf)," +
-				"FOREIGN KEY (res_hos) REFERENCES reserva(hcpf))");
+				"FOREIGN KEY (res_hos) REFERENCES hospede(hcpf))");
 
 			//stm.executeUpdate("DROP TABLE IF EXISTS reservaQuarto");
 			stm.executeUpdate("CREATE TABLE reservaQuarto (" + 		
@@ -186,7 +189,7 @@ public class Conexao{
 				);
 				
 			// insere um endereço no bd
-			stm.executeUpdate("INSERT INTO endereco VALUES(1, 'Rua 123', 2200, 'Vilas Boas', 12345678, 'Campo Grande', 'MS', 'Casa 1')");
+			stm.executeUpdate("INSERT INTO endereco VALUES(1, 'Rua 123', 2200, 'Vilas Boas', '12345678', 'Campo Grande', 'MS', 'Casa 1')");
 
 			//insere uma pessoa 
 			stm.executeUpdate("INSERT INTO pessoa VALUES('06451237894', 1, 'Maria', '2000-02-15')");
@@ -269,7 +272,7 @@ public class Conexao{
 				hospede.setSexo(rs.getString("sexo"));
 				hospede.setCodigoConta(rs.getInt("codigoConta"));
 				Endereco endereco = new Endereco(ru.getInt("idEnd"), ru.getString("rua"), ru.getString("bairro"), ru.getString("cidade"), 
-						ru.getString("estado"), ru.getString("complemento"), ru.getInt("numero"), ru.getInt("cep"));
+						ru.getString("estado"), ru.getString("complemento"), ru.getInt("numero"), ru.getString("cep"));
 				hospede.setEndereco(endereco);
 
 			}
@@ -380,6 +383,28 @@ public class Conexao{
 			System.out.println(e.getMessage());
 			return null;
 		}
+	}
+
+	//ARRUMAR / Se pa ta arrumado agora kakakaka
+	public static void salvarReserva(Reserva reserva){
+
+		try{
+			//insere a reserva no banco de dados
+			String query = "insert into reserva values(" + reserva.getIdReserva() + ", '23556987451', '" + reserva.getHospede().getCpf() + "', '" + reserva.getDataInicial() + "', '" + reserva.getDataFinal() + "', null, null, null, null)";
+
+			alterarBD(query);
+
+			// altera a situacao do quarto
+			for (int a = 0; a < reserva.getQuarto().size(); a++) {
+				query = "update quarto set situacao = 1 where codigoQuarto = " + reserva.getQuarto().get(a).getCodigoQuarto();
+				alterarBD(query);
+			}
+
+			System.out.print("Reserva efetuada com sucesso!");
+		} catch(Error e){
+			System.out.println("Não foi possível cadastrar a reserva.");
+		}
+
 	}
 	
 }
