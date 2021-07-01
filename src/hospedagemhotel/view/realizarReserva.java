@@ -36,7 +36,6 @@ public class realizarReserva extends JFrame {
 
 	Sistema sis = new Sistema();
 
-
 	/**
 	 * Create the frame.
 	 * @throws ParseException 

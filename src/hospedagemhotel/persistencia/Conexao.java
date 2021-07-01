@@ -415,29 +415,6 @@ public class Conexao{
 		}
 
 	}
-	
-
-	//ARRUMAR / Se pa ta arrumado agora kakakaka
-	public static void salvarReserva(Reserva reserva){
-
-		try{
-			//insere a reserva no banco de dados
-			String query = "insert into reserva values(" + reserva.getIdReserva() + ", '23556987451', '" + reserva.getHospede().getCpf() + "', '" + reserva.getDataInicial() + "', '" + reserva.getDataFinal() + "', null, null, null, null)";
-
-			alterarBD(query);
-
-			// altera a situacao do quarto
-			for (int a = 0; a < reserva.getQuarto().size(); a++) {
-				query = "update quarto set situacao = 1 where codigoQuarto = " + reserva.getQuarto().get(a).getCodigoQuarto();
-				alterarBD(query);
-			}
-
-			System.out.print("Reserva efetuada com sucesso!");
-		} catch(Error e){
-			System.out.println("Não foi possível cadastrar a reserva.");
-		}
-
-	}
 
 
 	/**
