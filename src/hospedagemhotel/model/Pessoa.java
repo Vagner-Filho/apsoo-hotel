@@ -86,50 +86,50 @@ public class Pessoa {
 	char numVer1, numVer2;
 	int i, peso, numero, soma, valor;
 
-	try {
-		soma = 0;
-		peso = 10;
-		for (i = 0; i < 9; i++) {
-			numero = (int) (cpf.charAt(i)-48);
-			soma = soma + (numero * peso);
-			peso--;
-		}
-		soma = soma * 10;
+		try {
+			soma = 0;
+			peso = 10;
+			for (i = 0; i < 9; i++) {
+				numero = (int) (cpf.charAt(i)-48);
+				soma = soma + (numero * peso);
+				peso--;
+			}
+			soma = soma * 10;
 
-		if (soma % 11 == 10) {
-			numVer1 = '0';
+			if (soma % 11 == 10) {
+				numVer1 = '0';
 
-		} else {
-			valor = soma % 11;
-			numVer1 = (char) (valor + 48);
+			} else {
+				valor = soma % 11;
+				numVer1 = (char) (valor + 48);
+				
+
+			}
+			soma = 0;
+			peso = 11;
+			for(i=0;i<10;i++){
+				numero = (int) (cpf.charAt(i)-48);
+				soma = soma + (numero * peso);
+				peso--;
+			}
+			valor = 11-(soma%11);
+			if(valor == 10||valor ==11) {
+				numVer2= '0';
+			}
+			else {
+				numVer2 = (char) (valor + 48);
+			}
+			
+			if(numVer1 == cpf.charAt(9) && numVer2 == cpf.charAt(10)) {
+				return true;
+			}else {
+				return false;
+			}
 			
 
+		} catch (InputMismatchException erro) {
+			return (false);
 		}
-		soma = 0;
-		peso = 11;
-		for(i=0;i<10;i++){
-			numero = (int) (cpf.charAt(i)-48);
-			soma = soma + (numero * peso);
-			peso--;
-		}
-		valor = 11-(soma%11);
-		if(valor == 10||valor ==11) {
-			numVer2= '0';
-		}
-		else {
-			numVer2 = (char) (valor + 48);
-		}
-		
-		if(numVer1 == cpf.charAt(9) && numVer2 == cpf.charAt(10)) {
-			return true;
-		}else {
-			return false;
-		}
-		
-
-	} catch (InputMismatchException erro) {
-		return (false);
-	}
 	}
 
 	public boolean validaCPF(String cpf) {

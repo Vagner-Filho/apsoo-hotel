@@ -2,6 +2,8 @@ package hospedagemhotel;
 
 import java.awt.EventQueue;
 
+import hospedagemhotel.controller.Sistema;
+import hospedagemhotel.model.Quarto;
 import hospedagemhotel.model.Reserva;
 import hospedagemhotel.persistencia.Conexao;
 import hospedagemhotel.view.procurarHospede;
@@ -24,7 +26,12 @@ public class Main {
 			}
 		});*/
 
-		
+		Sistema sis = new Sistema();
+
+		Quarto quarto = new Quarto(1, "12", 0);
+	
+
+		sis.confirmarReserva("45865201424", "02/07/2021", "05/07/2021", quarto);
 
 		//Conexao.buscarReservasPorCpf("6451237894");
 		

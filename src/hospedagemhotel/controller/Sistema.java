@@ -72,13 +72,38 @@ public class Sistema {
 	}
 
 
-	// Esta� sem o parametro Funcionario porque acho que seria melhor fazer uma autenticação - Juliendy
+	// Esta� sem o parametro Funcionario porque acho que seria melhor fazer uma autenticação - Juliendy
 	public void confirmarReserva(String cpf, String dataInicial, String dataFinal, Quarto quarto) {
 		Hospede hos = Conexao.buscarHospede(cpf);
 		Conexao.buscarQuarto(quarto.getCodigoQuarto());
 		Reserva reserva = new Reserva();
-		reserva.setDataInicial(dataInicial);
-		reserva.setDataFinal(dataFinal);
+
+		try {
+			Date data = new Date();
+			SimpleDateFormat formatar = new SimpleDateFormat("dd/MM/yyyy");
+			
+			Date dataI = formatar.parse(dataInicial);
+			Date dataF = formatar.parse(dataFinal);
+			
+			if (dataI.after(data) || dataI.equals(data)){
+				reserva.setDataInicial(dataInicial);
+			}
+			else{
+				System.out.println("Data inválida, tente novamente");
+				return;
+			}
+			
+			if(dataF.after(dataI) || dataF.equals(dataI)){
+				reserva.setDataFinal(dataFinal);
+			}else{
+				System.out.println("Data inválida, tente novamente");
+				return;
+			}
+						
+		} catch (ParseException e) {
+			System.out.println(e.getMessage());
+		}
+		
 		reserva.setQuarto(quarto);
 		reserva.setHospede(hos); 
 
@@ -139,9 +164,9 @@ public class Sistema {
 		Hospede hospede = new Hospede();
 		hospede = Conexao.buscarHospede(cpf);
 		if (hospede == null){
-    		msgHospedeNaoCadastrado();
-    		//cadastrarHospede(cpf);
-    	}else{
+			msgHospedeNaoCadastrado();
+			//cadastrarHospede(cpf);
+		}else{
 			System.out.println("nome" + hospede.getNome());
 		}
 
@@ -158,15 +183,15 @@ public class Sistema {
 	public boolean compararDias(Reserva reserva) {
 		try {
 		Date data = new Date();
-        SimpleDateFormat formatar = new SimpleDateFormat("dd/MM/yyyy");
-        
-        Date dataInicial = formatar.parse(reserva.getDataInicial());
-        Date dataFinal = formatar.parse(reserva.getDataFinal());
-        
-        if ((data.after(dataInicial) && data.before(dataFinal)) || data.equals(dataInicial))
-            return true;
-        else
-            return false;
+		SimpleDateFormat formatar = new SimpleDateFormat("dd/MM/yyyy");
+		
+		Date dataInicial = formatar.parse(reserva.getDataInicial());
+		Date dataFinal = formatar.parse(reserva.getDataFinal());
+		
+		if ((data.after(dataInicial) && data.before(dataFinal)) || data.equals(dataInicial))
+			return true;
+		else
+			return false;
 		} catch (ParseException e) {
 			System.out.println(e.getMessage());
 		}
@@ -174,7 +199,7 @@ public class Sistema {
 }
 
 
-	public static Reserva buscarReserva(Reserva[] reservas, int idReservaEscolhida) {
+	public Reserva buscarReserva(Reserva[] reservas, int idReservaEscolhida) {
 
 		for(int i = 0; i < reservas.length; i++){
 			if(reservas[i] != null){
@@ -187,6 +212,7 @@ public class Sistema {
 		
 		return null;
 	}
+
 
 	public int numeroAleatorio(){
 		Random aleatorio = new Random();
