@@ -418,7 +418,9 @@ public class Conexao{
 	}
 
 
-
+	/**
+	 * Busca todas as reservas relacionadas ao cpf passado como parametro e retorna um array com essas reservas
+	 */
 	public static Reserva[] buscarReservasPorCpf(String cpf){
 
 		Reserva[] reservas = new Reserva[100];
@@ -438,21 +440,23 @@ public class Conexao{
 			
 			ResultSet rs2 = conexao.createStatement().executeQuery(query);
 			
-
 			Funcionario funcionario = criaFuncionario(rs2);
 
 			Hospede hospede = buscarHospede(cpf);
 
+			// percorre cada reserva recuperada 
 			while(rs1.next()) {
 
 				// falta recuperar o tipo de quarto de cada quarto recuperado
 
 				Reserva reserva = new Reserva();
 
+				// recupera os quartos da reserva recuperada 
 				query = "select * from quarto where codigoQuarto in (select codigoQuarto from reservaQuarto where reservaQuarto.idRes = " + rs1.getInt("idRes") + ")";
 
 				ResultSet rs3 = conexao.createStatement().executeQuery(query);
 				
+				// percorre cada quarto recuperado e cria um instancia de Quarto e o adiciona ao array de quartos do objeto reserva
 				while (rs3.next()) {
 					Quarto quarto = new Quarto();
 					quarto.setCodigoQuarto(rs3.getInt("codigoQuarto"));
@@ -470,69 +474,27 @@ public class Conexao{
 				reserva.setCheckin(rs1.getBoolean("checkin"));
 				reserva.setDataCheckin(rs1.getString("dataCheckin"));
 				reserva.setHoraCheckin(rs1.getString("horaCHeckin"));
-				System.out.println(reserva);
+				//System.out.println(reserva);
 
 				reservas[qtdDeReservas] = reserva;
+				
 				qtdDeReservas++;
 				
 			}
-
+			
 			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
 
+		
 		return reservas;
 	}
 	
-	
-	public static Reserva buscarReserva(int idReserva) {
-		Reserva reserva = new Reserva();
-		try {
 
-			Statement stm = conexao.createStatement();
-
-			// recupera tudo da tabela reserva de acordo com o reserva passada
-			String query = "select * from reserva where idRes = '" + idReserva + "'";
-			
-
-			ResultSet rs1 = stm.executeQuery(query);
-			
-			// recupera tudo de funcionario e pessoa de acordo com o cpf do funcionario responsavel pelas reservas recuperadas
-			query = "select * from funcionario join pessoa on fcpf = cpf where fcpf in (select fcpf from reserva where fcpf = '" + rs1.getString("fcpf") + "')";
-			
-			ResultSet rs2 = conexao.createStatement().executeQuery(query);
-
-			Funcionario funcionario = criaFuncionario(rs2);
-			
-			// recupera tudo de funcionario e pessoa de acordo com o cpf do funcionario responsavel pelas reservas recuperadas
-			query = "select hcpf from hospede join pessoa on hcpf = cpf where hcpf in (select hcpf from hospede where hos_res = '" + idReserva + "')";			
-
-			Hospede hospede = buscarHospede(query);
-				
-			while(rs1.next()) {
-	
-				reserva.setIdReserva(rs1.getInt("idRes"));
-				reserva.setHospede(hospede);
-				reserva.setFuncionario(funcionario);
-				reserva.setDataInicial(rs1.getString("dataInicial"));
-				reserva.setDataFinal(rs1.getString("dataFinal"));
-				reserva.setPagamento(rs1.getString("pagamento"));
-				reserva.setCheckin(rs1.getBoolean("checkin"));
-				reserva.setDataCheckin(rs1.getString("dataCheckin"));
-				reserva.setHoraCheckin(rs1.getString("horaCHeckin"));				
-			}
-
-			
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-
-		return reserva;
-		
-	}
-
-	// cria e retorna uma instância de Funcionario com os dados que foram recuperados do BD
+	/**
+	 * Cria e retorna uma instância de Funcionario com os dados que foram recuperados do BD
+	 */
 	public static Funcionario criaFuncionario(ResultSet rs){
 		Funcionario funcionario = new Funcionario();
 

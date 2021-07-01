@@ -71,8 +71,13 @@ public class Sistema {
 	}
 
 	
+<<<<<<< HEAD
 	// Esta¡ sem o parametro Funcionario porque acho que seria melhor fazer uma autenticaÃ§Ã£o - Juliendy
 	public void confirmarReserva(String cpf, String dataInicial, String dataFinal, Quarto quarto) {
+=======
+	// Estaï¿½ sem o parametro Funcionario porque acho que seria melhor fazer uma autenticaÃ§Ã£o - Juliendy
+	public Reserva confirmarReserva(String cpf, String dataInicial, String dataFinal, Quarto quarto) {
+>>>>>>> branch-juliendy
 		Hospede hos = Conexao.buscarHospede(cpf);
 		Conexao.buscarQuarto(quarto.getCodigoQuarto());
 		Reserva reserva = new Reserva();
@@ -107,7 +112,11 @@ public class Sistema {
 	}
 	
 	public String msgDiasIguais() {
-		return "Esta reserva só pode ser efetuada a partir da sua data de inicio";
+		return "Esta reserva sï¿½ pode ser efetuada a partir da sua data de inicio";
+	}
+
+	public String msgReservaNaoEncontrada(){
+		return "Nenhuma reserva encontrada";
 	}
 
 
@@ -150,12 +159,12 @@ public class Sistema {
 	}
 	
 	//Busca uma reserva pelo seu idReserva
-	public Reserva buscarReserva(int idReserva) {
+	/*public Reserva buscarReserva(int idReserva) {
 		return Conexao.buscarReserva(idReserva);
-	}
+	}*/
 	
 	public boolean compararDias(Reserva reserva) {
-		//Criei a váriavel data que recebe o dia atual
+		//Criei a vï¿½riavel data que recebe o dia atual
 		Date data = new Date();
     	System.out.println(data);
     	
@@ -175,7 +184,7 @@ public class Sistema {
     	Integer diaI = Integer.parseInt(dia), 
     			mesI = Integer.parseInt(mes), 
     			anoI = Integer.parseInt(ano);
-		//Separo a string de reserva.dataInicial em um vetor e no if transformo cada posição em Integer
+		//Separo a string de reserva.dataInicial em um vetor e no if transformo cada posiï¿½ï¿½o em Integer
 		String[] dataInicial = reserva.dataInicial.split("/");
     	if (diaI == Integer.parseInt(dataInicial[0]) && 
     		mesI == Integer.parseInt(dataInicial[1]) &&
@@ -187,6 +196,20 @@ public class Sistema {
     		return false;
 	}
 
+
+	public static Reserva buscarReserva(Reserva[] reservas, int idReservaEscolhida) {
+
+		for(int i = 0; i < reservas.length; i++){
+			if(reservas[i] != null){
+				if(reservas[i].getIdReserva() == idReservaEscolhida){
+					return reservas[i];
+				}
+			}
+			
+		}
+		
+		return null;
+	}
 
 	public int numeroAleatorio(){
 		Random aleatorio = new Random();
