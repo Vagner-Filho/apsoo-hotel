@@ -395,7 +395,9 @@ public class Conexao{
 	}
 	
 
-
+	/**
+	 * Insere uma reserva no banco de dados
+	 */
 	public static void salvarReserva(Reserva reserva){
 
 		try{
@@ -417,7 +419,9 @@ public class Conexao{
 	}
 
 
-
+	/**
+	 * Busca todas as reservas relacionadas ao cpf passado como parametro e retorna um array com essas reservas
+	 */
 	public static Reserva[] buscarReservasPorCpf(String cpf){
 
 		Reserva[] reservas = new Reserva[100];
@@ -437,21 +441,23 @@ public class Conexao{
 			
 			ResultSet rs2 = conexao.createStatement().executeQuery(query);
 			
-
 			Funcionario funcionario = criaFuncionario(rs2);
 
 			Hospede hospede = buscarHospede(cpf);
 
+			// percorre cada reserva recuperada 
 			while(rs1.next()) {
 
 				// falta recuperar o tipo de quarto de cada quarto recuperado
 
 				Reserva reserva = new Reserva();
 
+				// recupera os quartos da reserva recuperada 
 				query = "select * from quarto where codigoQuarto in (select codigoQuarto from reservaQuarto where reservaQuarto.idRes = " + rs1.getInt("idRes") + ")";
 
 				ResultSet rs3 = conexao.createStatement().executeQuery(query);
 				
+				// percorre cada quarto recuperado e cria um instancia de Quarto e o adiciona ao array de quartos do objeto reserva
 				while (rs3.next()) {
 					Quarto quarto = new Quarto();
 					quarto.setCodigoQuarto(rs3.getInt("codigoQuarto"));
@@ -484,7 +490,13 @@ public class Conexao{
 		return reservas;
 	}
 
-	// cria e retorna uma instância de Funcionario com os dados que foram recuperados do BD
+
+	
+
+
+	/**
+	 * Cria e retorna uma instância de Funcionario com os dados que foram recuperados do BD
+	 */
 	public static Funcionario criaFuncionario(ResultSet rs){
 		Funcionario funcionario = new Funcionario();
 

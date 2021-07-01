@@ -102,6 +102,10 @@ public class Sistema {
 		return "Nao ha quartos disponiveis";
 	}
 
+	public String msgReservaNaoEncontrada(){
+		return "Nenhuma reserva encontrada";
+	}
+
 
 	public TipoDeQuarto[] verTiposDeQuarto() {
 		TipoDeQuarto[] tipos = Conexao.verTiposDeQuarto();
@@ -140,7 +144,7 @@ public class Sistema {
 		Reserva[] reservas = Conexao.buscarReservasPorCpf(cpf);
 		return reservas;
 	}
-
+	
 
 	public int numeroAleatorio(){
 		Random aleatorio = new Random();
