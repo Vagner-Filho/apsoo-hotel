@@ -1,5 +1,7 @@
 package hospedagemhotel.view;
 
+import hospedagemhotel.persistencia.Conexao;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -57,8 +59,13 @@ public class telaMenu extends JFrame {
 		BotaoReserva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == BotaoReserva) {
-					procurarHospede frameReserva = new procurarHospede();
-					frameReserva.setVisible(true);
+					try {
+						realizarReserva frameReserva = new realizarReserva();
+						frameReserva.setVisible(true);
+
+					} catch (Exception a) {
+						a.printStackTrace();
+					}
 
 				}
 
@@ -73,8 +80,13 @@ public class telaMenu extends JFrame {
 		BotaoCheckIN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == BotaoCheckIN) {
-					procurarHospede frame = new procurarHospede();
-					frame.setVisible(true);
+					try {
+						realizarCheckin frameReserva = new realizarCheckin();
+						frameReserva.setVisible(true);
+
+					} catch (Exception a) {
+						a.printStackTrace();
+					}
 
 				}
 
