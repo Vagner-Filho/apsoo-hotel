@@ -150,10 +150,6 @@ public class Sistema {
 		return reservas;
 	}
 	
-	//Busca uma reserva pelo seu idReserva
-	/*public Reserva buscarReserva(int idReserva) {
-		return Conexao.buscarReserva(idReserva);
-	}*/
 	
 	public boolean compararDias(Reserva reserva) {
 		//Criei a v�riavel data que recebe o dia atual

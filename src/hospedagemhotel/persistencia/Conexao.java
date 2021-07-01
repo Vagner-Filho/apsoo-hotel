@@ -142,7 +142,7 @@ public class Conexao{
 			//stm.executeUpdate("DROP TABLE IF EXISTS hospedagem");
 			stm.executeUpdate("CREATE TABLE hospedagem (" + 		
 				"idHospedagem integer NOT NULL primary key," +
-				"hos_res integer NOT NULL," +
+				"idRes integer NOT NULL," +
 				"fcpf varchar (11) NOT NULL," +
 				"hcpf varchar (11) NOT NULL," + 
 				"hdata date," + 
