@@ -1,5 +1,7 @@
 package hospedagemhotel.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -22,7 +24,7 @@ public class Sistema {
 	public void cadastrarHospede(String cpf) {	
 		String cpfParaParametroPessoa = cpf;
 
-		System.out.println("------CADASTRO DE HÓSPEDE------");
+		System.out.println("------CADASTRO DE HOSPEDE------");
 		System.out.println("Digite os dados do hospede:\n");
 
 		System.out.println("Nome completo: ");
@@ -49,7 +51,7 @@ public class Sistema {
 		String sexo = scanner.nextLine();
 		System.out.println();
 
-		System.out.println("Cóigo da conta:");
+		System.out.println("Codigo da conta:");
 		int codigoConta = scanner.nextInt();
 
 		Pessoa pessoa = new Pessoa(nome, cpf, telefone, dataNascimento, endereco);
@@ -69,8 +71,7 @@ public class Sistema {
 	}
 
 	
-	//Alterei o retorno e o tipo do metodo - Henrique
-	// Está sem o parametro Funcionario porque acho que seria melhor fazer uma autenticação - Juliendy
+	// Esta� sem o parametro Funcionario porque acho que seria melhor fazer uma autenticação - Juliendy
 	public Reserva confirmarReserva(String cpf, String dataInicial, String dataFinal, Quarto quarto) {
 		Hospede hos = Conexao.buscarHospede(cpf);
 		Conexao.buscarQuarto(quarto.getCodigoQuarto());
@@ -87,19 +88,23 @@ public class Sistema {
 
 
 	public String cancelarReserva() {
-		return "Reserva não efetuada";
+		return "Reserva nao efetuada";
 	}
 
 	public String msgCpfInvalido() {
-		return "CPF Inválido";
+		return "CPF Invalido";
 	}
 
 	public String msgHospedeNaoCadastrado() {
-		return "Cliente não cadastrado";
+		return "Cliente nao cadastrado";
 	}
 
 	public String msgQuartosIndisponiveis() {
 		return "Nao ha quartos disponiveis";
+	}
+	
+	public String msgDiasIguais() {
+		return "Esta reserva s� pode ser efetuada a partir da sua data de inicio";
 	}
 
 	public String msgReservaNaoEncontrada(){
@@ -116,7 +121,7 @@ public class Sistema {
 	public Quarto[] verQuartosDisponiveis(TipoDeQuarto tipoDeQuartoDesejado) {
 		Quarto[] listaQuartos = Conexao.verQuartosDisponiveis(tipoDeQuartoDesejado);
 		while (listaQuartos == null) {
-			System.out.println("N�o h� quartos dispon�veis");
+			System.out.println("Nao ha quartos disponiveis");
 			System.out.println("Selecione um tipo de Quarto: [ID]");
 			verTiposDeQuarto();
 			tipoDeQuartoDesejado.setTipoDeQuarto(scanner.nextInt());
@@ -145,6 +150,47 @@ public class Sistema {
 		return reservas;
 	}
 	
+<<<<<<< HEAD
+=======
+	//Busca uma reserva pelo seu idReserva
+	public Reserva buscarReserva(int idReserva) {
+		return Conexao.buscarReserva(idReserva);
+	}
+	
+	public boolean compararDias(Reserva reserva) {
+		//Criei a v�riavel data que recebe o dia atual
+		Date data = new Date();
+    	System.out.println(data);
+    	
+    	//Essa variavel olha apenas para o dia da data
+    	SimpleDateFormat formatar = new SimpleDateFormat("dd");
+    	String dia = formatar.format(data);
+    	
+    	//Essa variavel olha apenas para o mes da data
+    	formatar = new SimpleDateFormat("MM");
+    	String mes = formatar.format(data);
+    	
+    	//Essa variavel olha apenas para o ano da data
+    	formatar = new SimpleDateFormat("yyyy");
+    	String ano = formatar.format(data);
+    	
+    	//Transformo tudo em inteiro
+    	Integer diaI = Integer.parseInt(dia), 
+    			mesI = Integer.parseInt(mes), 
+    			anoI = Integer.parseInt(ano);
+		//Separo a string de reserva.dataInicial em um vetor e no if transformo cada posi��o em Integer
+		String[] dataInicial = reserva.dataInicial.split("/");
+    	if (diaI == Integer.parseInt(dataInicial[0]) && 
+    		mesI == Integer.parseInt(dataInicial[1]) &&
+    		anoI == Integer.parseInt(dataInicial[2]))
+    	{
+    		return true;
+    	}
+    	else
+    		return false;
+	}
+
+>>>>>>> branch-henrique
 
 	public int numeroAleatorio(){
 		Random aleatorio = new Random();
