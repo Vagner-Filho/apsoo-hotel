@@ -2,6 +2,12 @@ package hospedagemhotel;
 
 import java.awt.EventQueue;
 
+<<<<<<< HEAD
+=======
+import hospedagemhotel.controller.Sistema;
+import hospedagemhotel.model.Quarto;
+import hospedagemhotel.model.Reserva;
+>>>>>>> 853e3f0d0ab27ff7d16f047189806cc67df5afe6
 import hospedagemhotel.persistencia.Conexao;
 import hospedagemhotel.view.procurarHospede;
 
@@ -10,7 +16,11 @@ public class Main {
 	
     public static void main(String[] args) {
 
+<<<<<<< HEAD
 		/*Conexao.InitBD();
+=======
+		Conexao.InitBD();
+>>>>>>> 853e3f0d0ab27ff7d16f047189806cc67df5afe6
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -24,8 +34,15 @@ public class Main {
 		});*/
 
 
-		//Conexao.buscarReservasPorCpf("6451237894");
+
+
+		Reserva[] reservas = Conexao.buscarReservasPorCpf("06451237894");
 		
+		for(int i = 0; i < reservas.length; i++){
+			if(reservas[i] != null){
+				System.out.println(reservas[i]);
+			}
+		}
 		
 /*
 		Scanner scanner = new Scanner(System.in);

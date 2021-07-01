@@ -522,8 +522,8 @@ public class Conexao{
 	}
 
 	public static void salvarCheckin(Hospedagem hospedagem) {
-		String query = "update reserva set checkin = true, dataCheckin = " + hospedagem.getData() + 
-				", horaCheckin = " + hospedagem.getHorario() + " where idRes = " + hospedagem.getReserva().getIdReserva();
+		String query = "update reserva set checkin = true, dataCheckin = '" + hospedagem.getData() + 
+				"', horaCheckin = '" + hospedagem.getHorario() + "' where idRes = " + hospedagem.getReserva().getIdReserva();
 		
 		alterarBD(query);
 		
