@@ -395,7 +395,7 @@ public class Conexao{
 	}
 	
 
-
+	//ARRUMAR / Se pa ta arrumado agora kakakaka
 	public static void salvarReserva(Reserva reserva){
 
 		try{
@@ -405,9 +405,10 @@ public class Conexao{
 			alterarBD(query);
 
 			// altera a situacao do quarto
-			query = "update quarto set situacao = 1 where codigoQuarto = " + reserva.getQuarto().getCodigoQuarto();
-
-			alterarBD(query);
+			for (int a = 0; a < reserva.getQuarto().size(); a++) {
+				query = "update quarto set situacao = 1 where codigoQuarto = " + reserva.getQuarto().get(a).getCodigoQuarto();
+				alterarBD(query);
+			}
 
 			System.out.print("Reserva efetuada com sucesso!");
 		} catch(Error e){
@@ -483,6 +484,53 @@ public class Conexao{
 
 		return reservas;
 	}
+	
+	
+	public static Reserva buscarReserva(int idReserva) {
+		Reserva reserva = new Reserva();
+		try {
+
+			Statement stm = conexao.createStatement();
+
+			// recupera tudo da tabela reserva de acordo com o reserva passada
+			String query = "select * from reserva where idRes = '" + idReserva + "'";
+			
+
+			ResultSet rs1 = stm.executeQuery(query);
+			
+			// recupera tudo de funcionario e pessoa de acordo com o cpf do funcionario responsavel pelas reservas recuperadas
+			query = "select * from funcionario join pessoa on fcpf = cpf where fcpf in (select fcpf from reserva where fcpf = '" + rs1.getString("fcpf") + "')";
+			
+			ResultSet rs2 = conexao.createStatement().executeQuery(query);
+
+			Funcionario funcionario = criaFuncionario(rs2);
+			
+			// recupera tudo de funcionario e pessoa de acordo com o cpf do funcionario responsavel pelas reservas recuperadas
+			query = "select hcpf from hospede join pessoa on hcpf = cpf where hcpf in (select hcpf from hospede where hos_res = '" + idReserva + "')";			
+
+			Hospede hospede = buscarHospede(query);
+				
+			while(rs1.next()) {
+	
+				reserva.setIdReserva(rs1.getInt("idRes"));
+				reserva.setHospede(hospede);
+				reserva.setFuncionario(funcionario);
+				reserva.setDataInicial(rs1.getString("dataInicial"));
+				reserva.setDataFinal(rs1.getString("dataFinal"));
+				reserva.setPagamento(rs1.getString("pagamento"));
+				reserva.setCheckin(rs1.getBoolean("checkin"));
+				reserva.setDataCheckin(rs1.getString("dataCheckin"));
+				reserva.setHoraCheckin(rs1.getString("horaCHeckin"));				
+			}
+
+			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+
+		return reserva;
+		
+	}
 
 	// cria e retorna uma instância de Funcionario com os dados que foram recuperados do BD
 	public static Funcionario criaFuncionario(ResultSet rs){
@@ -501,4 +549,5 @@ public class Conexao{
 		}
 		return funcionario;
 	}
+
 }

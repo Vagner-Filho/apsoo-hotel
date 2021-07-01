@@ -139,6 +139,11 @@ public class Sistema {
 		Reserva[] reservas = Conexao.buscarReservasPorCpf(cpf);
 		return reservas;
 	}
+	
+	//Busca uma reserva pelo seu idReserva
+	public Reserva buscarReserva(int idReserva) {
+		return Conexao.buscarReserva(idReserva);
+	}
 
 
 	public int numeroAleatorio(){
