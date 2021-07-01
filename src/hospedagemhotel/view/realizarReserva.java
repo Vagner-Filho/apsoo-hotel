@@ -7,6 +7,9 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import java.sql.Date; import java.text.SimpleDateFormat;
+
+
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -24,6 +27,7 @@ import javax.swing.text.MaskFormatter;
 import hospedagemhotel.controller.Sistema;
 import hospedagemhotel.model.Quarto;
 import hospedagemhotel.model.TipoDeQuarto;
+import hospedagemhotel.model.Hospede;
 
 public class realizarReserva extends JFrame {
 
@@ -37,7 +41,8 @@ public class realizarReserva extends JFrame {
 	 * Create the frame.
 	 * @throws ParseException 
 	*/
-	public realizarReserva(String cpfHospede) throws ParseException {
+	public realizarReserva() throws ParseException {
+		setTitle("Realizar Reserva");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 550);
 		contentPane = new JPanel();
@@ -45,17 +50,55 @@ public class realizarReserva extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel realizarReservaLabel = new JLabel("REALIZAR RESERVA");
 		realizarReservaLabel.setFont(new Font("Tahoma", Font.PLAIN, 26));
 		realizarReservaLabel.setBounds(304, 52, 238, 32);
 		contentPane.add(realizarReservaLabel);
 		
-		/*JLabel cpfLabel = new JLabel("CPF:");
+		JLabel cpfLabel = new JLabel("CPF:");
 		cpfLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		cpfLabel.setBounds(10, 126, 36, 13);
-		contentPane.add(cpfLabel);*/
+		contentPane.add(cpfLabel);
 		
+		JFormattedTextField cpfCaixaDeTexto = new JFormattedTextField();
+		cpfCaixaDeTexto.setBounds(56, 119, 265, 32);
+		contentPane.add(cpfCaixaDeTexto);
+
+		JButton btnBuscar = new JButton("BUSCAR");
+		btnBuscar.setBackground(UIManager.getColor("Button.focus"));
+		btnBuscar.setBounds(331, 124, 99, 22);
+		btnBuscar.addActionListener(new ActionListener(){
+			Hospede hos = new Hospede();
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("botao confirmar clicado");
+				
+				Sistema sis = new Sistema();
+				String val;
+				
+				hos = sis.buscarHospede(cpfCaixaDeTexto.getText());
+				val = cpfCaixaDeTexto.getText();
+
+				JLabel nomeLabel = new JLabel();
+				nomeLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+				nomeLabel.setBounds(470, 117, 200, 37);
+
+				if(hos == null){
+					JOptionPane.showMessageDialog(null, "Hóspede não cadastrado");
+				}else if (val.length() <= 0 || val.length() > 11){
+					JOptionPane.showMessageDialog(null, "CPF inválido!");
+				} else {
+					nomeLabel.setText("Hóspede: " + hos.getNome());
+
+					
+				}
+
+				contentPane.updateUI();
+				contentPane.add(nomeLabel);
+			}
+		});
+		contentPane.add(btnBuscar);
+
 		JLabel lblDataInicial = new JLabel("Data Inicial:");
 		lblDataInicial.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblDataInicial.setBounds(10, 187, 94, 13);
@@ -88,7 +131,11 @@ public class realizarReserva extends JFrame {
 
 		btnCancelar.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				sis.cancelarReserva();
+				int resposta = JOptionPane.showConfirmDialog(null, "Deseja mesmo cancelar a reserva e retornar ao menu inicial?", "Cancelar Reserva", 0);
+				if (resposta == 0) {
+					JOptionPane.showMessageDialog(null, sis.cancelarReserva());
+					dispose();
+				}
 			}
 		});
 
@@ -177,11 +224,17 @@ public class realizarReserva extends JFrame {
 		btnConfirmar.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("botao confirmar clicado");
+
+				Date data = new Date(System.currentTimeMillis()); 
+				SimpleDateFormat formatarDate = new SimpleDateFormat("dd-MM-yyyy");
 				
-				sis.confirmarReserva(cpfHospede, dataInicialCaixaDeTexto.getText(), dataFinalCaixaDeTexto.getText(), getQuarto());
+
+
+				JOptionPane.showMessageDialog(null, formatarDate.format(data));
+				sis.confirmarReserva(cpfCaixaDeTexto.getText(), dataInicialCaixaDeTexto.getText(), dataFinalCaixaDeTexto.getText(), getQuarto());
 
 				JOptionPane.showMessageDialog(contentPane, "Reserva realizada com sucesso!");
-				
+				dispose();
 				
 			}
 		});
