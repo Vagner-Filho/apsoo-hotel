@@ -2,7 +2,6 @@ package hospedagemhotel;
 
 import java.awt.EventQueue;
 
-import hospedagemhotel.model.Reserva;
 import hospedagemhotel.persistencia.Conexao;
 import hospedagemhotel.view.procurarHospede;
 
@@ -11,9 +10,9 @@ public class Main {
 	
     public static void main(String[] args) {
 
-		//Conexao.InitBD();
+		/*Conexao.InitBD();
 		
-	/*	EventQueue.invokeLater(new Runnable() {
+		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					procurarHospede frame = new procurarHospede();
@@ -24,7 +23,6 @@ public class Main {
 			}
 		});*/
 
-		
 
 		//Conexao.buscarReservasPorCpf("6451237894");
 		
