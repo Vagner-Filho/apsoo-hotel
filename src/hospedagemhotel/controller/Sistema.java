@@ -1,5 +1,7 @@
 package hospedagemhotel.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -143,6 +145,39 @@ public class Sistema {
 	//Busca uma reserva pelo seu idReserva
 	public Reserva buscarReserva(int idReserva) {
 		return Conexao.buscarReserva(idReserva);
+	}
+	
+	public boolean compararDias(Reserva reserva) {
+		//Criei a váriavel data que recebe o dia atual
+		Date data = new Date();
+    	System.out.println(data);
+    	
+    	//Essa variavel olha apenas para o dia da data
+    	SimpleDateFormat formatar = new SimpleDateFormat("dd");
+    	String dia = formatar.format(data);
+    	
+    	//Essa variavel olha apenas para o mes da data
+    	formatar = new SimpleDateFormat("MM");
+    	String mes = formatar.format(data);
+    	
+    	//Essa variavel olha apenas para o ano da data
+    	formatar = new SimpleDateFormat("yyyy");
+    	String ano = formatar.format(data);
+    	
+    	//Transformo tudo em inteiro
+    	Integer diaI = Integer.parseInt(dia), 
+    			mesI = Integer.parseInt(mes), 
+    			anoI = Integer.parseInt(ano);
+		//Separo a string de reserva.dataInicial em um vetor e no if transformo cada posição em Integer
+		String[] dataInicial = reserva.dataInicial.split("/");
+    	if (diaI == Integer.parseInt(dataInicial[0]) && 
+    		mesI == Integer.parseInt(dataInicial[1]) &&
+    		anoI == Integer.parseInt(dataInicial[2]))
+    	{
+    		return true;
+    	}
+    	else
+    		return false;
 	}
 
 
