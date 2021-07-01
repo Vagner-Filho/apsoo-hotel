@@ -22,7 +22,7 @@ public class Sistema {
 	public void cadastrarHospede(String cpf) {	
 		String cpfParaParametroPessoa = cpf;
 
-		System.out.println("------CADASTRO DE HÓSPEDE------");
+		System.out.println("------CADASTRO DE HOSPEDE------");
 		System.out.println("Digite os dados do hospede:\n");
 
 		System.out.println("Nome completo: ");
@@ -49,7 +49,7 @@ public class Sistema {
 		String sexo = scanner.nextLine();
 		System.out.println();
 
-		System.out.println("Cóigo da conta:");
+		System.out.println("Codigo da conta:");
 		int codigoConta = scanner.nextInt();
 
 		Pessoa pessoa = new Pessoa(nome, cpf, telefone, dataNascimento, endereco);
@@ -69,8 +69,7 @@ public class Sistema {
 	}
 
 	
-	//Alterei o retorno e o tipo do metodo - Henrique
-	// Está sem o parametro Funcionario porque acho que seria melhor fazer uma autenticação - Juliendy
+	// Esta� sem o parametro Funcionario porque acho que seria melhor fazer uma autenticação - Juliendy
 	public Reserva confirmarReserva(String cpf, String dataInicial, String dataFinal, Quarto quarto) {
 		Hospede hos = Conexao.buscarHospede(cpf);
 		Conexao.buscarQuarto(quarto.getCodigoQuarto());
@@ -87,15 +86,15 @@ public class Sistema {
 
 
 	public String cancelarReserva() {
-		return "Reserva não efetuada";
+		return "Reserva nao efetuada";
 	}
 
 	public String msgCpfInvalido() {
-		return "CPF Inválido";
+		return "CPF Invalido";
 	}
 
 	public String msgHospedeNaoCadastrado() {
-		return "Cliente não cadastrado";
+		return "Cliente nao cadastrado";
 	}
 
 	public String msgQuartosIndisponiveis() {
@@ -112,7 +111,7 @@ public class Sistema {
 	public Quarto[] verQuartosDisponiveis(TipoDeQuarto tipoDeQuartoDesejado) {
 		Quarto[] listaQuartos = Conexao.verQuartosDisponiveis(tipoDeQuartoDesejado);
 		while (listaQuartos == null) {
-			System.out.println("N�o h� quartos dispon�veis");
+			System.out.println("Nao ha quartos disponiveis");
 			System.out.println("Selecione um tipo de Quarto: [ID]");
 			verTiposDeQuarto();
 			tipoDeQuartoDesejado.setTipoDeQuarto(scanner.nextInt());

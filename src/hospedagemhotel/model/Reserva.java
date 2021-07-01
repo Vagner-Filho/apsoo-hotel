@@ -69,10 +69,9 @@ public class Reserva {
 		
 	}
 
-	//Arrumar esse metodo, so mostra 1 quarto
-	public Quarto getQuarto() {
-		return quartos.get(0);	
-	}
+	public ArrayList<Quarto> getQuarto() {
+		return quartos;
+	}	
 	
 	public void setQuarto(Quarto quarto) {
 		quartos.add(quarto);
