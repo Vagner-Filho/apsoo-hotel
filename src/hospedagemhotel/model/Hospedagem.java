@@ -1,19 +1,36 @@
 package hospedagemhotel.model;
 
+import hospedagemhotel.controller.Sistema;
 
 public class Hospedagem {
-    public String data;
-    private int horario;
+	private int idHospedagem;
+    private String data;
+    private String horario;
     private Funcionario funcionario;
     private Reserva reserva;
 
-	public Hospedagem(String data, int horario, Reserva reserva, Funcionario funcionario) {
+    public Hospedagem(){
+		Sistema sis = new Sistema();
+		setIdHospedagem(sis.numeroAleatorio());
+	}
+    
+	public Hospedagem(String data, String horario, Funcionario funcionario, Reserva reserva) {
         setData(data);
         setHorario(horario);
         setFuncionario(funcionario);
         setReserva(reserva);
+        Sistema sis = new Sistema();
+		setIdHospedagem(sis.numeroAleatorio());
     }
 
+
+	public int getIdHospedagem() {
+		return idHospedagem;
+	}
+
+	public void setIdHospedagem(int idHospedagem) {
+		this.idHospedagem = idHospedagem;
+	}
 
 	public void setData(String data) {
         this.data = data;
@@ -23,11 +40,11 @@ public class Hospedagem {
         return data;
     }
 
-    public void setHorario(int horario) {
+    public void setHorario(String horario) {
         this.horario = horario;
     }
 
-    public int getHorario() {
+    public String getHorario() {
         return horario;
     }
     

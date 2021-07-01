@@ -5,11 +5,14 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.naming.spi.DirStateFactory.Result;
 
 import hospedagemhotel.model.Endereco;
 import hospedagemhotel.model.Funcionario;
+import hospedagemhotel.model.Hospedagem;
 import hospedagemhotel.model.Hospede;
 import hospedagemhotel.model.Quarto;
 import hospedagemhotel.model.Reserva;
@@ -145,8 +148,8 @@ public class Conexao{
 				"hos_res integer NOT NULL," +
 				"fcpf varchar (11) NOT NULL," +
 				"hcpf varchar (11) NOT NULL," + 
-				"hdata date," + 
-				"horario time," + 
+				"hdata varchar (10)," + 
+				"horario varchar (6)," + 
 				"FOREIGN KEY (fcpf) REFERENCES funcionario(fcpf)," + 
 				"FOREIGN KEY (hos_res) REFERENCES reserva(idRes)," +
 				"FOREIGN KEY (hcpf) REFERENCES hospede(hcpf))"
@@ -510,6 +513,25 @@ public class Conexao{
 			System.out.println(e.getMessage());
 		}
 		return funcionario;
+	}
+
+	public static void salvarCheckin(Hospedagem hospedagem) {
+		String query = "update reserva set checkin = true, dataCheckin = " + hospedagem.getData() + 
+				", horaCheckin = " + hospedagem.getHorario() + " where idRes = " + hospedagem.getReserva().getIdReserva();
+		
+		alterarBD(query);
+		
+		query = "insert into hospedagem values(" + hospedagem.getIdHospedagem() + ", " + hospedagem.getReserva().getIdReserva() + ", '" 
+		+ hospedagem.getReserva().getFuncionario().getCpf() + "', '" + hospedagem.getReserva().getHospede().getCpf() + "', '" 
+		+ hospedagem.getData() + "', '" + hospedagem.getHorario() + "')";
+
+		alterarBD(query);
+		
+		for (int a = 0; a < hospedagem.getReserva().getQuarto().size(); a++) {
+			query = "update quarto set qua_hospedagem = " + hospedagem.getIdHospedagem() + " where codigoQuarto = " + 
+			hospedagem.getReserva().getQuarto().get(a).getCodigoQuarto() + "";
+			alterarBD(query);
+		}
 	}
 
 }

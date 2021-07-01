@@ -7,6 +7,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import hospedagemhotel.model.Endereco;
+import hospedagemhotel.model.Hospedagem;
 import hospedagemhotel.model.Hospede;
 import hospedagemhotel.model.Pessoa;
 import hospedagemhotel.model.Quarto;
@@ -83,13 +84,38 @@ public class Sistema {
 		reserva.setHospede(hos); 
 
 		Conexao.salvarReserva(reserva);
-
+	}
+	
+	public void confirmarCheckin(Reserva reserva) {
+		
+		reserva.setCheckin(true);
+		
+		Date data = new Date();
+        SimpleDateFormat formatar = new SimpleDateFormat("dd/MM/yyyy");
+        String dataAtual = formatar.format(data);
+        reserva.setDataCheckin(dataAtual);
+        
+        formatar = new SimpleDateFormat("HH:mm:ss");
+        String horaAtual = formatar.format(data);
+        reserva.setHoraCheckin(horaAtual);
+        
+		Hospedagem hospedagem = new Hospedagem();
+		hospedagem.setData(reserva.getDataCheckin());
+		hospedagem.setHorario(reserva.getHoraCheckin());
+		hospedagem.setFuncionario(reserva.getFuncionario());
+		hospedagem.setReserva(reserva);
+		
+		for (int a = 0; a < reserva.getQuarto().size(); a++)
+			reserva.getQuarto().get(a).setHospedagem(hospedagem);
+		
+		reserva.getHospede().setHospedagem(hospedagem);
+		
+		Conexao.salvarCheckin(hospedagem);
 	}
 	
 	public String cancelarCheckin() {
 		return "Check-in nao efetuado";
 	}
-
 
 	public String cancelarReserva() {
 		return "Reserva nao efetuada";
@@ -108,7 +134,7 @@ public class Sistema {
 	}
 	
 	public String msgDiasIguais() {
-		return "Esta reserva s� pode ser efetuada a partir da sua data de inicio";
+		return "Esta reserva so pode ser efetuada a partir da sua data de inicio";
 	}
 
 	public String msgReservaNaoEncontrada(){
