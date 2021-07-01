@@ -11,7 +11,7 @@ public class Main {
 	
     public static void main(String[] args) {
 
-		Conexao.InitBD();
+		//Conexao.InitBD();
 		
 	/*	EventQueue.invokeLater(new Runnable() {
 			public void run() {

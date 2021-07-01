@@ -1,5 +1,6 @@
 package hospedagemhotel.controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -70,14 +71,9 @@ public class Sistema {
 
 	}
 
-	
-<<<<<<< HEAD
+
 	// Esta� sem o parametro Funcionario porque acho que seria melhor fazer uma autenticação - Juliendy
 	public void confirmarReserva(String cpf, String dataInicial, String dataFinal, Quarto quarto) {
-=======
-	// Esta� sem o parametro Funcionario porque acho que seria melhor fazer uma autenticação - Juliendy
-	public Reserva confirmarReserva(String cpf, String dataInicial, String dataFinal, Quarto quarto) {
->>>>>>> branch-juliendy
 		Hospede hos = Conexao.buscarHospede(cpf);
 		Conexao.buscarQuarto(quarto.getCodigoQuarto());
 		Reserva reserva = new Reserva();
@@ -158,43 +154,24 @@ public class Sistema {
 		return reservas;
 	}
 	
-	//Busca uma reserva pelo seu idReserva
-	/*public Reserva buscarReserva(int idReserva) {
-		return Conexao.buscarReserva(idReserva);
-	}*/
-	
+
 	public boolean compararDias(Reserva reserva) {
-		//Criei a v�riavel data que recebe o dia atual
+		try {
 		Date data = new Date();
-    	System.out.println(data);
-    	
-    	//Essa variavel olha apenas para o dia da data
-    	SimpleDateFormat formatar = new SimpleDateFormat("dd");
-    	String dia = formatar.format(data);
-    	
-    	//Essa variavel olha apenas para o mes da data
-    	formatar = new SimpleDateFormat("MM");
-    	String mes = formatar.format(data);
-    	
-    	//Essa variavel olha apenas para o ano da data
-    	formatar = new SimpleDateFormat("yyyy");
-    	String ano = formatar.format(data);
-    	
-    	//Transformo tudo em inteiro
-    	Integer diaI = Integer.parseInt(dia), 
-    			mesI = Integer.parseInt(mes), 
-    			anoI = Integer.parseInt(ano);
-		//Separo a string de reserva.dataInicial em um vetor e no if transformo cada posi��o em Integer
-		String[] dataInicial = reserva.dataInicial.split("/");
-    	if (diaI == Integer.parseInt(dataInicial[0]) && 
-    		mesI == Integer.parseInt(dataInicial[1]) &&
-    		anoI == Integer.parseInt(dataInicial[2]))
-    	{
-    		return true;
-    	}
-    	else
-    		return false;
-	}
+        SimpleDateFormat formatar = new SimpleDateFormat("dd/MM/yyyy");
+        
+        Date dataInicial = formatar.parse(reserva.getDataInicial());
+        Date dataFinal = formatar.parse(reserva.getDataFinal());
+        
+        if ((data.after(dataInicial) && data.before(dataFinal)) || data.equals(dataInicial))
+            return true;
+        else
+            return false;
+		} catch (ParseException e) {
+			System.out.println(e.getMessage());
+		}
+		return false;
+}
 
 
 	public static Reserva buscarReserva(Reserva[] reservas, int idReservaEscolhida) {
