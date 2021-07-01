@@ -134,7 +134,7 @@ public class Conexao{
 			//stm.executeUpdate("DROP TABLE IF EXISTS quarto");
 			stm.executeUpdate("CREATE TABLE quarto (" + 			
 				"codigoQuarto integer NOT NULL primary key," +
-				"qua_tip_quarto qua_tip_quarto integer NOT NULL," +
+				"qua_tip_quarto integer NOT NULL," +
 				"qua_hospedagem integer NOT NULL," +
 				"localizacao varchar(5)," +
 				"situacao integer," +
@@ -449,8 +449,6 @@ public class Conexao{
 			// percorre cada reserva recuperada 
 			while(rs1.next()) {
 
-				// falta recuperar o tipo de quarto de cada quarto recuperado
-
 				Reserva reserva = new Reserva();
 
 				// recupera os quartos da reserva recuperada 
@@ -464,6 +462,15 @@ public class Conexao{
 					quarto.setCodigoQuarto(rs3.getInt("codigoQuarto"));
 					quarto.setSituacao(rs3.getInt("situacao"));
 					quarto.setLocalizacao(rs3.getString("localizacao"));
+					reserva.setQuarto(quarto);
+					
+					query = "select * from tipoDeQuarto where idTipQuarto in(select qua_tip_quarto from quarto where codigoQuarto == " +
+					quarto.getCodigoQuarto() + ")";
+					ResultSet rs4 = conexao.createStatement().executeQuery(query);
+
+					TipoDeQuarto tipo = new TipoDeQuarto(rs4.getInt("idTipQuarto"), rs4.getInt("valor"), rs4.getString("descricao"));
+					
+					quarto.setTipoDeQuarto(tipo);
 					reserva.setQuarto(quarto);
 				}
 	
@@ -495,7 +502,7 @@ public class Conexao{
 	
 
 	/**
-	 * Cria e retorna uma instância de Funcionario com os dados que foram recuperados do BD
+	 * Cria e retorna uma instancia de Funcionario com os dados que foram recuperados do BD
 	 */
 	public static Funcionario criaFuncionario(ResultSet rs){
 		Funcionario funcionario = new Funcionario();
