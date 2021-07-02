@@ -72,13 +72,17 @@ public class realizarCheckin extends JFrame {
 
             public void actionPerformed(ActionEvent e) {
 
+                if (sis.validarCPF(caixaDeTextoCPF.getText()) == true) {
+                    contentPane.updateUI();
+                } else {
+                    JOptionPane.showMessageDialog(null, "CPF inválido!");
+                }
+
                 hos = sis.buscarHospede(caixaDeTextoCPF.getText());
 
-				if(hos == null){
-					System.out.println("hos null");
-				}
-
-                contentPane.updateUI();
+                if (hos == null) {
+                    JOptionPane.showMessageDialog(null, "Cliente não cadastrado!");
+                }
 
                 JFormattedTextField Nomeftf = new JFormattedTextField(hos.getNome());
                 Nomeftf.setEditable(false);

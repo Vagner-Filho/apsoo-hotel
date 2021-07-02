@@ -78,10 +78,8 @@ public class realizarReserva extends JFrame {
                 System.out.println("botao confirmar clicado");
 
                 Sistema sis = new Sistema();
-                String val;
 
                 hos = sis.buscarHospede(cpfCaixaDeTexto.getText());
-                val = cpfCaixaDeTexto.getText();
 
                 JLabel nomeLabel = new JLabel();
                 nomeLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -89,11 +87,10 @@ public class realizarReserva extends JFrame {
 
                 if (hos == null) {
                     JOptionPane.showMessageDialog(null, "Hóspede não cadastrado");
-                } else if (val.length() <= 0 || val.length() > 11) {
+                } else if (sis.validarCPF(cpfCaixaDeTexto.getText()) == false) {
                     JOptionPane.showMessageDialog(null, "CPF inválido!");
                 } else {
                     nomeLabel.setText("Hóspede: " + hos.getNome());
-
                 }
 
                 contentPane.updateUI();

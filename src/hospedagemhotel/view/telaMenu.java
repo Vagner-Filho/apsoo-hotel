@@ -36,7 +36,7 @@ public class telaMenu extends JFrame {
 		
 		
 		JLabel lblNewLabel = new JLabel();
-		//lblNewLabel.setIcon(new ImageIcon(telaMenu.class.getResource("images/paginainicial.png")));
+		lblNewLabel.setIcon(new ImageIcon(telaMenu.class.getResource("images/paginainicial.png")));
 		lblNewLabel.setBounds(0, 0, 851, 511);
 		contentPane.add(lblNewLabel);
 

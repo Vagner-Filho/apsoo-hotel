@@ -285,7 +285,6 @@ public class Conexao{
 			//System.out.println(stm.executeQuery(query).getString("nome"));
 			
 			
-			
 		}catch(SQLException e){
 			System.out.println("buscarHospede " + e.getMessage());
 			return null;
