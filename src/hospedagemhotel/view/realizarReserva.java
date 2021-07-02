@@ -9,20 +9,24 @@ import java.util.ArrayList;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.awt.event.*;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.ListCellRenderer;
 import javax.swing.ListModel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.MaskFormatter;
+import javax.swing.ComponentInputMap;
 
 import hospedagemhotel.controller.Sistema;
 import hospedagemhotel.model.Quarto;
@@ -30,9 +34,8 @@ import hospedagemhotel.model.TipoDeQuarto;
 import hospedagemhotel.model.Hospede;
 
 public class realizarReserva extends JFrame {
-
     private JPanel contentPane;
-    private Quarto quarto;
+    private ArrayList<Quarto>  quartos = new ArrayList<Quarto>();
 
     Sistema sis = new Sistema();
 
@@ -151,63 +154,77 @@ public class realizarReserva extends JFrame {
 
         TipoDeQuarto[] tipos = sis.verTiposDeQuarto();
 
-        JList tipoDeQuartoLista = new JList(tipos);
-        // tipoDeQuartoLista.setListData(tipos);
-        tipoDeQuartoLista.setBounds(154, 246, 167, 70);
-        contentPane.add(tipoDeQuartoLista);
+		JList tipoDeQuartoLista = new JList(tipos);
+		//tipoDeQuartoLista.setListData(tipos);
+		tipoDeQuartoLista.setBounds(154, 246, 167, 70);
+		contentPane.add(tipoDeQuartoLista);
+		
+		tipoDeQuartoLista.addListSelectionListener(new ListSelectionListener(){
 
-        tipoDeQuartoLista.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e){
+				//System.out.println(tipoDeQuartoLista.getSelectedValue());
+				if(e.getValueIsAdjusting()){
+					String tipoDesejado = tipoDeQuartoLista.getSelectedValue().toString();
 
-            public void valueChanged(ListSelectionEvent e) {
-                // System.out.println(tipoDeQuartoLista.getSelectedValue());
+					TipoDeQuarto tipoDeQuartoDesejado = new TipoDeQuarto();
+			
+					for (TipoDeQuarto tipo : tipos) {
 
-                String tipoDesejado = tipoDeQuartoLista.getSelectedValue().toString();
+						if(tipo != null){
+							//System.out.println(tipo.getDescricao());
+							if((tipo.getDescricao()).equals(tipoDesejado)){
+								tipoDeQuartoDesejado = tipo;
+							}
+						}
+					
+					}
 
-                TipoDeQuarto tipoDeQuartoDesejado = new TipoDeQuarto();
+					contentPane.updateUI();
+					Quarto[] quartos = sis.verQuartosDisponiveis(tipoDeQuartoDesejado);
+		
+					
+					int y = 246;
+					
 
-                for (TipoDeQuarto tipo : tipos) {
+					for (Quarto quarto : quartos){
+						if(quarto != null){
+							JCheckBox cb = new JCheckBox(quarto.toString());
+							cb.setToolTipText(quarto.getLocalizacao());
+							cb.setBounds(547, y, 250, 30);
+							y += 30;
+							contentPane.add(cb);
 
-                    if (tipo != null) {
-                        // System.out.println(tipo.getDescricao());
-                        if ((tipo.getDescricao()).equals(tipoDesejado)) {
-                            tipoDeQuartoDesejado = tipo;
-                        }
-                    }
+							cb.addItemListener(new ItemListener() {    
+								public void itemStateChanged(ItemEvent e) {                 
+									System.out.println("quarto escolhido");
+							
+									String localizacao = cb.getToolTipText();
+		
+									for (Quarto quarto : quartos) {							
+										if(quarto != null){
+											//System.out.println(quarto.getLocalizacao());
+				
+											if(quarto.getLocalizacao().equals(localizacao)){
+												System.out.println(quarto.getLocalizacao());
+												setQuarto(quarto);
+											}
+										}
+										
+										
+									}
+								}    
+							 });  
+						}
+						
+					}
+					
+				}
+				
+				
+			}
 
-                }
-                contentPane.updateUI();
-
-                Quarto[] quartos = sis.verQuartosDisponiveis(tipoDeQuartoDesejado);
-                JList quartoLista = new JList(quartos);
-                quartoLista.setBounds(547, 246, 220, 70);
-                contentPane.add(quartoLista);
-
-                quartoLista.addListSelectionListener(new ListSelectionListener() {
-
-                    public void valueChanged(ListSelectionEvent e) {
-                        // System.out.println(quartoLista.getSelectedValue().toString().substring(0,
-                        // 1));
-
-                        String localizacao = quartoLista.getSelectedValue().toString().substring(14, 16);
-
-                        for (Quarto quarto : quartos) {
-                            if (quarto != null) {
-                                // System.out.println(quarto.getLocalizacao());
-
-                                if (quarto.getLocalizacao().equals(localizacao)) {
-                                    System.out.println(quarto.getLocalizacao());
-                                    setQuarto(quarto);
-                                }
-                            }
-
-                        }
-
-                    }
-                });
-
-            }
-
-        });
+			
+		});
 
         /*
          * JFormattedTextField valorTotalCaixaDeTexto = new JFormattedTextField();
@@ -230,11 +247,11 @@ public class realizarReserva extends JFrame {
         contentPane.add(btnConfirmar);
     }
 
-    public void setQuarto(Quarto quarto) {
-        this.quarto = quarto;
-    }
+    public ArrayList<Quarto> getQuarto() {
+		return quartos;
+	}
 
-    public Quarto getQuarto() {
-        return this.quarto;
-    }
+    public void setQuarto(Quarto quarto) {
+		quartos.add(quarto);
+	}
 }
