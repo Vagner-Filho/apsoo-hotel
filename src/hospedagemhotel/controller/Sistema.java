@@ -106,8 +106,6 @@ public class Sistema {
 			System.out.println(e.getMessage());
 		}
 		
-		reserva.setDataInicial(dataInicial);
-		reserva.setDataFinal(dataFinal);
 		for (Quarto quarto : quartos){
 			reserva.setQuarto(quarto);
 		}
@@ -115,7 +113,6 @@ public class Sistema {
 		reserva.setHospede(hos); 
 
 		Conexao.salvarReserva(reserva);
-
 	}
 	
 	public void confirmarCheckin(Reserva reserva) {
@@ -130,6 +127,8 @@ public class Sistema {
         formatar = new SimpleDateFormat("HH:mm:ss");
         String horaAtual = formatar.format(data);
         reserva.setHoraCheckin(horaAtual);
+        
+        compararDias(reserva);
         
 		Hospedagem hospedagem = new Hospedagem();
 		hospedagem.setData(reserva.getDataCheckin());
@@ -222,7 +221,13 @@ public class Sistema {
 			System.out.println(e.getMessage());
 		}
 		return false;
-}
+	}
+	
+	public static Reserva[] buscarReservasPorCpf(String cpf){
+        Reserva[] reservas = Conexao.buscarReservasPorCpf(cpf);
+
+        return reservas;
+    }
 
 
 	public Reserva buscarReserva(Reserva[] reservas, int idReservaEscolhida) {
@@ -242,13 +247,7 @@ public class Sistema {
 	public int numeroAleatorio(){
 		Random aleatorio = new Random();
 		return aleatorio.nextInt(10);
-	}
-
-	public static Reserva[] buscarReservasPorCpf(String cpf){
-        Reserva[] reservas = Conexao.buscarReservasPorCpf(cpf);
-
-        return reservas;
-    }
+	}}
 	
 	public boolean validarCPF(String cpf) {
 		String validosCPF = "0123456789";
