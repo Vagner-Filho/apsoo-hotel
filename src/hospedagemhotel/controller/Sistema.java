@@ -75,12 +75,12 @@ public class Sistema {
 
 
 	// Esta sem o parametro Funcionario porque acho que seria melhor fazer uma autenticacao - Juliendy
-	public Reserva confirmarReserva(String cpf, String dataInicial, String dataFinal, ArrayList<Quarto> quartos) {
+	public void confirmarReserva(String cpf, String dataInicial, String dataFinal, ArrayList<Quarto> quartos) {
 		Hospede hos = Conexao.buscarHospede(cpf);
 	
 		Reserva reserva = new Reserva();
 
-		/*try {
+		try {
 			Date data = new Date();
 			SimpleDateFormat formatar = new SimpleDateFormat("dd/MM/yyyy");
 			
@@ -104,10 +104,8 @@ public class Sistema {
 						
 		} catch (ParseException e) {
 			System.out.println(e.getMessage());
-		}*/
+		}
 		
-		reserva.setDataInicial(dataInicial);
-		reserva.setDataFinal(dataFinal);
 		for (Quarto quarto : quartos){
 			reserva.setQuarto(quarto);
 		}
@@ -115,8 +113,6 @@ public class Sistema {
 		reserva.setHospede(hos); 
 
 		Conexao.salvarReserva(reserva);
-
-		return reserva;
 	}
 	
 	public void confirmarCheckin(Reserva reserva) {
