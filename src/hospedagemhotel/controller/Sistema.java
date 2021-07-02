@@ -242,8 +242,14 @@ public class Sistema {
 
 	public int numeroAleatorio(){
 		Random aleatorio = new Random();
-		return aleatorio.nextInt(100);
+		return aleatorio.nextInt(10);
 	}
+
+	public static Reserva[] buscarReservasPorCpf(String cpf){
+        Reserva[] reservas = Conexao.buscarReservasPorCpf(cpf);
+
+        return reservas;
+    }
 	
 	public boolean validarCPF(String cpf) {
 		String validosCPF = "0123456789";

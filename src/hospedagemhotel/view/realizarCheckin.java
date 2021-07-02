@@ -30,6 +30,7 @@ import java.awt.event.ActionEvent;
 public class realizarCheckin extends JFrame {
 
     private JPanel contentPane;
+    private Reserva reservaDesejada;
 
     Sistema sis = new Sistema();
 
@@ -220,29 +221,46 @@ public class realizarCheckin extends JFrame {
                 reservaLista.addListSelectionListener(new ListSelectionListener(){
                     public void valueChanged(ListSelectionEvent e) {
                         if(e.getValueIsAdjusting()) {
-                            
+                            String idReserva = reservaLista.getSelectedValue().toString().substring(8, 9);
 
+                            for (Reserva reserva : reservas) {
+
+                                if(reserva != null){
+                                    //System.out.println(tipo.getDescricao());
+                                    if(reserva.getIdReserva() == Integer.parseInt(idReserva)){
+                                        setReservaDesejada(reserva);
+                                    }
+                                }
+                            }
 
                         }
                     }
                 });
 
-                /*
-				Reserva[] reservas = sis.buscarReservasPorCpf(caixaDeTextoCPF.getText());
-                
-                int y = 460;
-
-                for (Reserva reserva : reservas){
-                    if(reserva != null){
-                        JCheckBox cb = new JCheckBox(reserva.toString());
-                        cb.setBounds(10, y, 450, 30);
-                        y += 30;
-                        contentPane.add(cb);
+                btnConfirmar.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        int resposta = JOptionPane.showConfirmDialog(null,
+                                "Deseja realizar o checkin?", "Confirmar Check-in", 0);
+                        if (resposta == 0) {
+                            sis.confirmarCheckin(getReservaDesejada());
+                            JOptionPane.showMessageDialog(null, "Check-in não efetuado!");
+                            dispose();
+                        }
                     }
-                }
-				*/
+                });
+
             }
         });
         contentPane.add(btnBuscar);
     }
+
+    
+    public Reserva getReservaDesejada() {
+        return reservaDesejada;
+    }
+
+    public void setReservaDesejada(Reserva reservaDesejada) {
+        this.reservaDesejada = reservaDesejada;
+    }
+
 }
