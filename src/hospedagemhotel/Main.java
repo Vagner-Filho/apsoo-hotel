@@ -13,10 +13,8 @@ public class Main {
 	
     public static void main(String[] args) {
 
-		/*Conexao.InitBD();
-=======
+		
 		Conexao.InitBD();
->>>>>>> 853e3f0d0ab27ff7d16f047189806cc67df5afe6
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

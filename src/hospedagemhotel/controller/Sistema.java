@@ -2,6 +2,7 @@ package hospedagemhotel.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
@@ -73,13 +74,13 @@ public class Sistema {
 	}
 
 
-	// Esta� sem o parametro Funcionario porque acho que seria melhor fazer uma autenticação - Juliendy
-	public void confirmarReserva(String cpf, String dataInicial, String dataFinal, Quarto quarto) {
+	// Esta sem o parametro Funcionario porque acho que seria melhor fazer uma autenticacao - Juliendy
+	public Reserva confirmarReserva(String cpf, String dataInicial, String dataFinal, ArrayList<Quarto> quartos) {
 		Hospede hos = Conexao.buscarHospede(cpf);
-		Conexao.buscarQuarto(quarto.getCodigoQuarto());
+	
 		Reserva reserva = new Reserva();
 
-		try {
+		/*try {
 			Date data = new Date();
 			SimpleDateFormat formatar = new SimpleDateFormat("dd/MM/yyyy");
 			
@@ -90,25 +91,32 @@ public class Sistema {
 				reserva.setDataInicial(dataInicial);
 			}
 			else{
-				System.out.println("Data inválida, tente novamente");
+				System.out.println("Data invalida, tente novamente");
 				return;
 			}
 			
 			if(dataF.after(dataI) || dataF.equals(dataI)){
 				reserva.setDataFinal(dataFinal);
 			}else{
-				System.out.println("Data inválida, tente novamente");
+				System.out.println("Data invalida, tente novamente");
 				return;
 			}
 						
 		} catch (ParseException e) {
 			System.out.println(e.getMessage());
+		}*/
+		
+		reserva.setDataInicial(dataInicial);
+		reserva.setDataFinal(dataFinal);
+		for (Quarto quarto : quartos){
+			reserva.setQuarto(quarto);
 		}
 		
-		reserva.setQuarto(quarto);
 		reserva.setHospede(hos); 
 
 		Conexao.salvarReserva(reserva);
+
+		return reserva;
 	}
 	
 	public void confirmarCheckin(Reserva reserva) {

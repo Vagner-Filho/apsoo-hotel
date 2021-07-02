@@ -370,7 +370,7 @@ public class Conexao{
 		int qtdDeQuartos = 0;
 		try{
 
-			String query = "select * from quarto join tipoDeQuarto on qua_tip_quarto = " + tipoDeQuartoDesejado.getId() + " and situacao = 0";
+			String query = "select * from quarto where qua_tip_quarto in (select idTipQuarto from tipoDeQuarto where idTipQuarto = " + tipoDeQuartoDesejado.getId() + ") and situacao = 0";
 			
 			Statement stm = conexao.createStatement();
 			ResultSet rs = stm.executeQuery(query);
@@ -387,6 +387,7 @@ public class Conexao{
 				qtdDeQuartos++;
 			}
 			
+		
 			return quartos;
 			
 		}catch(SQLException e){
@@ -402,20 +403,24 @@ public class Conexao{
 			//insere a reserva no banco de dados
 			String query = "insert into reserva values(" + reserva.getIdReserva() + ", '23556987451', '" + reserva.getHospede().getCpf() + "', '" + reserva.getDataInicial() + "', '" + reserva.getDataFinal() + "', null, null, null, null)";
 
-			alterarBD(query);
+			Statement stm = conexao.createStatement();
+
+			stm.executeUpdate(query);
 
 			// altera a situacao do quarto
 			for (int a = 0; a < reserva.getQuarto().size(); a++) {
 				query = "update quarto set situacao = 1 where codigoQuarto = " + reserva.getQuarto().get(a).getCodigoQuarto();
-				alterarBD(query);
+				stm.executeUpdate(query);
 
 				query = "insert into reservaQuarto values(" + reserva.getIdReserva() + "," + reserva.getQuarto().get(a).getCodigoQuarto() + ")";
-				alterarBD(query);
+				stm.executeUpdate(query);
 			}
 
 			System.out.print("Reserva efetuada com sucesso!");
-		} catch(Error e){
-			System.out.println("Não foi possível cadastrar a reserva.");
+		
+		} catch(SQLException e){
+			System.out.println("Nao foi possivel cadastrar a reserva.");
+			
 		}
 
 	}
