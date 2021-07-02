@@ -188,7 +188,7 @@ public class realizarReserva extends JFrame {
                         // System.out.println(quartoLista.getSelectedValue().toString().substring(0,
                         // 1));
 
-                        String localizacao = quartoLista.getSelectedValue().toString().substring(13, 15);
+                        String localizacao = quartoLista.getSelectedValue().toString().substring(14, 16);
 
                         for (Quarto quarto : quartos) {
                             if (quarto != null) {
