@@ -221,7 +221,13 @@ public class Sistema {
 			System.out.println(e.getMessage());
 		}
 		return false;
-}
+	}
+	
+	public static Reserva[] buscarReservasPorCpf(String cpf){
+        Reserva[] reservas = Conexao.buscarReservasPorCpf(cpf);
+
+        return reservas;
+    }
 
 
 	public Reserva buscarReserva(Reserva[] reservas, int idReservaEscolhida) {
