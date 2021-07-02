@@ -8,9 +8,12 @@ import javax.swing.border.EmptyBorder;
 
 import hospedagemhotel.model.Hospede;
 import hospedagemhotel.persistencia.Conexao;
+import hospedagemhotel.model.Reserva;
 
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JList;
+
 import java.awt.Font;
 import java.text.ParseException;
 
@@ -193,9 +196,10 @@ public class realizarCheckin extends JFrame {
                 lblReservas.setBounds(10, 427, 96, 22);
                 contentPane.add(lblReservas);
 
-                tabelaReserva = new JTable();
+                JList tabelaReserva = new JList();
                 tabelaReserva.setBounds(10, 460, 792, 147);
                 contentPane.add(tabelaReserva);
+				
             }
         });
         contentPane.add(btnBuscar);

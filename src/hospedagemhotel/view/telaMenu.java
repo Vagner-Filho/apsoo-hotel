@@ -50,8 +50,8 @@ public class telaMenu extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-
-		JLabel lblNewLabel = new JLabel("New label");
+		
+		JLabel lblNewLabel = new JLabel();
 		//lblNewLabel.setIcon(new ImageIcon(telaMenu.class.getResource("images/paginainicial.png")));
 		lblNewLabel.setBounds(0, 0, 851, 511);
 		contentPane.add(lblNewLabel);
@@ -91,7 +91,6 @@ public class telaMenu extends JFrame {
 					}
 
 				}
-
 			}
 		});
 
