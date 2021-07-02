@@ -5,11 +5,14 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.naming.spi.DirStateFactory.Result;
 
 import hospedagemhotel.model.Endereco;
 import hospedagemhotel.model.Funcionario;
+import hospedagemhotel.model.Hospedagem;
 import hospedagemhotel.model.Hospede;
 import hospedagemhotel.model.Quarto;
 import hospedagemhotel.model.Reserva;
@@ -145,8 +148,8 @@ public class Conexao{
 				"hos_res integer NOT NULL," +
 				"fcpf varchar (11) NOT NULL," +
 				"hcpf varchar (11) NOT NULL," + 
-				"hdata date," + 
-				"horario time," + 
+				"hdata varchar (10)," + 
+				"horario varchar (6)," + 
 				"FOREIGN KEY (fcpf) REFERENCES funcionario(fcpf)," + 
 				"FOREIGN KEY (hos_res) REFERENCES reserva(idRes)," +
 				"FOREIGN KEY (hcpf) REFERENCES hospede(hcpf))"
@@ -172,7 +175,7 @@ public class Conexao{
 				);
 
 			//stm.executeUpdate("DROP TABLE IF EXISTS itemServico");
-			stm.executeUpdate("CREATE TABLE itemServico (" + 		
+			stm.executeUpdate("CREATE TABLE itemServico (" +	
 				"item_ser_hospedagem integer NOT NULL," +
 				"idTipSer integer NOT NULL primary key," +
 				"tipo varchar (255)," + 
@@ -395,7 +398,6 @@ public class Conexao{
 		}
 	}
 
-	//ARRUMAR / Se pa ta arrumado agora kakakaka
 	public static void salvarReserva(Reserva reserva){
 
 		try{
@@ -418,7 +420,7 @@ public class Conexao{
 			System.out.print("Reserva efetuada com sucesso!");
 		
 		} catch(SQLException e){
-			System.out.println("Não foi possível cadastrar a reserva.");
+			System.out.println("Nao foi possivel cadastrar a reserva.");
 			
 		}
 
@@ -454,8 +456,6 @@ public class Conexao{
 			// percorre cada reserva recuperada 
 			while(rs1.next()) {
 
-				// falta recuperar o tipo de quarto de cada quarto recuperado
-
 				Reserva reserva = new Reserva();
 
 				// recupera os quartos da reserva recuperada 
@@ -469,6 +469,15 @@ public class Conexao{
 					quarto.setCodigoQuarto(rs3.getInt("codigoQuarto"));
 					quarto.setSituacao(rs3.getInt("situacao"));
 					quarto.setLocalizacao(rs3.getString("localizacao"));
+					reserva.setQuarto(quarto);
+					
+					query = "select * from tipoDeQuarto where idTipQuarto in(select qua_tip_quarto from quarto where codigoQuarto == " +
+					quarto.getCodigoQuarto() + ")";
+					ResultSet rs4 = conexao.createStatement().executeQuery(query);
+
+					TipoDeQuarto tipo = new TipoDeQuarto(rs4.getInt("idTipQuarto"), rs4.getInt("valor"), rs4.getString("descricao"));
+					
+					quarto.setTipoDeQuarto(tipo);
 					reserva.setQuarto(quarto);
 				}
 	
@@ -500,7 +509,7 @@ public class Conexao{
 	
 
 	/**
-	 * Cria e retorna uma instância de Funcionario com os dados que foram recuperados do BD
+	 * Cria e retorna uma instancia de Funcionario com os dados que foram recuperados do BD
 	 */
 	public static Funcionario criaFuncionario(ResultSet rs){
 		Funcionario funcionario = new Funcionario();
@@ -517,6 +526,25 @@ public class Conexao{
 			System.out.println(e.getMessage());
 		}
 		return funcionario;
+	}
+
+	public static void salvarCheckin(Hospedagem hospedagem) {
+		String query = "update reserva set checkin = true, dataCheckin = '" + hospedagem.getData() + 
+				"', horaCheckin = '" + hospedagem.getHorario() + "' where idRes = " + hospedagem.getReserva().getIdReserva();
+		
+		alterarBD(query);
+		
+		query = "insert into hospedagem values(" + hospedagem.getIdHospedagem() + ", " + hospedagem.getReserva().getIdReserva() + ", '" 
+		+ hospedagem.getReserva().getFuncionario().getCpf() + "', '" + hospedagem.getReserva().getHospede().getCpf() + "', '" 
+		+ hospedagem.getData() + "', '" + hospedagem.getHorario() + "')";
+
+		alterarBD(query);
+		
+		for (int a = 0; a < hospedagem.getReserva().getQuarto().size(); a++) {
+			query = "update quarto set qua_hospedagem = " + hospedagem.getIdHospedagem() + " where codigoQuarto = " + 
+			hospedagem.getReserva().getQuarto().get(a).getCodigoQuarto() + "";
+			alterarBD(query);
+		}
 	}
 
 }

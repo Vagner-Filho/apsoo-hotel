@@ -27,16 +27,15 @@ public class Reserva {
 	
 
 	public Reserva(int idReserva, Hospede hospede, Funcionario funcionario, 
-			Quarto quarto, String dataInicial, String dataFinal) {
-			setIdReserva(idReserva);
-			setHospede(hospede);
-			setFuncionario(funcionario);
-			setQuarto(quarto);
-			setDataInicial(dataInicial);
-			setDataFinal(dataFinal);
+		Quarto quarto, String dataInicial, String dataFinal) {
+		setHospede(hospede);
+		setFuncionario(funcionario);
+		setQuarto(quarto);
+		setDataInicial(dataInicial);
+		setDataFinal(dataFinal);
 
-			Sistema sis = new Sistema();
-			setIdReserva(sis.numeroAleatorio());
+		Sistema sis = new Sistema();
+		setIdReserva(sis.numeroAleatorio());
 	}
 
 
@@ -66,7 +65,6 @@ public class Reserva {
 	//com um numero aleatorio de 0 at� 20
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
-		
 	}
 
 	public ArrayList<Quarto> getQuarto() {
@@ -122,17 +120,22 @@ public class Reserva {
 	}
 	
 	//Metodos de horaCheckin
-	public String horaCheckin() {
+	public String getHoraCheckin() {
 		return horaCheckin;
 	}
 
 	public void setHoraCheckin(String horaCheckin) {
 		this.horaCheckin = horaCheckin;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Reserva " + idReserva + "  Data Inicial = " + dataInicial + "  DataFinal = " + dataFinal;
 	}
+
+	/*@Override
+	public String toString() {
+		return "Reserva idReserva=" + idReserva + " [hospede=" + hospede + ", funcionario=" + funcionario + ", quartos=" + quartos.toString() + ", dataInicial=" + dataInicial + ", dataFinal=" + dataFinal + "]";
+	}*/
 	
 }

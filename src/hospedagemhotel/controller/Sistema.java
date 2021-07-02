@@ -1,5 +1,6 @@
 package hospedagemhotel.controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,6 +8,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import hospedagemhotel.model.Endereco;
+import hospedagemhotel.model.Hospedagem;
 import hospedagemhotel.model.Hospede;
 import hospedagemhotel.model.Pessoa;
 import hospedagemhotel.model.Quarto;
@@ -71,12 +73,39 @@ public class Sistema {
 
 	}
 
-	
-	// Esta� sem o parametro Funcionario porque acho que seria melhor fazer uma autenticação - Juliendy
+
+	// Esta sem o parametro Funcionario porque acho que seria melhor fazer uma autenticacao - Juliendy
 	public Reserva confirmarReserva(String cpf, String dataInicial, String dataFinal, ArrayList<Quarto> quartos) {
 		Hospede hos = Conexao.buscarHospede(cpf);
 	
 		Reserva reserva = new Reserva();
+
+		/*try {
+			Date data = new Date();
+			SimpleDateFormat formatar = new SimpleDateFormat("dd/MM/yyyy");
+			
+			Date dataI = formatar.parse(dataInicial);
+			Date dataF = formatar.parse(dataFinal);
+			
+			if (dataI.after(data) || dataI.equals(data)){
+				reserva.setDataInicial(dataInicial);
+			}
+			else{
+				System.out.println("Data invalida, tente novamente");
+				return;
+			}
+			
+			if(dataF.after(dataI) || dataF.equals(dataI)){
+				reserva.setDataFinal(dataFinal);
+			}else{
+				System.out.println("Data invalida, tente novamente");
+				return;
+			}
+						
+		} catch (ParseException e) {
+			System.out.println(e.getMessage());
+		}*/
+		
 		reserva.setDataInicial(dataInicial);
 		reserva.setDataFinal(dataFinal);
 		for (Quarto quarto : quartos){
@@ -88,10 +117,38 @@ public class Sistema {
 		Conexao.salvarReserva(reserva);
 
 		return reserva;
-		
-		
 	}
-
+	
+	public void confirmarCheckin(Reserva reserva) {
+		
+		reserva.setCheckin(true);
+		
+		Date data = new Date();
+        SimpleDateFormat formatar = new SimpleDateFormat("dd/MM/yyyy");
+        String dataAtual = formatar.format(data);
+        reserva.setDataCheckin(dataAtual);
+        
+        formatar = new SimpleDateFormat("HH:mm:ss");
+        String horaAtual = formatar.format(data);
+        reserva.setHoraCheckin(horaAtual);
+        
+		Hospedagem hospedagem = new Hospedagem();
+		hospedagem.setData(reserva.getDataCheckin());
+		hospedagem.setHorario(reserva.getHoraCheckin());
+		hospedagem.setFuncionario(reserva.getFuncionario());
+		hospedagem.setReserva(reserva);
+		
+		for (int a = 0; a < reserva.getQuarto().size(); a++)
+			reserva.getQuarto().get(a).setHospedagem(hospedagem);
+		
+		reserva.getHospede().setHospedagem(hospedagem);
+		
+		Conexao.salvarCheckin(hospedagem);
+	}
+	
+	public String cancelarCheckin() {
+		return "Check-in nao efetuado";
+	}
 
 	public String cancelarReserva() {
 		return "Reserva nao efetuada";
@@ -110,7 +167,7 @@ public class Sistema {
 	}
 	
 	public String msgDiasIguais() {
-		return "Esta reserva s� pode ser efetuada a partir da sua data de inicio";
+		return "Esta reserva so pode ser efetuada a partir da sua data de inicio";
 	}
 
 	public String msgReservaNaoEncontrada(){
@@ -141,57 +198,35 @@ public class Sistema {
 		Hospede hospede = new Hospede();
 		hospede = Conexao.buscarHospede(cpf);
 		if (hospede == null){
-    		msgHospedeNaoCadastrado();
-    		//cadastrarHospede(cpf);
-    	}else{
+			msgHospedeNaoCadastrado();
+			//cadastrarHospede(cpf);
+		}else{
 			System.out.println("nome" + hospede.getNome());
 		}
 
-		return hospede;
-		
+		return hospede;	
 	}
-
-	public Reserva[] buscarReservasPorCpf(String cpf){
-		Reserva[] reservas = Conexao.buscarReservasPorCpf(cpf);
-		return reservas;
-	}
-	
 	
 	public boolean compararDias(Reserva reserva) {
-		//Criei a v�riavel data que recebe o dia atual
+		try {
 		Date data = new Date();
-    	System.out.println(data);
-    	
-    	//Essa variavel olha apenas para o dia da data
-    	SimpleDateFormat formatar = new SimpleDateFormat("dd");
-    	String dia = formatar.format(data);
-    	
-    	//Essa variavel olha apenas para o mes da data
-    	formatar = new SimpleDateFormat("MM");
-    	String mes = formatar.format(data);
-    	
-    	//Essa variavel olha apenas para o ano da data
-    	formatar = new SimpleDateFormat("yyyy");
-    	String ano = formatar.format(data);
-    	
-    	//Transformo tudo em inteiro
-    	Integer diaI = Integer.parseInt(dia), 
-    			mesI = Integer.parseInt(mes), 
-    			anoI = Integer.parseInt(ano);
-		//Separo a string de reserva.dataInicial em um vetor e no if transformo cada posi��o em Integer
-		String[] dataInicial = reserva.dataInicial.split("/");
-    	if (diaI == Integer.parseInt(dataInicial[0]) && 
-    		mesI == Integer.parseInt(dataInicial[1]) &&
-    		anoI == Integer.parseInt(dataInicial[2]))
-    	{
-    		return true;
-    	}
-    	else
-    		return false;
-	}
+		SimpleDateFormat formatar = new SimpleDateFormat("dd/MM/yyyy");
+		
+		Date dataInicial = formatar.parse(reserva.getDataInicial());
+		Date dataFinal = formatar.parse(reserva.getDataFinal());
+		
+		if ((data.after(dataInicial) && data.before(dataFinal)) || data.equals(dataInicial))
+			return true;
+		else
+			return false;
+		} catch (ParseException e) {
+			System.out.println(e.getMessage());
+		}
+		return false;
+}
 
 
-	public static Reserva buscarReserva(Reserva[] reservas, int idReservaEscolhida) {
+	public Reserva buscarReserva(Reserva[] reservas, int idReservaEscolhida) {
 
 		for(int i = 0; i < reservas.length; i++){
 			if(reservas[i] != null){
@@ -199,15 +234,37 @@ public class Sistema {
 					return reservas[i];
 				}
 			}
-			
 		}
 		
 		return null;
 	}
 
+
 	public int numeroAleatorio(){
 		Random aleatorio = new Random();
 		return aleatorio.nextInt(100);
+	}
+	
+	public boolean validarCPF(String cpf) {
+		String validosCPF = "0123456789";
+		
+		if (cpf.length() != 11) {
+			System.out.println("Quantidade de caracteres informada invalida.");
+			return false;
+		}
+		else {
+			for (int i = 0;  i < cpf.length(); i++) {
+
+				String numero = cpf.substring(i, i++);
+
+				if (!validosCPF.contains(numero)) {
+					return false;
+				}
+			}
+			// Retorna true se o cpf informado possui� 11 caracteres e todos sao numeros e apenas numeros de 0 a 9
+			System.out.println("CPF válido!");
+			return true;
+		}
 	}
 	
 }

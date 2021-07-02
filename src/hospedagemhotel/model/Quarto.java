@@ -70,12 +70,13 @@ public class Quarto {
 	public String toString() {
 		String sit = "";
 		if(getSituacao() == 0){
-			sit = "Disponível";
+			sit = "Disponivel";
 		}else if(getSituacao() == 1){
-			sit = "Indisponível";
+			sit = "Indisponivel";
 		}
 
-		return " Localização: " + getLocalizacao() + "-Situação: " + sit;
+		return "CodQuarto: " + codigoQuarto +  " Localização: " + getLocalizacao() + "-Situação: " + sit + "Tipo de quarto: " + tipoDeQuarto;
+
 
 	}
     

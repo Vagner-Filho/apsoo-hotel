@@ -2,6 +2,8 @@ package hospedagemhotel;
 
 import java.awt.EventQueue;
 
+import hospedagemhotel.controller.Sistema;
+import hospedagemhotel.model.Quarto;
 import hospedagemhotel.model.Reserva;
 import hospedagemhotel.persistencia.Conexao;
 import hospedagemhotel.view.realizarCheckin;
@@ -13,6 +15,7 @@ public class Main {
 	
     public static void main(String[] args) {
 
+		
 		Conexao.InitBD();
 		
 		EventQueue.invokeLater(new Runnable() {
@@ -26,10 +29,16 @@ public class Main {
 			}
 		});
 
-		
 
-		//Conexao.buscarReservasPorCpf("6451237894");
+
+
+		Reserva[] reservas = Conexao.buscarReservasPorCpf("06451237894");
 		
+		for(int i = 0; i < reservas.length; i++){
+			if(reservas[i] != null){
+				System.out.println(reservas[i]);
+			}
+		}
 		
 /*
 		Scanner scanner = new Scanner(System.in);
