@@ -75,7 +75,7 @@ public class Quarto {
 			sit = "Indisponível";
 		}
 
-		return "CodQuarto: " + codigoQuarto +  " Localização: " + getLocalizacao() + "-Situação: " + sit;
+		return " Localização: " + getLocalizacao() + "-Situação: " + sit;
 
 	}
     
