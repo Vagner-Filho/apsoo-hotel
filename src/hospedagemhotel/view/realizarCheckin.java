@@ -243,7 +243,7 @@ public class realizarCheckin extends JFrame {
                                 "Deseja realizar o checkin?", "Confirmar Check-in", 0);
                         if (resposta == 0) {
                             sis.confirmarCheckin(getReservaDesejada());
-                            JOptionPane.showMessageDialog(null, "Check-in não efetuado!");
+                            JOptionPane.showMessageDialog(null, "Check-in efetuado!");
                             dispose();
                         }
                     }
