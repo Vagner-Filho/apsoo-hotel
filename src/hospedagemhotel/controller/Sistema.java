@@ -205,7 +205,11 @@ public class Sistema {
 		return reservas;
 	}
 	
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> branch-juliendy
 	public boolean compararDias(Reserva reserva) {
 		try {
 		Date data = new Date();

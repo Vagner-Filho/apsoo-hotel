@@ -140,8 +140,12 @@ public class realizarReserva extends JFrame {
 					
 					public void valueChanged(ListSelectionEvent e){
 						//System.out.println(quartoLista.getSelectedValue().toString().substring(0, 1));
+
+						System.out.println("quartoe escolhido");
 						
-						String localizacao = quartoLista.getSelectedValue().toString().substring(13, 15);
+						String localizacao = quartoLista.getSelectedValue().toString().substring(14, 16);
+
+						
 						
 
 						for (Quarto quarto : quartos) {							

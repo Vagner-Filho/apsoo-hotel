@@ -145,13 +145,13 @@ public class Conexao{
 			//stm.executeUpdate("DROP TABLE IF EXISTS hospedagem");
 			stm.executeUpdate("CREATE TABLE hospedagem (" + 		
 				"idHospedagem integer NOT NULL primary key," +
-				"hos_res integer NOT NULL," +
+				"idRes integer NOT NULL," +
 				"fcpf varchar (11) NOT NULL," +
 				"hcpf varchar (11) NOT NULL," + 
 				"hdata varchar (10)," + 
 				"horario varchar (6)," + 
 				"FOREIGN KEY (fcpf) REFERENCES funcionario(fcpf)," + 
-				"FOREIGN KEY (hos_res) REFERENCES reserva(idRes)," +
+				"FOREIGN KEY (idRes) REFERENCES reserva(idRes)," +
 				"FOREIGN KEY (hcpf) REFERENCES hospede(hcpf))"
 				);
 
@@ -227,11 +227,9 @@ public class Conexao{
 			stm.executeUpdate("insert into quarto values(2, 1, 1, 15, 0)");
 			stm.executeUpdate("insert into quarto values(3, 1, 1, 20, 0)");
 
-			//associa um quarto a uma reserva
-			stm.executeUpdate("INSERT INTO reservaQuarto VALUES(1, 1)");
+			
 
-			stm.executeUpdate("INSERT INTO reservaQuarto VALUES(2, 2)");
-			stm.executeUpdate("INSERT INTO reservaQuarto VALUES(2, 3)");
+		
 
 			
 		} catch (SQLException e) {
@@ -409,6 +407,9 @@ public class Conexao{
 			// altera a situacao do quarto
 			for (int a = 0; a < reserva.getQuarto().size(); a++) {
 				query = "update quarto set situacao = 1 where codigoQuarto = " + reserva.getQuarto().get(a).getCodigoQuarto();
+				alterarBD(query);
+
+				query = "insert into reservaQuarto values(" + reserva.getIdReserva() + "," + reserva.getQuarto().get(a).getCodigoQuarto() + ")";
 				alterarBD(query);
 			}
 
