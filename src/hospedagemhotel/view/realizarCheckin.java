@@ -6,8 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import hospedagemhotel.controller.Sistema;
 import hospedagemhotel.model.Hospede;
-import hospedagemhotel.persistencia.Conexao;
 import hospedagemhotel.model.Reserva;
 
 import java.awt.Color;
@@ -26,7 +26,8 @@ import java.awt.event.ActionEvent;
 public class realizarCheckin extends JFrame {
 
     private JPanel contentPane;
-    private JTable tabelaReserva;
+
+    Sistema sis = new Sistema();
 
     /**
      * Create the frame.
@@ -65,9 +66,7 @@ public class realizarCheckin extends JFrame {
 
             public void actionPerformed(ActionEvent e) {
 
-                Conexao con = new Conexao();
-
-                hos = con.buscarHospede(caixaDeTextoCPF.getText());
+                hos = sis.buscarHospede(caixaDeTextoCPF.getText());
 
                 contentPane.updateUI();
 
@@ -196,9 +195,11 @@ public class realizarCheckin extends JFrame {
                 lblReservas.setBounds(10, 427, 96, 22);
                 contentPane.add(lblReservas);
 
-                JList tabelaReserva = new JList();
+				Reserva[] reservas = sis.buscarReservasPorCpf(caixaDeTextoCPF.getText());
+                JList tabelaReserva = new JList(reservas);
                 tabelaReserva.setBounds(10, 460, 792, 147);
                 contentPane.add(tabelaReserva);
+
 				
             }
         });
