@@ -3,6 +3,7 @@ package hospedagemhotel.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
@@ -15,6 +16,8 @@ import hospedagemhotel.model.Quarto;
 import hospedagemhotel.model.Reserva;
 import hospedagemhotel.model.TipoDeQuarto;
 import hospedagemhotel.persistencia.Conexao;
+
+import java.util.Calendar;
 
 // TODO Voltar o tipo dataNascimento de date para string caso a instanciação com date não der certo
 
@@ -75,39 +78,40 @@ public class Sistema {
 
 
 	// Esta sem o parametro Funcionario porque acho que seria melhor fazer uma autenticacao - Juliendy
-	public Reserva confirmarReserva(String cpf, String dataInicial, String dataFinal, ArrayList<Quarto> quartos) {
+	public boolean confirmarReserva(String cpf, String dataInicial, String dataFinal, ArrayList<Quarto> quartos) {
 		Hospede hos = Conexao.buscarHospede(cpf);
 	
 		Reserva reserva = new Reserva();
 
-		/*try {
+		try {
 			Date data = new Date();
 			SimpleDateFormat formatar = new SimpleDateFormat("dd/MM/yyyy");
+			String datanova = formatar.format(data);
 			
+			Date dataAtual = formatar.parse(datanova);
+
 			Date dataI = formatar.parse(dataInicial);
 			Date dataF = formatar.parse(dataFinal);
-			
-			if (dataI.after(data) || dataI.equals(data)){
-				reserva.setDataInicial(dataInicial);
-			}
-			else{
-				System.out.println("Data invalida, tente novamente");
-				return;
-			}
-			
+
 			if(dataF.after(dataI) || dataF.equals(dataI)){
-				reserva.setDataFinal(dataFinal);
-			}else{
-				System.out.println("Data invalida, tente novamente");
-				return;
+				if (dataI.after(dataAtual) || dataI.equals(dataAtual)){
+					if (dataF.after(dataAtual) || dataF.equals(dataAtual)){
+						
+						reserva.setDataInicial(dataInicial);
+						reserva.setDataFinal(dataFinal);
+					}
+					
+				}
 			}
+			else {
+				return false;
+			}
+	
 						
 		} catch (ParseException e) {
 			System.out.println(e.getMessage());
-		}*/
+		}
 		
-		reserva.setDataInicial(dataInicial);
-		reserva.setDataFinal(dataFinal);
 		for (Quarto quarto : quartos){
 			reserva.setQuarto(quarto);
 		}
@@ -115,11 +119,10 @@ public class Sistema {
 		reserva.setHospede(hos); 
 
 		Conexao.salvarReserva(reserva);
-
-		return reserva;
+		return true;
 	}
 	
-	public void confirmarCheckin(Reserva reserva) {
+	public boolean confirmarCheckin(Reserva reserva) {
 		
 		reserva.setCheckin(true);
 		
@@ -132,18 +135,27 @@ public class Sistema {
         String horaAtual = formatar.format(data);
         reserva.setHoraCheckin(horaAtual);
         
-		Hospedagem hospedagem = new Hospedagem();
-		hospedagem.setData(reserva.getDataCheckin());
-		hospedagem.setHorario(reserva.getHoraCheckin());
-		hospedagem.setFuncionario(reserva.getFuncionario());
-		hospedagem.setReserva(reserva);
+        boolean comparacao = compararDias(reserva);
+
+		if(comparacao){
+			Hospedagem hospedagem = new Hospedagem();
+			hospedagem.setData(reserva.getDataCheckin());
+			hospedagem.setHorario(reserva.getHoraCheckin());
+			hospedagem.setFuncionario(reserva.getFuncionario());
+			hospedagem.setReserva(reserva);
+			
+			for (int a = 0; a < reserva.getQuarto().size(); a++)
+				reserva.getQuarto().get(a).setHospedagem(hospedagem);
+			
+			reserva.getHospede().setHospedagem(hospedagem);
+			
+			Conexao.salvarCheckin(hospedagem);
+			return true;
+		}else{
+			return false;
+		}
+        
 		
-		for (int a = 0; a < reserva.getQuarto().size(); a++)
-			reserva.getQuarto().get(a).setHospedagem(hospedagem);
-		
-		reserva.getHospede().setHospedagem(hospedagem);
-		
-		Conexao.salvarCheckin(hospedagem);
 	}
 	
 	public String cancelarCheckin() {
@@ -207,22 +219,40 @@ public class Sistema {
 	}
 	
 	public boolean compararDias(Reserva reserva) {
-		try {
-		Date data = new Date();
-		SimpleDateFormat formatar = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+        Date data = new Date();
+        SimpleDateFormat formatar = new SimpleDateFormat("dd/MM/yyyy");
+        String datanova = formatar.format(data);
 		
-		Date dataInicial = formatar.parse(reserva.getDataInicial());
-		Date dataFinal = formatar.parse(reserva.getDataFinal());
+        Date dataAtual = formatar.parse(datanova);
+
+        Date dataInicial = formatar.parse(reserva.getDataInicial());
+        Date dataFinal = formatar.parse(reserva.getDataFinal());
 		
-		if ((data.after(dataInicial) && data.before(dataFinal)) || data.equals(dataInicial))
-			return true;
-		else
-			return false;
-		} catch (ParseException e) {
-			System.out.println(e.getMessage());
+		if(dataFinal.after(dataInicial) || dataFinal.equals(dataInicial)){
+			if (dataInicial.after(dataAtual) || dataInicial.equals(dataAtual)){
+				if (dataFinal.after(dataAtual) || dataFinal.equals(dataAtual)){
+					
+						return true;
+					}
+					
+				}
 		}
-		return false;
-}
+		else {
+            return false;
+        }
+
+        } catch (ParseException e) {
+            System.out.println(e.getMessage());
+        }
+        return true;
+    }
+	
+	public Reserva[] buscarReservasPorCpf(String cpf){
+        Reserva[] reservas = Conexao.buscarReservasPorCpf(cpf);
+
+        return reservas;
+    }
 
 
 	public Reserva buscarReserva(Reserva[] reservas, int idReservaEscolhida) {
@@ -243,12 +273,6 @@ public class Sistema {
 		Random aleatorio = new Random();
 		return aleatorio.nextInt(10);
 	}
-
-	public static Reserva[] buscarReservasPorCpf(String cpf){
-        Reserva[] reservas = Conexao.buscarReservasPorCpf(cpf);
-
-        return reservas;
-    }
 	
 	public boolean validarCPF(String cpf) {
 		String validosCPF = "0123456789";
@@ -269,5 +293,7 @@ public class Sistema {
 			return true;
 		}
 	}
+
+	
 	
 }

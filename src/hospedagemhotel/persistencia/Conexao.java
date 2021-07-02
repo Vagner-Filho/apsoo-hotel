@@ -135,7 +135,7 @@ public class Conexao{
 			stm.executeUpdate("CREATE TABLE quarto (" + 			
 				"codigoQuarto integer NOT NULL primary key," +
 				"qua_tip_quarto qua_tip_quarto integer NOT NULL," +
-				"qua_hospedagem integer NOT NULL," +
+				"qua_hospedagem integer," +
 				"localizacao varchar(5)," +
 				"situacao integer," +
 				"FOREIGN KEY (qua_hospedagem) REFERENCES hospedagem(idHospedagem)," + 
@@ -145,13 +145,13 @@ public class Conexao{
 			//stm.executeUpdate("DROP TABLE IF EXISTS hospedagem");
 			stm.executeUpdate("CREATE TABLE hospedagem (" + 		
 				"idHospedagem integer NOT NULL primary key," +
-				"hos_res integer NOT NULL," +
+				"idRes integer NOT NULL," +
 				"fcpf varchar (11) NOT NULL," +
 				"hcpf varchar (11) NOT NULL," + 
 				"hdata varchar (10)," + 
 				"horario varchar (6)," + 
 				"FOREIGN KEY (fcpf) REFERENCES funcionario(fcpf)," + 
-				"FOREIGN KEY (hos_res) REFERENCES reserva(idRes)," +
+				"FOREIGN KEY (idRes) REFERENCES reserva(idRes)," +
 				"FOREIGN KEY (hcpf) REFERENCES hospede(hcpf))"
 				);
 
@@ -193,26 +193,25 @@ public class Conexao{
 				
 			// insere um endereço no bd
 			stm.executeUpdate("INSERT INTO endereco VALUES(1, 'Rua 123', 2200, 'Vilas Boas', '12345678', 'Campo Grande', 'MS', 'Casa 1')");
+			stm.executeUpdate("INSERT INTO endereco VALUES(2, 'Rua 456', 1547, 'Tiradentes', '79054148', 'Campo Grande', 'MS', null)");
+			stm.executeUpdate("INSERT INTO endereco VALUES(3, 'Rua 789', 35, 'Coophavila', '79054135', 'Campo Grande', 'MS', null)");
 
 			//insere uma pessoa 
-			stm.executeUpdate("INSERT INTO pessoa VALUES('06451237894', 1, 'Maria', '2000-02-15')");
-			stm.executeUpdate("INSERT INTO pessoa VALUES('45865201424', 1, 'Marta', '2000-10-20')");
-
-			// insere uma pessoa 
-			stm.executeUpdate("INSERT INTO pessoa VALUES('23556987451', 1, 'João', '1950-03-30')");
+			stm.executeUpdate("INSERT INTO pessoa VALUES('06451237894', 1, 'Maria dos Santos', '2000-02-15')");
+			stm.executeUpdate("INSERT INTO pessoa VALUES('45865201424', 2, 'Marta Ferreira', '2000-10-20')");
+			stm.executeUpdate("INSERT INTO pessoa VALUES('23556987451', 3, 'João Carlos Mendes', '1950-03-30')");
 			
 			// insere um funcionario
 			stm.executeUpdate("INSERT INTO funcionario VALUES('23556987451', 'joao123', '1234', 1200, 'Recepcionista')");
 
 			// insere uma reserva
-			stm.executeUpdate("INSERT INTO reserva VALUES(1, '23556987451', '06451237894', '2021-02-03', '2021-02-05', 'Dinheiro', null, null, null)");
+			//stm.executeUpdate("INSERT INTO reserva VALUES(1, '23556987451', '06451237894', '2021-02-03', '2021-02-05', 'Dinheiro', null, null, null)");
 
-			stm.executeUpdate("INSERT INTO reserva VALUES(2, '23556987451', '06451237894', '2021-02-14', '2021-02-30', 'Dinheiro', null, null, null)");
+			//stm.executeUpdate("INSERT INTO reserva VALUES(2, '23556987451', '06451237894', '2021-02-14', '2021-02-30', 'Dinheiro', null, null, null)");
 
 			// insere um hospede
 			stm.executeUpdate("INSERT INTO hospede VALUES( '06451237894', 'F', 12)");
 			stm.executeUpdate("INSERT INTO hospede VALUES( '45865201424', 'F', 15)");
-
 
 			//insere um tipoDeQuarto
 			stm.executeUpdate("insert into tipoDeQuarto values(1, 500, 'Suite')");
@@ -220,18 +219,18 @@ public class Conexao{
 			stm.executeUpdate("insert into tipoDeQuarto values(3, 150, 'Intermediária')");
 
 			// insere uma hospedagem
-			stm.executeUpdate("insert into hospedagem values(1, 1, '23556987451', '06451237894', '2021-02-17', '15:00:02')");
+			//stm.executeUpdate("insert into hospedagem values(1, 1, '23556987451', '06451237894', '2021-02-17', '15:00:02')");
 
 			//insere um quarto
-			stm.executeUpdate("insert into quarto values(1, 1, 1, 12, 0)");
-			stm.executeUpdate("insert into quarto values(2, 1, 1, 15, 0)");
-			stm.executeUpdate("insert into quarto values(3, 1, 1, 20, 0)");
+			stm.executeUpdate("insert into quarto values(1, 1, null, 12, 0)");
+			stm.executeUpdate("insert into quarto values(2, 2, null, 15, 0)");
+			stm.executeUpdate("insert into quarto values(3, 1, null, 20, 0)");
 
 			//associa um quarto a uma reserva
-			stm.executeUpdate("INSERT INTO reservaQuarto VALUES(1, 1)");
+			//stm.executeUpdate("INSERT INTO reservaQuarto VALUES(1, 1)");
 
-			stm.executeUpdate("INSERT INTO reservaQuarto VALUES(2, 2)");
-			stm.executeUpdate("INSERT INTO reservaQuarto VALUES(2, 3)");
+			//stm.executeUpdate("INSERT INTO reservaQuarto VALUES(2, 2)");
+			//stm.executeUpdate("INSERT INTO reservaQuarto VALUES(2, 3)");
 
 			
 		} catch (SQLException e) {
@@ -276,20 +275,18 @@ public class Conexao{
 			ResultSet ru = atm.executeQuery(query2);
 			
 			while(rs.next()) {
-
+				
 				hospede.setNome(rs.getString("nome"));
 				hospede.setCpf(rs.getString("cpf"));
 				//hospede.setTelefone(rs.getInt("telefone"));
 				hospede.setDataNasc(rs.getString("dataNasc"));
 				hospede.setSexo(rs.getString("sexo"));
 				hospede.setCodigoConta(rs.getInt("codigoConta"));
-				Endereco endereco = new Endereco(ru.getInt("idEnd"), ru.getString("rua"), ru.getString("bairro"), ru.getString("cidade"), 
-						ru.getString("estado"), ru.getString("complemento"), ru.getInt("numero"), ru.getString("cep"));
+				Endereco endereco = new Endereco(ru.getInt("idEnd"), ru.getString("rua"), ru.getString("bairro"), ru.getString("cidade"), ru.getString("estado"), ru.getString("complemento"), ru.getInt("numero"), ru.getString("cep"));
 				hospede.setEndereco(endereco);
 
 			}
 			//System.out.println(stm.executeQuery(query).getString("nome"));
-			return hospede;
 			
 			
 		}catch(SQLException e){
@@ -297,6 +294,7 @@ public class Conexao{
 			return null;
 		}
 		
+		return hospede;
 	}
 	
 	/**
@@ -499,6 +497,7 @@ public class Conexao{
 			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
+			return null;
 		}
 
 		

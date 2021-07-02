@@ -67,6 +67,7 @@ public class realizarCheckin extends JFrame {
         btnBuscar.setBackground(Color.BLACK);
         btnBuscar.setBounds(333, 65, 112, 32);
         btnBuscar.addActionListener(new ActionListener() {
+
             Hospede hos = new Hospede();
 
             public void actionPerformed(ActionEvent e) {
@@ -220,6 +221,10 @@ public class realizarCheckin extends JFrame {
                 contentPane.add(lblReservas);
 
                 Reserva[] reservas = sis.buscarReservasPorCpf(caixaDeTextoCPF.getText());
+				if(reservas == null){
+					JOptionPane.showMessageDialog(null, "Nenhuma reserva encontrada!");
+                    dispose();
+				}
 
                 JList reservaLista = new JList(reservas);
                 //tipoDeQuartoLista.setListData(tipos);
@@ -239,6 +244,8 @@ public class realizarCheckin extends JFrame {
                                         setReservaDesejada(reserva);
                                     }
                                 }
+									
+								
                             }
 
                         }
@@ -250,9 +257,15 @@ public class realizarCheckin extends JFrame {
                         int resposta = JOptionPane.showConfirmDialog(null,
                                 "Deseja realizar o checkin?", "Confirmar Check-in", 0);
                         if (resposta == 0) {
-                            sis.confirmarCheckin(getReservaDesejada());
-                            JOptionPane.showMessageDialog(null, "Check-in efetuado com sucesso!");
-                            dispose();
+                            boolean comparacao = sis.confirmarCheckin(getReservaDesejada());
+							if(comparacao){
+								JOptionPane.showMessageDialog(null, "Check-in efetuado!");
+                            	dispose();
+							}else{
+								JOptionPane.showMessageDialog(null, "Check-in não efetuado. Tente novamente.");
+                            	
+							}
+                            
                         }
                     }
                 });

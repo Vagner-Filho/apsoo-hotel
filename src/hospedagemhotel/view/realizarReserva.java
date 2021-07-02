@@ -234,11 +234,15 @@ public class realizarReserva extends JFrame {
         btnConfirmar.setBounds(704, 470, 112, 32);
         btnConfirmar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                sis.confirmarReserva(cpfCaixaDeTexto.getText(), dataInicialCaixaDeTexto.getText(), dataFinalCaixaDeTexto.getText(), getQuarto());
+                boolean comparacao = sis.confirmarReserva(cpfCaixaDeTexto.getText(), dataInicialCaixaDeTexto.getText(), dataFinalCaixaDeTexto.getText(), getQuarto());
 
-                JOptionPane.showMessageDialog(contentPane, "Reserva realizada com sucesso!");
-                dispose();
-
+				if(comparacao){
+					JOptionPane.showMessageDialog(contentPane, "Reserva realizada com sucesso!");
+					dispose();
+				}else{
+					JOptionPane.showMessageDialog(contentPane, "Não foi possível realizar a reserva.");
+               	
+				}
             }
         });
         contentPane.add(btnConfirmar);
