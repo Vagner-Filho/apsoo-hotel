@@ -247,7 +247,7 @@ public class Sistema {
 	public int numeroAleatorio(){
 		Random aleatorio = new Random();
 		return aleatorio.nextInt(10);
-	}}
+	}
 	
 	public boolean validarCPF(String cpf) {
 		String validosCPF = "0123456789";
