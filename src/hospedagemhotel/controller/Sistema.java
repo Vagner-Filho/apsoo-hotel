@@ -132,6 +132,8 @@ public class Sistema {
         String horaAtual = formatar.format(data);
         reserva.setHoraCheckin(horaAtual);
         
+        compararDias(reserva);
+        
 		Hospedagem hospedagem = new Hospedagem();
 		hospedagem.setData(reserva.getDataCheckin());
 		hospedagem.setHorario(reserva.getHoraCheckin());
