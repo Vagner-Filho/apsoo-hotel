@@ -6,7 +6,9 @@ import hospedagemhotel.controller.Sistema;
 import hospedagemhotel.model.Quarto;
 import hospedagemhotel.model.Reserva;
 import hospedagemhotel.persistencia.Conexao;
-import hospedagemhotel.view.procurarHospede;
+import hospedagemhotel.view.realizarCheckin;
+import hospedagemhotel.view.realizarReserva;
+import hospedagemhotel.view.telaMenu;
 
 
 public class Main {
@@ -19,7 +21,7 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					procurarHospede frame = new procurarHospede();
+					telaMenu frame = new telaMenu();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

@@ -134,7 +134,7 @@ public class Conexao{
 			//stm.executeUpdate("DROP TABLE IF EXISTS quarto");
 			stm.executeUpdate("CREATE TABLE quarto (" + 			
 				"codigoQuarto integer NOT NULL primary key," +
-				"qua_tip_quarto integer NOT NULL," +
+				"qua_tip_quarto qua_tip_quarto integer NOT NULL," +
 				"qua_hospedagem integer NOT NULL," +
 				"localizacao varchar(5)," +
 				"situacao integer," +
@@ -145,13 +145,13 @@ public class Conexao{
 			//stm.executeUpdate("DROP TABLE IF EXISTS hospedagem");
 			stm.executeUpdate("CREATE TABLE hospedagem (" + 		
 				"idHospedagem integer NOT NULL primary key," +
-				"idRes integer NOT NULL," +
+				"hos_res integer NOT NULL," +
 				"fcpf varchar (11) NOT NULL," +
 				"hcpf varchar (11) NOT NULL," + 
 				"hdata varchar (10)," + 
 				"horario varchar (6)," + 
 				"FOREIGN KEY (fcpf) REFERENCES funcionario(fcpf)," + 
-				"FOREIGN KEY (idRes) REFERENCES reserva(idRes)," +
+				"FOREIGN KEY (hos_res) REFERENCES reserva(idRes)," +
 				"FOREIGN KEY (hcpf) REFERENCES hospede(hcpf))"
 				);
 
@@ -192,7 +192,7 @@ public class Conexao{
 				);
 				
 			// insere um endereço no bd
-			stm.executeUpdate("INSERT INTO endereco VALUES(1, 'Rua 123', 2200, 'Vilas Boas', 12345678, 'Campo Grande', 'MS', 'Casa 1')");
+			stm.executeUpdate("INSERT INTO endereco VALUES(1, 'Rua 123', 2200, 'Vilas Boas', '12345678', 'Campo Grande', 'MS', 'Casa 1')");
 
 			//insere uma pessoa 
 			stm.executeUpdate("INSERT INTO pessoa VALUES('06451237894', 1, 'Maria', '2000-02-15')");
@@ -227,9 +227,11 @@ public class Conexao{
 			stm.executeUpdate("insert into quarto values(2, 1, 1, 15, 0)");
 			stm.executeUpdate("insert into quarto values(3, 1, 1, 20, 0)");
 
-			
+			//associa um quarto a uma reserva
+			stm.executeUpdate("INSERT INTO reservaQuarto VALUES(1, 1)");
 
-		
+			stm.executeUpdate("INSERT INTO reservaQuarto VALUES(2, 2)");
+			stm.executeUpdate("INSERT INTO reservaQuarto VALUES(2, 3)");
 
 			
 		} catch (SQLException e) {
@@ -282,7 +284,7 @@ public class Conexao{
 				hospede.setSexo(rs.getString("sexo"));
 				hospede.setCodigoConta(rs.getInt("codigoConta"));
 				Endereco endereco = new Endereco(ru.getInt("idEnd"), ru.getString("rua"), ru.getString("bairro"), ru.getString("cidade"), 
-						ru.getString("estado"), ru.getString("complemento"), ru.getInt("numero"), ru.getInt("cep"));
+						ru.getString("estado"), ru.getString("complemento"), ru.getInt("numero"), ru.getString("cep"));
 				hospede.setEndereco(endereco);
 
 			}
@@ -395,7 +397,6 @@ public class Conexao{
 			return null;
 		}
 	}
-	
 
 	public static void salvarReserva(Reserva reserva){
 
