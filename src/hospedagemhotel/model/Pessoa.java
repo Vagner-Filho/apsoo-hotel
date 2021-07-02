@@ -1,9 +1,5 @@
 package hospedagemhotel.model;
 
-import java.util.InputMismatchException;
-
-//Arrumar metodo validarCpf()
-
 public class Pessoa {
 	private String nome;
 	private String cpf;

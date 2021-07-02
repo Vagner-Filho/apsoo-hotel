@@ -1,6 +1,5 @@
 package hospedagemhotel.model;
 
-import hospedagemhotel.model.Hospedagem;
  
 public class Hospede extends Pessoa {
 	

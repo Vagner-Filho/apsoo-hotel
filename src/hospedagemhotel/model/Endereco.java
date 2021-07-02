@@ -1,14 +1,11 @@
 package hospedagemhotel.model;
 
-import java.util.Random;
-import java.util.Scanner;
 
 public class Endereco {
 	private int id;
     private String rua, bairro, cidade, estado, complemento, cep;
     private int numero;
     
-    Scanner scanner = new Scanner(System.in);
 
     public Endereco(int id, String rua, String bairro, String cidade, String estado, String complemento, int numero, String cep) {
 		setId(id);
@@ -23,48 +20,6 @@ public class Endereco {
     
     public Endereco() {}
 
-
-	public void setEndereco() {
-	    System.out.println("Rua: ");
-		String rua = scanner.nextLine();
-		System.out.println();
-	
-		System.out.println("Bairro: ");
-		String bairro = scanner.nextLine();
-		System.out.println();
-	
-		System.out.println("Cidade: ");
-		String cidade = scanner.nextLine();
-		System.out.println();
-	
-		System.out.println("Estado: ");
-		String estado = scanner.nextLine();
-		System.out.println();
-	
-		System.out.println("Complemento: ");
-		String complemento = scanner.nextLine();
-		System.out.println();
-	
-		System.out.println("Numero: ");
-		int numero = scanner.nextInt();
-		System.out.println();
-		
-		System.out.println("Cep: ");
-		String cep = scanner.nextLine();
-		System.out.println();
-		
-		Random aleatorio = new Random();
-		setId(aleatorio.nextInt(100));
-		
-		setRua(rua);
-		setBairro(bairro);
-		setCidade(cidade);
-		setEstado(estado);
-		setComplemento(complemento);
-		setNumero(numero);
-		setCep(cep);
-    }
-    
     
     public int getId() {
 		return id;

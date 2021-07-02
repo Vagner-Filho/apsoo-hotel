@@ -3,32 +3,27 @@ package hospedagemhotel.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
-import java.util.Scanner;
 
-import hospedagemhotel.model.Endereco;
 import hospedagemhotel.model.Hospedagem;
 import hospedagemhotel.model.Hospede;
-import hospedagemhotel.model.Pessoa;
+
 import hospedagemhotel.model.Quarto;
 import hospedagemhotel.model.Reserva;
 import hospedagemhotel.model.TipoDeQuarto;
 import hospedagemhotel.persistencia.Conexao;
 
-import java.util.Calendar;
 
 // TODO Voltar o tipo dataNascimento de date para string caso a instanciação com date não der certo
 
 public class Sistema {
 	
-	Scanner scanner = new Scanner(System.in);
 	
 	//Ja passei o cpf por parametro, pra nao precisar escrever ele mais uma vez a toa
 	// não estamos usando esse método ainda
 	public void cadastrarHospede(String cpf) {	
-		String cpfParaParametroPessoa = cpf;
+		/*String cpfParaParametroPessoa = cpf;
 
 		System.out.println("------CADASTRO DE HOSPEDE------");
 		System.out.println("Digite os dados do hospede:\n");
@@ -40,10 +35,10 @@ public class Sistema {
 		System.out.println("Telefone: ");
 		int telefone = scanner.nextInt();
 
-		/*//Metodo para obter data de nascimento
+		/*Metodo para obter data de nascimento
 		System.out.println("Informe a data de nascimento: ");
 		Date dataNascimento = new Date();
-		dataNascimento.setData();*/
+		dataNascimento.setData();*
 
 		System.out.println("Informe a data de nascimento: ");
 		String dataNascimento = scanner.nextLine();
@@ -72,7 +67,7 @@ public class Sistema {
 
 		Conexao.alterarBD("INSERT INTO pessoa VALUES('" + pessoa.getCpf() + "', " + endereco.getId() + ", '" + pessoa.getNome() + "', '" + pessoa.getDataNasc() + "', '" + pessoa.getTelefone() + "')");
 
-		Conexao.alterarBD("INSERT INTO hospede VALUES('" + hospede.getCpf() + "', '" + hospede.getDataNasc() + "', '" + hospede.getSexo() + "', " + hospede.getCodigoConta() + ")");
+		Conexao.alterarBD("INSERT INTO hospede VALUES('" + hospede.getCpf() + "', '" + hospede.getDataNasc() + "', '" + hospede.getSexo() + "', " + hospede.getCodigoConta() + ")");*/
 
 	}
 
@@ -195,14 +190,7 @@ public class Sistema {
 	
 	public Quarto[] verQuartosDisponiveis(TipoDeQuarto tipoDeQuartoDesejado) {
 		Quarto[] listaQuartos = Conexao.verQuartosDisponiveis(tipoDeQuartoDesejado);
-		while (listaQuartos == null) {
-			System.out.println("Nao ha quartos disponiveis");
-			System.out.println("Selecione um tipo de Quarto: [ID]");
-			verTiposDeQuarto();
-			tipoDeQuartoDesejado.setTipoDeQuarto(scanner.nextInt());
-			verQuartosDisponiveis(tipoDeQuartoDesejado);
-		}
-
+	
 		return listaQuartos;
 	}
 
