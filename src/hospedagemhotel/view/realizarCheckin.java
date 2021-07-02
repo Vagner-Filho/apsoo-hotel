@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import hospedagemhotel.controller.Sistema;
 import hospedagemhotel.model.Hospede;
@@ -13,6 +15,8 @@ import hospedagemhotel.model.Reserva;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JCheckBox;
 
 import java.awt.Font;
 import java.text.ParseException;
@@ -26,6 +30,7 @@ import java.awt.event.ActionEvent;
 public class realizarCheckin extends JFrame {
 
     private JPanel contentPane;
+    private Reserva reservaDesejada;
 
     Sistema sis = new Sistema();
 
@@ -190,19 +195,72 @@ public class realizarCheckin extends JFrame {
                 btnConfirmar.setBounds(690, 618, 112, 32);
                 contentPane.add(btnConfirmar);
 
+                btnCancelar.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        int resposta = JOptionPane.showConfirmDialog(null,
+                                "Deseja mesmo cancelar o check-in e retornar ao menu inicial?", "Cancelar Check-in", 0);
+                        if (resposta == 0) {
+                            JOptionPane.showMessageDialog(null, "Check-in não efetuado!");
+                            dispose();
+                        }
+                    }
+                });
+
                 JLabel lblReservas = new JLabel("RESERVAS:");
                 lblReservas.setFont(new Font("Tahoma", Font.PLAIN, 18));
                 lblReservas.setBounds(10, 427, 96, 22);
                 contentPane.add(lblReservas);
 
-				Reserva[] reservas = sis.buscarReservasPorCpf(caixaDeTextoCPF.getText());
-                JList tabelaReserva = new JList(reservas);
-                tabelaReserva.setBounds(10, 460, 792, 147);
-                contentPane.add(tabelaReserva);
+                Reserva[] reservas = sis.buscarReservasPorCpf(caixaDeTextoCPF.getText());
 
-				
+                JList reservaLista = new JList(reservas);
+                //tipoDeQuartoLista.setListData(tipos);
+                reservaLista.setBounds(10, 460, 450, 100);
+                contentPane.add(reservaLista);
+
+                reservaLista.addListSelectionListener(new ListSelectionListener(){
+                    public void valueChanged(ListSelectionEvent e) {
+                        if(e.getValueIsAdjusting()) {
+                            String idReserva = reservaLista.getSelectedValue().toString().substring(8, 9);
+
+                            for (Reserva reserva : reservas) {
+
+                                if(reserva != null){
+                                    //System.out.println(tipo.getDescricao());
+                                    if(reserva.getIdReserva() == Integer.parseInt(idReserva)){
+                                        setReservaDesejada(reserva);
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                });
+
+                btnConfirmar.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        int resposta = JOptionPane.showConfirmDialog(null,
+                                "Deseja realizar o checkin?", "Confirmar Check-in", 0);
+                        if (resposta == 0) {
+                            sis.confirmarCheckin(getReservaDesejada());
+                            JOptionPane.showMessageDialog(null, "Check-in não efetuado!");
+                            dispose();
+                        }
+                    }
+                });
+
             }
         });
         contentPane.add(btnBuscar);
     }
+
+    
+    public Reserva getReservaDesejada() {
+        return reservaDesejada;
+    }
+
+    public void setReservaDesejada(Reserva reservaDesejada) {
+        this.reservaDesejada = reservaDesejada;
+    }
+
 }
