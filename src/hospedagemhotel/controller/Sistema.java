@@ -198,13 +198,12 @@ public class Sistema {
 		Hospede hospede = new Hospede();
 		hospede = Conexao.buscarHospede(cpf);
 		if (hospede == null){
-			msgHospedeNaoCadastrado();
-			//cadastrarHospede(cpf);
+			//msgHospedeNaoCadastrado();
+			return null;
 		}else{
 			System.out.println("nome" + hospede.getNome());
-		}
-
-		return hospede;	
+			return hospede;
+		}	
 	}
 	
 	public boolean compararDias(Reserva reserva) {

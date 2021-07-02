@@ -276,7 +276,7 @@ public class Conexao{
 			ResultSet ru = atm.executeQuery(query2);
 			
 			while(rs.next()) {
-			
+
 				hospede.setNome(rs.getString("nome"));
 				hospede.setCpf(rs.getString("cpf"));
 				//hospede.setTelefone(rs.getInt("telefone"));
@@ -292,12 +292,10 @@ public class Conexao{
 			return hospede;
 			
 			
-			
 		}catch(SQLException e){
 			System.out.println("buscarHospede " + e.getMessage());
 			return null;
 		}
-		
 		
 	}
 	

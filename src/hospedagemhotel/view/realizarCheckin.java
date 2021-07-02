@@ -71,9 +71,17 @@ public class realizarCheckin extends JFrame {
 
             public void actionPerformed(ActionEvent e) {
 
+                if (sis.validarCPF(caixaDeTextoCPF.getText()) == true) {
+                    contentPane.updateUI();
+                } else {
+                    JOptionPane.showMessageDialog(null, "CPF inválido!");
+                }
+
                 hos = sis.buscarHospede(caixaDeTextoCPF.getText());
 
-                contentPane.updateUI();
+                if (hos == null) {
+                    JOptionPane.showMessageDialog(null, "Cliente não cadastrado!");
+                }
 
                 JFormattedTextField Nomeftf = new JFormattedTextField(hos.getNome());
                 Nomeftf.setEditable(false);
@@ -243,7 +251,7 @@ public class realizarCheckin extends JFrame {
                                 "Deseja realizar o checkin?", "Confirmar Check-in", 0);
                         if (resposta == 0) {
                             sis.confirmarCheckin(getReservaDesejada());
-                            JOptionPane.showMessageDialog(null, "Check-in efetuado!");
+                            JOptionPane.showMessageDialog(null, "Check-in efetuado com sucesso!");
                             dispose();
                         }
                     }

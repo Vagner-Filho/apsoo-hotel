@@ -78,10 +78,8 @@ public class realizarReserva extends JFrame {
                 System.out.println("botao confirmar clicado");
 
                 Sistema sis = new Sistema();
-                String val;
 
                 hos = sis.buscarHospede(cpfCaixaDeTexto.getText());
-                val = cpfCaixaDeTexto.getText();
 
                 JLabel nomeLabel = new JLabel();
                 nomeLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
