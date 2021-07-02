@@ -255,7 +255,6 @@ public class Sistema {
 		String validosCPF = "0123456789";
 		
 		if (cpf.length() != 11) {
-			System.out.println("Quantidade de caracteres informada invalida.");
 			return false;
 		}
 		else {
@@ -268,7 +267,6 @@ public class Sistema {
 				}
 			}
 			// Retorna true se o cpf informado possui� 11 caracteres e todos sao numeros e apenas numeros de 0 a 9
-			System.out.println("CPF válido!");
 			return true;
 		}
 	}

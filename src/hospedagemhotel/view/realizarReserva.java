@@ -89,11 +89,10 @@ public class realizarReserva extends JFrame {
 
                 if (hos == null) {
                     JOptionPane.showMessageDialog(null, "Hóspede não cadastrado");
-                } else if (val.length() <= 0 || val.length() > 11) {
+                } else if (sis.validarCPF(cpfCaixaDeTexto.getText()) == false) {
                     JOptionPane.showMessageDialog(null, "CPF inválido!");
                 } else {
                     nomeLabel.setText("Hóspede: " + hos.getNome());
-
                 }
 
                 contentPane.updateUI();
